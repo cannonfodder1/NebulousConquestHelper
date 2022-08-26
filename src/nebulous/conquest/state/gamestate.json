@@ -1,0 +1,43 @@
+{
+  "turn" : "0",
+  "designs" : [
+    {
+      "designID" : "Beam Destroyer V1",
+      "hullType" : "Keystone",
+      "pointCost" : 800
+    }
+  ],
+  "ships" : [
+    {
+      "shipID" : "Kropotkin",
+      "designID" : "Beam Destroyer V1"
+    },
+    {
+      "shipID" : "Bakunin",
+      "designID" : "Beam Destroyer V1"
+    }
+  ],
+  "fleets" : [
+    {
+      "shipIDs" : [
+        "Kropotkin",
+        "Bakunin"
+      ],
+      "currentLocationID" : "Goguen"
+    }
+  ],
+  "locations" : [
+    {
+      "locationID" : "Goguen",
+      "orbitalDistance" : 2,
+      "orbitalDegrees" : 90,
+      "orbitalSpeed" : 5
+    },
+    {
+      "locationID" : "Cordova",
+      "orbitalDistance" : 3,
+      "orbitalDegrees" : 225,
+      "orbitalSpeed" : 4
+    }
+  ]
+}

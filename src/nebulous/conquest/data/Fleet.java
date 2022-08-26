@@ -1,9 +1,10 @@
 package nebulous.conquest.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Fleet {
+public class Fleet implements Saveable {
     private List<String> shipIDs;
     private String currentLocationID;
 
@@ -36,5 +37,28 @@ public class Fleet {
 
     public Location getCurrentLocation() {
         return currentLocation;
+    }
+
+    @Override
+    public String save() {
+        return String.format("""
+{
+    "shipIDs" : [
+%s
+    ],
+    "currentLocationID" : "%s"
+}
+                """,
+                saveShipIDs(),
+                currentLocation.getLocationID()
+        ).stripTrailing();
+    }
+
+    private String saveShipIDs() {
+        String json = "";
+        for (Ship ship: ships) {
+            json += "\"" + ship.getShipID() + "\",\n";
+        }
+        return json.substring(0, json.length()-2).indent(8).stripTrailing();
     }
 }

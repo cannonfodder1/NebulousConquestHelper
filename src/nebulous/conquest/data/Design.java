@@ -1,6 +1,6 @@
 package nebulous.conquest.data;
 
-public class Design {
+public class Design implements Saveable {
     private String designID;
     private String hullType;
     private int pointCost;
@@ -15,5 +15,20 @@ public class Design {
 
     public int getPointCost() {
         return pointCost;
+    }
+
+    @Override
+    public String save() {
+        return String.format("""
+{
+    "designID" : "%s",
+    "hullType" : "%s",
+    "pointCost" : %d
+}
+                """,
+                designID,
+                hullType,
+                pointCost
+        ).stripTrailing();
     }
 }

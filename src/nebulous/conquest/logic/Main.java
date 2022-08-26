@@ -1,10 +1,8 @@
 package nebulous.conquest.logic;
 
 import com.google.gson.Gson;
-import nebulous.conquest.data.Design;
-import nebulous.conquest.data.Fleet;
+import nebulous.conquest.data.Game;
 import nebulous.conquest.data.Location;
-import nebulous.conquest.data.Ship;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -12,24 +10,18 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 
 public class Main {
-    private static String STATE_FOLDER_PATH = "src/nebulous/conquest/state/";
+    private static final String STATE_FOLDER_PATH = "src/nebulous/conquest/state/";
 
-    private static List<Location> allLocations;
-    private static List<Design> allDesigns;
-    private static List<Ship> allShips;
-    private static List<Fleet> allFleets;
+    private static Game game;
 
     public static void main(String[] args) throws Exception {
-        loadSavedState();
+        loadGameState();
 
         String token = readFileAsString("../neb-bot-token.txt");
         JDA jda = JDABuilder.createDefault(token).enableIntents(GatewayIntent.MESSAGE_CONTENT).build();
@@ -58,7 +50,7 @@ public class Main {
         g2d.setColor(Color.white);
         g2d.drawString("Bethel", (width + starSize) / 2, (height - starSize) / 2);
 
-        for (Location loc: allLocations) {
+        for (Location loc: game.allLocations) {
             int size = 32;
             int dist = loc.getOrbitalDistance() * pixelsPerAU;
             double radians = loc.getOrbitalDegrees() * (Math.PI / 180);
@@ -81,22 +73,20 @@ public class Main {
         ImageIO.write(bufferedImage, "png", file);
     }
 
-    private static void loadSavedState() throws Exception {
-        allLocations = Arrays.asList((Location[]) getStateFromJson("locations", Location[].class));
-        allDesigns = Arrays.asList((Design[]) getStateFromJson("designs", Design[].class));
-        allShips = Arrays.asList((Ship[]) getStateFromJson("ships", Ship[].class));
-        allFleets = Arrays.asList((Fleet[]) getStateFromJson("fleets", Fleet[].class));
-
-        for (Ship ship: allShips) {
-            ship.loadDesign(allDesigns);
-        }
-        for (Fleet fleet: allFleets) {
-            fleet.loadShips(allShips);
-            fleet.loadLocation(allLocations);
-        }
+    private static void loadGameState() throws Exception {
+        game = (Game) getStateFromJson("gamestate", Game.class);
+        game.loadGame();
     }
 
-    private static Object[] getStateFromJson(String fileName, Type type) throws Exception {
+    private static void saveGameState() throws IOException {
+        String save = game.saveGame();
+        File file = new File(STATE_FOLDER_PATH + "save.json");
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        writer.write(save);
+        writer.close();
+    }
+
+    private static Object getStateFromJson(String fileName, Type type) throws Exception {
         String filePath = STATE_FOLDER_PATH + fileName + ".json";
         String jsonSource = readFileAsString(filePath);
         return new Gson().fromJson(jsonSource, type);

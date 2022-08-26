@@ -1,6 +1,6 @@
 package nebulous.conquest.data;
 
-public class Location {
+public class Location implements Saveable {
     private String locationID;
     private int orbitalDistance;
     private int orbitalDegrees;
@@ -31,5 +31,22 @@ public class Location {
 
     public void advanceTurn() {
         ProgressOrbit();
+    }
+
+    @Override
+    public String save() {
+        return String.format("""
+{
+    "locationID" : "%s",
+    "orbitalDistance" : %d,
+    "orbitalDegrees" : %d,
+    "orbitalSpeed" : %d
+}
+                """,
+                locationID,
+                orbitalDistance,
+                orbitalDegrees,
+                orbitalSpeed
+        ).stripTrailing();
     }
 }

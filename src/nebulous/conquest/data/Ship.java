@@ -2,7 +2,7 @@ package nebulous.conquest.data;
 
 import java.util.List;
 
-public class Ship {
+public class Ship implements Saveable {
     private String shipID;
     private String designID;
 
@@ -23,5 +23,18 @@ public class Ship {
 
     public Design getDesign() {
         return design;
+    }
+
+    @Override
+    public String save() {
+        return String.format("""
+{
+    "shipID" : "%s",
+    "designID" : "%s"
+}
+                """,
+                shipID,
+                design.getDesignID()
+        ).stripTrailing();
     }
 }
