@@ -34,7 +34,7 @@ public class Location implements Saveable {
     }
 
     @Override
-    public String save() {
+    public String saveJSON() {
         return String.format("""
 {
     "locationID" : "%s",

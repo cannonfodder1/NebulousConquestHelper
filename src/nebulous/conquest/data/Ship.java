@@ -1,24 +1,26 @@
 package nebulous.conquest.data;
 
-import java.util.List;
+public class Ship extends SerializedWrapper implements Saveable {
+    public Ship() {
+        SERIALIZED_FOLDER_PATH = Helper.STATE_FOLDER_PATH + "ships/";
+    }
 
-public class Ship implements Saveable {
-    private String shipID;
-    private String designID;
-
+    private String designFileName;
     private Design design;
 
-    public void loadDesign(List<Design> allDesigns) {
-        for (Design thisDesign: allDesigns) {
-            if (thisDesign.getDesignID().equals(designID)) {
+    @Override
+    public void loadXML() {
+        super.loadXML();
+        for (Design thisDesign: Game.getInstance().allDesigns) {
+            if (thisDesign.getFileName().equals(designFileName)) {
                 design = thisDesign;
                 return;
             }
         }
     }
 
-    public String getShipID() {
-        return shipID;
+    public String getFileName() {
+        return serializedFileName;
     }
 
     public Design getDesign() {
@@ -26,15 +28,15 @@ public class Ship implements Saveable {
     }
 
     @Override
-    public String save() {
+    public String saveJSON() {
         return String.format("""
 {
-    "shipID" : "%s",
-    "designID" : "%s"
+    "serializedFileName" : "%s",
+    "designFileName" : "%s"
 }
                 """,
-                shipID,
-                design.getDesignID()
+                serializedFileName,
+                design.getFileName()
         ).stripTrailing();
     }
 }

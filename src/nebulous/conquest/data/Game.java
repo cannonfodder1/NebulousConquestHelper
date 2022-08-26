@@ -1,6 +1,5 @@
 package nebulous.conquest.data;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Game {
@@ -15,18 +14,28 @@ public class Game {
     public List<Ship> allShips;
     public List<Fleet> allFleets;
 
+    private static Game instance;
+    private Game() {
+        instance = this;
+    }
+    public static Game getInstance() {
+        if (instance != null) return instance; else return new Game();
+    }
+
     public void loadGame() {
         allLocations = List.of(locations);
         allDesigns = List.of(designs);
         allShips = List.of(ships);
         allFleets = List.of(fleets);
 
+        for (Design design: designs) {
+            design.loadXML();
+        }
         for (Ship ship: ships) {
-            ship.loadDesign(allDesigns);
+            ship.loadXML();
         }
         for (Fleet fleet: fleets) {
-            fleet.loadShips(allShips);
-            fleet.loadLocation(allLocations);
+            fleet.init();
         }
     }
 
@@ -57,7 +66,7 @@ public class Game {
         for (Object obj: list) {
             Saveable item = (Saveable) obj;
             if (item != null) {
-                json += item.save() + ",\n";
+                json += item.saveJSON() + ",\n";
             }
         }
         return json.substring(0, json.length()-2).indent(8);

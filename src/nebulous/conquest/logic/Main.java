@@ -2,30 +2,25 @@ package nebulous.conquest.logic;
 
 import com.google.gson.Gson;
 import nebulous.conquest.data.Game;
+import nebulous.conquest.data.Helper;
 import nebulous.conquest.data.Location;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Main {
-    private static final String STATE_FOLDER_PATH = "src/nebulous/conquest/state/";
-
     private static Game game;
 
     public static void main(String[] args) throws Exception {
         loadGameState();
+        saveGameState();
 
-        String token = readFileAsString("../neb-bot-token.txt");
-        JDA jda = JDABuilder.createDefault(token).enableIntents(GatewayIntent.MESSAGE_CONTENT).build();
-        jda.addEventListener(new Listener());
+//        String token = Helper.readFileAsString("../neb-bot-token.txt");
+//        JDA jda = JDABuilder.createDefault(token).enableIntents(GatewayIntent.MESSAGE_CONTENT).build();
+//        jda.addEventListener(new Listener());
     }
 
     public static void generateSystemMap() throws IOException {
@@ -80,20 +75,16 @@ public class Main {
 
     private static void saveGameState() throws IOException {
         String save = game.saveGame();
-        File file = new File(STATE_FOLDER_PATH + "save.json");
+        File file = new File(Helper.STATE_FOLDER_PATH + "save.json");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         writer.write(save);
         writer.close();
     }
 
     private static Object getStateFromJson(String fileName, Type type) throws Exception {
-        String filePath = STATE_FOLDER_PATH + fileName + ".json";
-        String jsonSource = readFileAsString(filePath);
+        String filePath = Helper.STATE_FOLDER_PATH + fileName + ".json";
+        String jsonSource = Helper.readFileAsString(filePath);
         return new Gson().fromJson(jsonSource, type);
     }
 
-    private static String readFileAsString(String file) throws Exception
-    {
-        return new String(Files.readAllBytes(Paths.get(file)));
-    }
 }

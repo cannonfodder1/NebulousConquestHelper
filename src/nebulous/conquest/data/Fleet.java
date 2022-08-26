@@ -1,11 +1,10 @@
 package nebulous.conquest.data;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Fleet implements Saveable {
-    private List<String> shipIDs;
+    private List<String> shipFileNames;
     private String currentLocationID;
 
     private List<Ship> ships;
@@ -15,22 +14,19 @@ public class Fleet implements Saveable {
         ships = new ArrayList<>();
     }
 
-    public void loadShips(List<Ship> allShips) {
-        for (Ship ship: allShips) {
-            if (shipIDs.contains(ship.getShipID())) {
+    public void init() {
+        for (Ship ship: Game.getInstance().allShips) {
+            if (shipFileNames.contains(ship.getFileName())) {
                 ships.add(ship);
-                if (ships.size() == shipIDs.size()) {
-                    return;
+                if (ships.size() == shipFileNames.size()) {
+                    break;
                 }
             }
         }
-    }
-
-    public void loadLocation(List<Location> allLocations) {
-        for (Location thisLocation: allLocations) {
+        for (Location thisLocation: Game.getInstance().allLocations) {
             if (thisLocation.getLocationID().equals(currentLocationID)) {
                 currentLocation = thisLocation;
-                return;
+                break;
             }
         }
     }
@@ -40,24 +36,24 @@ public class Fleet implements Saveable {
     }
 
     @Override
-    public String save() {
+    public String saveJSON() {
         return String.format("""
 {
-    "shipIDs" : [
+    "shipFileNames" : [
 %s
     ],
     "currentLocationID" : "%s"
 }
                 """,
-                saveShipIDs(),
+                saveShipFileNames(),
                 currentLocation.getLocationID()
         ).stripTrailing();
     }
 
-    private String saveShipIDs() {
+    private String saveShipFileNames() {
         String json = "";
         for (Ship ship: ships) {
-            json += "\"" + ship.getShipID() + "\",\n";
+            json += "\"" + ship.getFileName() + "\",\n";
         }
         return json.substring(0, json.length()-2).indent(8).stripTrailing();
     }

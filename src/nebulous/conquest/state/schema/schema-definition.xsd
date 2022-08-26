@@ -1,0 +1,101 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Ship">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="SaveID" nillable="true"/>
+        <xs:element type="xs:string" name="Key"/>
+        <xs:element type="xs:string" name="Name"/>
+        <xs:element type="xs:short" name="Cost"/>
+        <xs:element type="xs:string" name="Callsign"/>
+        <xs:element type="xs:byte" name="Number"/>
+        <xs:element type="xs:byte" name="SymbolOption"/>
+        <xs:element type="xs:string" name="HullType"/>
+        <xs:element name="ModDependencies">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:long" name="unsignedLong" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SocketMap">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="HullSocket" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="Key"/>
+                    <xs:element type="xs:string" name="ComponentName"/>
+                    <xs:element name="ComponentData" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="MissileLoad" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="MagSaveData" maxOccurs="unbounded" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:string" name="MagazineKey"/>
+                                      <xs:element type="xs:string" name="MunitionKey"/>
+                                      <xs:element type="xs:byte" name="Quantity"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="ConfiguredSize" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:byte" name="x"/>
+                                <xs:element type="xs:byte" name="y"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Load" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="MagSaveData" maxOccurs="unbounded" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:string" name="MagazineKey"/>
+                                      <xs:element type="xs:string" name="MunitionKey"/>
+                                      <xs:element type="xs:short" name="Quantity"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="WeaponGroups">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="WepGroup">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="MemberKeys">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="string" maxOccurs="unbounded" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="Name"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

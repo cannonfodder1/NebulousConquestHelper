@@ -2,26 +2,24 @@
   "turn" : "0",
   "designs" : [
     {
-      "designID" : "Beam Destroyer V1",
-      "hullType" : "Keystone",
-      "pointCost" : 800
+      "serializedFileName" : "ExampleDesign"
     }
   ],
   "ships" : [
     {
-      "shipID" : "Kropotkin",
-      "designID" : "Beam Destroyer V1"
+      "serializedFileName" : "ExampleShip1",
+      "designFileName" : "ExampleDesign"
     },
     {
-      "shipID" : "Bakunin",
-      "designID" : "Beam Destroyer V1"
+      "serializedFileName" : "ExampleShip2",
+      "designFileName" : "ExampleDesign"
     }
   ],
   "fleets" : [
     {
-      "shipIDs" : [
-        "Kropotkin",
-        "Bakunin"
+      "shipFileNames" : [
+        "ExampleShip1",
+        "ExampleShip2"
       ],
       "currentLocationID" : "Goguen"
     }

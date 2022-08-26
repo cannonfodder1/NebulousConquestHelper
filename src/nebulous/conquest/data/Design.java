@@ -1,34 +1,26 @@
 package nebulous.conquest.data;
 
-public class Design implements Saveable {
-    private String designID;
-    private String hullType;
-    private int pointCost;
-
-    public String getDesignID() {
-        return designID;
+public class Design extends SerializedWrapper implements Saveable {
+    public Design() {
+        SERIALIZED_FOLDER_PATH = Helper.STATE_FOLDER_PATH + "designs/";
     }
 
     public String getHullType() {
-        return hullType;
+        return serializedObj.getHullType();
     }
 
     public int getPointCost() {
-        return pointCost;
+        return serializedObj.getCost();
     }
 
     @Override
-    public String save() {
+    public String saveJSON() {
         return String.format("""
 {
-    "designID" : "%s",
-    "hullType" : "%s",
-    "pointCost" : %d
+    "serializedFileName" : "%s"
 }
                 """,
-                designID,
-                hullType,
-                pointCost
+                serializedFileName
         ).stripTrailing();
     }
 }
