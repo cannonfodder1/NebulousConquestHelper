@@ -5,7 +5,7 @@
 // Generated on: 2022.08.26 at 12:49:31 PM PDT
 //
 
-package nebulous.conquest.data;
+package nebulous.conquest.logic;
 
 import java.util.ArrayList;
 import java.util.List;

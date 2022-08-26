@@ -1,4 +1,4 @@
-package nebulous.conquest.data;
+package nebulous.conquest.logic;
 
 import java.io.File;
 import java.nio.file.Files;

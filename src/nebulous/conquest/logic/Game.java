@@ -1,4 +1,4 @@
-package nebulous.conquest.data;
+package nebulous.conquest.logic;
 
 import java.util.List;
 

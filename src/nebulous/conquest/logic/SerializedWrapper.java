@@ -1,4 +1,4 @@
-package nebulous.conquest.data;
+package nebulous.conquest.logic;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

@@ -1,9 +1,9 @@
-package nebulous.conquest.logic;
+package nebulous.conquest.control;
 
 import com.google.gson.Gson;
-import nebulous.conquest.data.Game;
-import nebulous.conquest.data.Helper;
-import nebulous.conquest.data.Location;
+import nebulous.conquest.logic.Game;
+import nebulous.conquest.logic.Helper;
+import nebulous.conquest.logic.Location;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

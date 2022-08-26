@@ -1,4 +1,4 @@
-package nebulous.conquest.data;
+package nebulous.conquest.logic;
 
 public class Design extends SerializedWrapper implements Saveable {
     public Design() {

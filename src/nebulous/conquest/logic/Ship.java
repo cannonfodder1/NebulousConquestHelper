@@ -1,4 +1,4 @@
-package nebulous.conquest.data;
+package nebulous.conquest.logic;
 
 public class Ship extends SerializedWrapper implements Saveable {
     public Ship() {
