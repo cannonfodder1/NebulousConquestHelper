@@ -5,6 +5,9 @@ import nebulous.conquest.data.Design;
 import nebulous.conquest.data.Fleet;
 import nebulous.conquest.data.Location;
 import nebulous.conquest.data.Ship;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -28,10 +31,12 @@ public class Main {
     public static void main(String[] args) throws Exception {
         loadSavedState();
 
-        generateSystemMap();
+        String token = readFileAsString("../neb-bot-token.txt");
+        JDA jda = JDABuilder.createDefault(token).enableIntents(GatewayIntent.MESSAGE_CONTENT).build();
+        jda.addEventListener(new Listener());
     }
 
-    private static void generateSystemMap() throws IOException {
+    public static void generateSystemMap() throws IOException {
         int width = 1024;
         int height = 1024;
 
