@@ -1,272 +1,272 @@
-<?xml version="1.0"?>
-<Ship xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SaveID xsi:nil="true" />
-  <Key>ae938333-1f2d-4a48-8e55-17a74aea7aed</Key>
-  <Name>ExampleShip1</Name>
-  <Cost>3869</Cost>
-  <Callsign />
-  <Number>0</Number>
-  <SymbolOption>0</SymbolOption>
-  <HullType>prism/CH_descartes</HullType>
-  <ModDependencies>
-    <unsignedLong>2789730936</unsignedLong>
-    <unsignedLong>2837251946</unsignedLong>
-  </ModDependencies>
-  <SocketMap>
-    <HullSocket>
-      <Key>spinalmount1</Key>
-      <ComponentName>Stock/Mk600 Beam Cannon</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>spinalmount2</Key>
-      <ComponentName>Stock/Mk600 Beam Cannon</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>c4mount1</Key>
-      <ComponentName>Stock/Mk66 Cannon</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>c3mount1</Key>
-      <ComponentName>KUIPER/Type 21 Seige Coilgun</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>c3mount2</Key>
-      <ComponentName>KUIPER/Type 21 Seige Coilgun</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>c3mount3</Key>
-      <ComponentName>Stock/VLS-2 Launcher</ComponentName>
-      <ComponentData xsi:type="ResizableCellLauncherData">
-        <MissileLoad>
-          <MagSaveData>
-            <MagazineKey>IrsMR1BWp0GOWiKKh2QYOA</MagazineKey>
-            <MunitionKey>$MODMIS$/SGM-236 Wrecker B</MunitionKey>
-            <Quantity>24</Quantity>
-          </MagSaveData>
-        </MissileLoad>
-        <ConfiguredSize>
-          <x>1</x>
-          <y>3</y>
-        </ConfiguredSize>
-      </ComponentData>
-    </HullSocket>
-    <HullSocket>
-      <Key>c3mount4</Key>
-      <ComponentName>Stock/VLS-2 Launcher</ComponentName>
-      <ComponentData xsi:type="ResizableCellLauncherData">
-        <MissileLoad>
-          <MagSaveData>
-            <MagazineKey>YrZY9NUnd0igC9P3A29aEg</MagazineKey>
-            <MunitionKey>$MODMIS$/SGM-236 Wrecker B</MunitionKey>
-            <Quantity>24</Quantity>
-          </MagSaveData>
-        </MissileLoad>
-        <ConfiguredSize>
-          <x>1</x>
-          <y>3</y>
-        </ConfiguredSize>
-      </ComponentData>
-    </HullSocket>
-    <HullSocket>
-      <Key>c2mount1</Key>
-      <ComponentName>Stock/Mk95 'Sarissa' PDT</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>c2mount2</Key>
-      <ComponentName>Stock/Mk95 'Sarissa' PDT</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>c2mount3</Key>
-      <ComponentName>Stock/Mk95 'Sarissa' PDT</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>c2mount4</Key>
-      <ComponentName>Stock/Mk95 'Sarissa' PDT</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>c1mount1</Key>
-      <ComponentName>Stock/Mk25 'Rebound' PDT</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>c1mount2</Key>
-      <ComponentName>Stock/Mk25 'Rebound' PDT</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>c1mount3</Key>
-      <ComponentName>Stock/VLS-1-23 Launcher</ComponentName>
-      <ComponentData xsi:type="CellLauncherData">
-        <MissileLoad>
-          <MagSaveData>
-            <MagazineKey>oRgKxbYFvUW5LXkuTourYQ</MagazineKey>
-            <MunitionKey>Stock/EA12 Chaff Decoy</MunitionKey>
-            <Quantity>10</Quantity>
-          </MagSaveData>
-          <MagSaveData>
-            <MagazineKey>I5lU7twxsU232ds2BuSZ2w</MagazineKey>
-            <MunitionKey>$MODMIS$/SGM-112 Anti-Missile B</MunitionKey>
-            <Quantity>13</Quantity>
-          </MagSaveData>
-        </MissileLoad>
-      </ComponentData>
-    </HullSocket>
-    <HullSocket>
-      <Key>c1mount4</Key>
-      <ComponentName>Stock/VLS-1-23 Launcher</ComponentName>
-      <ComponentData xsi:type="CellLauncherData">
-        <MissileLoad>
-          <MagSaveData>
-            <MagazineKey>UbhZjpOkN0ioRjGiJ-o3qA</MagazineKey>
-            <MunitionKey>Stock/EA12 Chaff Decoy</MunitionKey>
-            <Quantity>10</Quantity>
-          </MagSaveData>
-          <MagSaveData>
-            <MagazineKey>Fj6ibaj1TUC8LK-5ll5Jjg</MagazineKey>
-            <MunitionKey>$MODMIS$/SGM-112 Anti-Missile B</MunitionKey>
-            <Quantity>13</Quantity>
-          </MagSaveData>
-        </MissileLoad>
-      </ComponentData>
-    </HullSocket>
-    <HullSocket>
-      <Key>hugecompartment1</Key>
-      <ComponentName>Stock/Citadel CIC</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>hugecompartment2</Key>
-      <ComponentName>Stock/Bulk Magazine</ComponentName>
-      <ComponentData xsi:type="BulkMagazineData">
-        <Load>
-          <MagSaveData>
-            <MagazineKey>eOx2F46psE6_KK2XD88lhg</MagazineKey>
-            <MunitionKey>KUIPER/500mm HE Coilgun Shell</MunitionKey>
-            <Quantity>2003</Quantity>
-          </MagSaveData>
-          <MagSaveData>
-            <MagazineKey>rGX8inuyw0SABXgeJhEZXw</MagazineKey>
-            <MunitionKey>Stock/450mm AP Shell</MunitionKey>
-            <Quantity>399</Quantity>
-          </MagSaveData>
-        </Load>
-      </ComponentData>
-    </HullSocket>
-    <HullSocket>
-      <Key>hugecompartment3</Key>
-      <ComponentName>Stock/Damage Control Central</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>hugecompartment4</Key>
-      <ComponentName>Stock/Bulk Magazine</ComponentName>
-      <ComponentData xsi:type="BulkMagazineData">
-        <Load>
-          <MagSaveData>
-            <MagazineKey>wjyHiWxuR0yTSpxNKVJTUA</MagazineKey>
-            <MunitionKey>Stock/450mm HE Shell</MunitionKey>
-            <Quantity>301</Quantity>
-          </MagSaveData>
-          <MagSaveData>
-            <MagazineKey>Eupoq1bhdUi5kbB1y1mIQQ</MagazineKey>
-            <MunitionKey>Stock/Flak Round</MunitionKey>
-            <Quantity>5001</Quantity>
-          </MagSaveData>
-          <MagSaveData>
-            <MagazineKey>NkDsopyGoke8Zv8U2efJdA</MagazineKey>
-            <MunitionKey>Stock/15mm Sandshot</MunitionKey>
-            <Quantity>10001</Quantity>
-          </MagSaveData>
-        </Load>
-      </ComponentData>
-    </HullSocket>
-    <HullSocket>
-      <Key>hugecompartment5</Key>
-      <ComponentName>Stock/Berthing</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>hugecompartment6</Key>
-      <ComponentName>Stock/Berthing</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>mediumcompartment1</Key>
-      <ComponentName>Stock/Large DC Locker</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>mediumcompartment2</Key>
-      <ComponentName>Stock/Large DC Locker</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>mediumcompartment3</Key>
-      <ComponentName>Stock/Large DC Locker</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>mediumcompartment4</Key>
-      <ComponentName>Stock/Large DC Locker</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>smallcompartment1</Key>
-      <ComponentName>Stock/Auxiliary Steering</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>smallcompartment2</Key>
-      <ComponentName>Stock/Plant Control Center</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>smallcompartment3</Key>
-      <ComponentName>Stock/Plant Control Center</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>hugemodule1</Key>
-      <ComponentName>Stock/FM230 'Whiplash' Drive</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>largemodule1</Key>
-      <ComponentName>Stock/FR4800 Reactor</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>largemodule2</Key>
-      <ComponentName>Stock/FR4800 Reactor</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>mediummodule1</Key>
-      <ComponentName>Stock/FR3300 Micro Reactor</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>mediummodule2</Key>
-      <ComponentName>Stock/FR3300 Micro Reactor</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>mediummodule3</Key>
-      <ComponentName>Stock/Energy Regulator</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>mediummodule4</Key>
-      <ComponentName>Stock/Energy Regulator</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>mediummodule5</Key>
-      <ComponentName>Stock/Energy Regulator</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>smallmodule1</Key>
-      <ComponentName>Stock/Ammunition Elevators</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>smallmodule2</Key>
-      <ComponentName>Stock/Ammunition Elevators</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>smallmodule3</Key>
-      <ComponentName>Stock/RM50 'Parallax' Radar</ComponentName>
-    </HullSocket>
-    <HullSocket>
-      <Key>smallmodule4</Key>
-      <ComponentName>Stock/Ammunition Elevators</ComponentName>
-    </HullSocket>
-  </SocketMap>
-  <WeaponGroups>
-    <WepGroup Name="Siege">
-      <MemberKeys>
-        <string>c3mount1</string>
-        <string>c3mount2</string>
-      </MemberKeys>
-    </WepGroup>
-  </WeaponGroups>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Ship>
+    <SaveID xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    <Key>ae938333-1f2d-4a48-8e55-17a74aea7aed</Key>
+    <Name>ExampleShip1</Name>
+    <Cost>3869</Cost>
+    <Callsign></Callsign>
+    <Number>0</Number>
+    <SymbolOption>0</SymbolOption>
+    <HullType>prism/CH_descartes</HullType>
+    <ModDependencies>
+        <unsignedLong>2789730936</unsignedLong>
+        <unsignedLong>2837251946</unsignedLong>
+    </ModDependencies>
+    <SocketMap>
+        <HullSocket>
+            <Key>spinalmount1</Key>
+            <ComponentName>Stock/Mk600 Beam Cannon</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>spinalmount2</Key>
+            <ComponentName>Stock/Mk600 Beam Cannon</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>c4mount1</Key>
+            <ComponentName>Stock/Mk66 Cannon</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>c3mount1</Key>
+            <ComponentName>KUIPER/Type 21 Seige Coilgun</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>c3mount2</Key>
+            <ComponentName>KUIPER/Type 21 Seige Coilgun</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>c3mount3</Key>
+            <ComponentName>Stock/VLS-2 Launcher</ComponentName>
+            <ComponentData>
+                <MissileLoad>
+                    <MagSaveData>
+                        <MagazineKey>IrsMR1BWp0GOWiKKh2QYOA</MagazineKey>
+                        <MunitionKey>$MODMIS$/SGM-236 Wrecker B</MunitionKey>
+                        <Quantity>24</Quantity>
+                    </MagSaveData>
+                </MissileLoad>
+                <ConfiguredSize>
+                    <x>1</x>
+                    <y>3</y>
+                </ConfiguredSize>
+            </ComponentData>
+        </HullSocket>
+        <HullSocket>
+            <Key>c3mount4</Key>
+            <ComponentName>Stock/VLS-2 Launcher</ComponentName>
+            <ComponentData>
+                <MissileLoad>
+                    <MagSaveData>
+                        <MagazineKey>YrZY9NUnd0igC9P3A29aEg</MagazineKey>
+                        <MunitionKey>$MODMIS$/SGM-236 Wrecker B</MunitionKey>
+                        <Quantity>24</Quantity>
+                    </MagSaveData>
+                </MissileLoad>
+                <ConfiguredSize>
+                    <x>1</x>
+                    <y>3</y>
+                </ConfiguredSize>
+            </ComponentData>
+        </HullSocket>
+        <HullSocket>
+            <Key>c2mount1</Key>
+            <ComponentName>Stock/Mk95 'Sarissa' PDT</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>c2mount2</Key>
+            <ComponentName>Stock/Mk95 'Sarissa' PDT</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>c2mount3</Key>
+            <ComponentName>Stock/Mk95 'Sarissa' PDT</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>c2mount4</Key>
+            <ComponentName>Stock/Mk95 'Sarissa' PDT</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>c1mount1</Key>
+            <ComponentName>Stock/Mk25 'Rebound' PDT</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>c1mount2</Key>
+            <ComponentName>Stock/Mk25 'Rebound' PDT</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>c1mount3</Key>
+            <ComponentName>Stock/VLS-1-23 Launcher</ComponentName>
+            <ComponentData>
+                <MissileLoad>
+                    <MagSaveData>
+                        <MagazineKey>oRgKxbYFvUW5LXkuTourYQ</MagazineKey>
+                        <MunitionKey>Stock/EA12 Chaff Decoy</MunitionKey>
+                        <Quantity>10</Quantity>
+                    </MagSaveData>
+                    <MagSaveData>
+                        <MagazineKey>I5lU7twxsU232ds2BuSZ2w</MagazineKey>
+                        <MunitionKey>$MODMIS$/SGM-112 Anti-Missile B</MunitionKey>
+                        <Quantity>13</Quantity>
+                    </MagSaveData>
+                </MissileLoad>
+            </ComponentData>
+        </HullSocket>
+        <HullSocket>
+            <Key>c1mount4</Key>
+            <ComponentName>Stock/VLS-1-23 Launcher</ComponentName>
+            <ComponentData>
+                <MissileLoad>
+                    <MagSaveData>
+                        <MagazineKey>UbhZjpOkN0ioRjGiJ-o3qA</MagazineKey>
+                        <MunitionKey>Stock/EA12 Chaff Decoy</MunitionKey>
+                        <Quantity>10</Quantity>
+                    </MagSaveData>
+                    <MagSaveData>
+                        <MagazineKey>Fj6ibaj1TUC8LK-5ll5Jjg</MagazineKey>
+                        <MunitionKey>$MODMIS$/SGM-112 Anti-Missile B</MunitionKey>
+                        <Quantity>13</Quantity>
+                    </MagSaveData>
+                </MissileLoad>
+            </ComponentData>
+        </HullSocket>
+        <HullSocket>
+            <Key>hugecompartment1</Key>
+            <ComponentName>Stock/Citadel CIC</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>hugecompartment2</Key>
+            <ComponentName>Stock/Bulk Magazine</ComponentName>
+            <ComponentData>
+                <Load>
+                    <MagSaveData>
+                        <MagazineKey>eOx2F46psE6_KK2XD88lhg</MagazineKey>
+                        <MunitionKey>KUIPER/500mm HE Coilgun Shell</MunitionKey>
+                        <Quantity>2003</Quantity>
+                    </MagSaveData>
+                    <MagSaveData>
+                        <MagazineKey>rGX8inuyw0SABXgeJhEZXw</MagazineKey>
+                        <MunitionKey>Stock/450mm AP Shell</MunitionKey>
+                        <Quantity>399</Quantity>
+                    </MagSaveData>
+                </Load>
+            </ComponentData>
+        </HullSocket>
+        <HullSocket>
+            <Key>hugecompartment3</Key>
+            <ComponentName>Stock/Damage Control Central</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>hugecompartment4</Key>
+            <ComponentName>Stock/Bulk Magazine</ComponentName>
+            <ComponentData>
+                <Load>
+                    <MagSaveData>
+                        <MagazineKey>wjyHiWxuR0yTSpxNKVJTUA</MagazineKey>
+                        <MunitionKey>Stock/450mm HE Shell</MunitionKey>
+                        <Quantity>301</Quantity>
+                    </MagSaveData>
+                    <MagSaveData>
+                        <MagazineKey>Eupoq1bhdUi5kbB1y1mIQQ</MagazineKey>
+                        <MunitionKey>Stock/Flak Round</MunitionKey>
+                        <Quantity>5001</Quantity>
+                    </MagSaveData>
+                    <MagSaveData>
+                        <MagazineKey>NkDsopyGoke8Zv8U2efJdA</MagazineKey>
+                        <MunitionKey>Stock/15mm Sandshot</MunitionKey>
+                        <Quantity>10001</Quantity>
+                    </MagSaveData>
+                </Load>
+            </ComponentData>
+        </HullSocket>
+        <HullSocket>
+            <Key>hugecompartment5</Key>
+            <ComponentName>Stock/Berthing</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>hugecompartment6</Key>
+            <ComponentName>Stock/Berthing</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>mediumcompartment1</Key>
+            <ComponentName>Stock/Large DC Locker</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>mediumcompartment2</Key>
+            <ComponentName>Stock/Large DC Locker</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>mediumcompartment3</Key>
+            <ComponentName>Stock/Large DC Locker</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>mediumcompartment4</Key>
+            <ComponentName>Stock/Large DC Locker</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>smallcompartment1</Key>
+            <ComponentName>Stock/Auxiliary Steering</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>smallcompartment2</Key>
+            <ComponentName>Stock/Plant Control Center</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>smallcompartment3</Key>
+            <ComponentName>Stock/Plant Control Center</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>hugemodule1</Key>
+            <ComponentName>Stock/FM230 'Whiplash' Drive</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>largemodule1</Key>
+            <ComponentName>Stock/FR4800 Reactor</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>largemodule2</Key>
+            <ComponentName>Stock/FR4800 Reactor</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>mediummodule1</Key>
+            <ComponentName>Stock/FR3300 Micro Reactor</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>mediummodule2</Key>
+            <ComponentName>Stock/FR3300 Micro Reactor</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>mediummodule3</Key>
+            <ComponentName>Stock/Energy Regulator</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>mediummodule4</Key>
+            <ComponentName>Stock/Energy Regulator</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>mediummodule5</Key>
+            <ComponentName>Stock/Energy Regulator</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>smallmodule1</Key>
+            <ComponentName>Stock/Ammunition Elevators</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>smallmodule2</Key>
+            <ComponentName>Stock/Ammunition Elevators</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>smallmodule3</Key>
+            <ComponentName>Stock/RM50 'Parallax' Radar</ComponentName>
+        </HullSocket>
+        <HullSocket>
+            <Key>smallmodule4</Key>
+            <ComponentName>Stock/Ammunition Elevators</ComponentName>
+        </HullSocket>
+    </SocketMap>
+    <WeaponGroups>
+        <WepGroup Name="Siege">
+            <MemberKeys>
+                <string>c3mount1</string>
+                <string>c3mount2</string>
+            </MemberKeys>
+        </WepGroup>
+    </WeaponGroups>
 </Ship>

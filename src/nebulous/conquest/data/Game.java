@@ -40,6 +40,12 @@ public class Game {
     }
 
     public String saveGame() {
+        for (Design design: designs) {
+            design.saveXML();
+        }
+        for (Ship ship: ships) {
+            ship.saveXML();
+        }
         return String.format("""
 {
     "turn" : "%s",

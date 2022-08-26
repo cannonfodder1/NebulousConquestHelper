@@ -27,6 +27,10 @@ public class Ship extends SerializedWrapper implements Saveable {
         return design;
     }
 
+    public void setHullNumber(int number) {
+        serializedObj.number = (byte) number;
+    }
+
     @Override
     public String saveJSON() {
         return String.format("""

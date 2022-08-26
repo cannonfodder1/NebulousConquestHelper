@@ -16,6 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         loadGameState();
+//        game.allShips.get(0).setHullNumber(99);
         saveGameState();
 
 //        String token = Helper.readFileAsString("../neb-bot-token.txt");
