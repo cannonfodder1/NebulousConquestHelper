@@ -1,34 +1,39 @@
 package nebulous.conquest.logic;
 
-public class Ship extends SerializedWrapper implements Saveable {
-    public Ship() {
-        SERIALIZED_FOLDER_PATH = Helper.STATE_FOLDER_PATH + "ships/";
-    }
-
-    private String designFileName;
+public class Ship implements Saveable {
+    private String shipName; // filled by JSON
+    private SerializedFleet.Ships.Ship serialObj;
+    private String designFileName; // filled by JSON
     private Design design;
+    private int numPartsDestroyed; // filled by JSON
 
-    @Override
-    public void loadXML() {
-        super.loadXML();
+    public void init() {
         for (Design thisDesign: Game.getInstance().allDesigns) {
-            if (thisDesign.getFileName().equals(designFileName)) {
+            if (thisDesign.getName().equals(designFileName)) {
                 design = thisDesign;
                 return;
             }
         }
     }
 
-    public String getFileName() {
-        return serializedFileName;
+    public String getName() {
+        return shipName;
     }
 
     public Design getDesign() {
         return design;
     }
 
-    public void setHullNumber(int number) {
-        serializedObj.number = (byte) number;
+    public int getPointCost() {
+        return serialObj.getCost();
+    }
+
+    public int getHullNumber() {
+        return serialObj.getNumber();
+    }
+
+    public String getCallsign() {
+        return serialObj.getCallsign();
     }
 
     @Override
@@ -36,11 +41,21 @@ public class Ship extends SerializedWrapper implements Saveable {
         return String.format("""
 {
     "serializedFileName" : "%s",
-    "designFileName" : "%s"
+    "designFileName" : "%s",
+    "numPartsDestroyed" : %s
 }
                 """,
-                serializedFileName,
-                design.getFileName()
+                shipName,
+                design.getName(),
+                numPartsDestroyed
         ).stripTrailing();
+    }
+
+    public void setSerialObj(SerializedFleet.Ships.Ship serializedShip) {
+        serialObj = serializedShip;
+    }
+
+    public void setNumPartsDestroyed(int num) {
+        numPartsDestroyed = num;
     }
 }

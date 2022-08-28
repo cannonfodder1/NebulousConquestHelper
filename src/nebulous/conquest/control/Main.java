@@ -16,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         loadGameState();
-//        game.allShips.get(0).setHullNumber(99);
+        game.allFleets.get(0).convertStateToSave();
         saveGameState();
 
 //        String token = Helper.readFileAsString("../neb-bot-token.txt");
@@ -70,22 +70,18 @@ public class Main {
     }
 
     private static void loadGameState() throws Exception {
-        game = (Game) getStateFromJson("gamestate", Game.class);
+        game = (Game) getStateFromJson();
         game.loadGame();
     }
 
-    private static void saveGameState() throws IOException {
+    private static void saveGameState() throws Exception {
         String save = game.saveGame();
-        File file = new File(Helper.STATE_FOLDER_PATH + "save.json");
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-        writer.write(save);
-        writer.close();
+        Helper.writeStringToFile(Helper.DATA_FOLDER_PATH + "save.json", save);
     }
 
-    private static Object getStateFromJson(String fileName, Type type) throws Exception {
-        String filePath = Helper.STATE_FOLDER_PATH + fileName + ".json";
+    private static Object getStateFromJson() throws Exception {
+        String filePath = Helper.DATA_FOLDER_PATH + "gamestate.json";
         String jsonSource = Helper.readFileAsString(filePath);
-        return new Gson().fromJson(jsonSource, type);
+        return new Gson().fromJson(jsonSource, Game.class);
     }
-
 }

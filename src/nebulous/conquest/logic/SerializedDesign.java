@@ -191,7 +191,7 @@ import javax.xml.bind.annotation.XmlType;
         "weaponGroups"
 })
 @XmlRootElement(name = "Ship")
-public class SerializedShip {
+public class SerializedDesign {
 
     @XmlElement(name = "SaveID", required = true, nillable = true)
     protected String saveID;
@@ -210,11 +210,11 @@ public class SerializedShip {
     @XmlElement(name = "HullType", required = true)
     protected String hullType;
     @XmlElement(name = "ModDependencies", required = true)
-    protected SerializedShip.ModDependencies modDependencies;
+    protected SerializedDesign.ModDependencies modDependencies;
     @XmlElement(name = "SocketMap", required = true)
-    protected SerializedShip.SocketMap socketMap;
+    protected SerializedDesign.SocketMap socketMap;
     @XmlElement(name = "WeaponGroups", required = true)
-    protected SerializedShip.WeaponGroups weaponGroups;
+    protected SerializedDesign.WeaponGroups weaponGroups;
 
     /**
      * Gets the value of the saveID property.
@@ -389,10 +389,10 @@ public class SerializedShip {
      *
      * @return
      *     possible object is
-     *     {@link SerializedShip.ModDependencies }
+     *     {@link SerializedDesign.ModDependencies }
      *
      */
-    public SerializedShip.ModDependencies getModDependencies() {
+    public SerializedDesign.ModDependencies getModDependencies() {
         return modDependencies;
     }
 
@@ -401,10 +401,10 @@ public class SerializedShip {
      *
      * @param value
      *     allowed object is
-     *     {@link SerializedShip.ModDependencies }
+     *     {@link SerializedDesign.ModDependencies }
      *
      */
-    public void setModDependencies(SerializedShip.ModDependencies value) {
+    public void setModDependencies(SerializedDesign.ModDependencies value) {
         this.modDependencies = value;
     }
 
@@ -413,10 +413,10 @@ public class SerializedShip {
      *
      * @return
      *     possible object is
-     *     {@link SerializedShip.SocketMap }
+     *     {@link SerializedDesign.SocketMap }
      *
      */
-    public SerializedShip.SocketMap getSocketMap() {
+    public SerializedDesign.SocketMap getSocketMap() {
         return socketMap;
     }
 
@@ -425,10 +425,10 @@ public class SerializedShip {
      *
      * @param value
      *     allowed object is
-     *     {@link SerializedShip.SocketMap }
+     *     {@link SerializedDesign.SocketMap }
      *
      */
-    public void setSocketMap(SerializedShip.SocketMap value) {
+    public void setSocketMap(SerializedDesign.SocketMap value) {
         this.socketMap = value;
     }
 
@@ -437,10 +437,10 @@ public class SerializedShip {
      *
      * @return
      *     possible object is
-     *     {@link SerializedShip.WeaponGroups }
+     *     {@link SerializedDesign.WeaponGroups }
      *
      */
-    public SerializedShip.WeaponGroups getWeaponGroups() {
+    public SerializedDesign.WeaponGroups getWeaponGroups() {
         return weaponGroups;
     }
 
@@ -449,10 +449,10 @@ public class SerializedShip {
      *
      * @param value
      *     allowed object is
-     *     {@link SerializedShip.WeaponGroups }
+     *     {@link SerializedDesign.WeaponGroups }
      *
      */
-    public void setWeaponGroups(SerializedShip.WeaponGroups value) {
+    public void setWeaponGroups(SerializedDesign.WeaponGroups value) {
         this.weaponGroups = value;
     }
 
@@ -622,7 +622,7 @@ public class SerializedShip {
     public static class SocketMap {
 
         @XmlElement(name = "HullSocket")
-        protected List<SerializedShip.SocketMap.HullSocket> hullSocket;
+        protected List<SerializedDesign.SocketMap.HullSocket> hullSocket;
 
         /**
          * Gets the value of the hullSocket property.
@@ -642,13 +642,13 @@ public class SerializedShip {
          *
          * <p>
          * Objects of the following type(s) are allowed in the list
-         * {@link SerializedShip.SocketMap.HullSocket }
+         * {@link SerializedDesign.SocketMap.HullSocket }
          *
          *
          */
-        public List<SerializedShip.SocketMap.HullSocket> getHullSocket() {
+        public List<SerializedDesign.SocketMap.HullSocket> getHullSocket() {
             if (hullSocket == null) {
-                hullSocket = new ArrayList<SerializedShip.SocketMap.HullSocket>();
+                hullSocket = new ArrayList<SerializedDesign.SocketMap.HullSocket>();
             }
             return this.hullSocket;
         }
@@ -755,7 +755,7 @@ public class SerializedShip {
             @XmlElement(name = "ComponentName", required = true)
             protected String componentName;
             @XmlElement(name = "ComponentData")
-            protected SerializedShip.SocketMap.HullSocket.ComponentData componentData;
+            protected SerializedDesign.SocketMap.HullSocket.ComponentData componentData;
 
             /**
              * Gets the value of the key property.
@@ -810,10 +810,10 @@ public class SerializedShip {
              *
              * @return
              *     possible object is
-             *     {@link SerializedShip.SocketMap.HullSocket.ComponentData }
+             *     {@link SerializedDesign.SocketMap.HullSocket.ComponentData }
              *
              */
-            public SerializedShip.SocketMap.HullSocket.ComponentData getComponentData() {
+            public SerializedDesign.SocketMap.HullSocket.ComponentData getComponentData() {
                 return componentData;
             }
 
@@ -822,10 +822,10 @@ public class SerializedShip {
              *
              * @param value
              *     allowed object is
-             *     {@link SerializedShip.SocketMap.HullSocket.ComponentData }
+             *     {@link SerializedDesign.SocketMap.HullSocket.ComponentData }
              *
              */
-            public void setComponentData(SerializedShip.SocketMap.HullSocket.ComponentData value) {
+            public void setComponentData(SerializedDesign.SocketMap.HullSocket.ComponentData value) {
                 this.componentData = value;
             }
 
@@ -915,21 +915,21 @@ public class SerializedShip {
             public static class ComponentData {
 
                 @XmlElement(name = "MissileLoad")
-                protected SerializedShip.SocketMap.HullSocket.ComponentData.MissileLoad missileLoad;
+                protected SerializedDesign.SocketMap.HullSocket.ComponentData.MissileLoad missileLoad;
                 @XmlElement(name = "ConfiguredSize")
-                protected SerializedShip.SocketMap.HullSocket.ComponentData.ConfiguredSize configuredSize;
+                protected SerializedDesign.SocketMap.HullSocket.ComponentData.ConfiguredSize configuredSize;
                 @XmlElement(name = "Load")
-                protected SerializedShip.SocketMap.HullSocket.ComponentData.Load load;
+                protected SerializedDesign.SocketMap.HullSocket.ComponentData.Load load;
 
                 /**
                  * Gets the value of the missileLoad property.
                  *
                  * @return
                  *     possible object is
-                 *     {@link SerializedShip.SocketMap.HullSocket.ComponentData.MissileLoad }
+                 *     {@link SerializedDesign.SocketMap.HullSocket.ComponentData.MissileLoad }
                  *
                  */
-                public SerializedShip.SocketMap.HullSocket.ComponentData.MissileLoad getMissileLoad() {
+                public SerializedDesign.SocketMap.HullSocket.ComponentData.MissileLoad getMissileLoad() {
                     return missileLoad;
                 }
 
@@ -938,10 +938,10 @@ public class SerializedShip {
                  *
                  * @param value
                  *     allowed object is
-                 *     {@link SerializedShip.SocketMap.HullSocket.ComponentData.MissileLoad }
+                 *     {@link SerializedDesign.SocketMap.HullSocket.ComponentData.MissileLoad }
                  *
                  */
-                public void setMissileLoad(SerializedShip.SocketMap.HullSocket.ComponentData.MissileLoad value) {
+                public void setMissileLoad(SerializedDesign.SocketMap.HullSocket.ComponentData.MissileLoad value) {
                     this.missileLoad = value;
                 }
 
@@ -950,10 +950,10 @@ public class SerializedShip {
                  *
                  * @return
                  *     possible object is
-                 *     {@link SerializedShip.SocketMap.HullSocket.ComponentData.ConfiguredSize }
+                 *     {@link SerializedDesign.SocketMap.HullSocket.ComponentData.ConfiguredSize }
                  *
                  */
-                public SerializedShip.SocketMap.HullSocket.ComponentData.ConfiguredSize getConfiguredSize() {
+                public SerializedDesign.SocketMap.HullSocket.ComponentData.ConfiguredSize getConfiguredSize() {
                     return configuredSize;
                 }
 
@@ -962,10 +962,10 @@ public class SerializedShip {
                  *
                  * @param value
                  *     allowed object is
-                 *     {@link SerializedShip.SocketMap.HullSocket.ComponentData.ConfiguredSize }
+                 *     {@link SerializedDesign.SocketMap.HullSocket.ComponentData.ConfiguredSize }
                  *
                  */
-                public void setConfiguredSize(SerializedShip.SocketMap.HullSocket.ComponentData.ConfiguredSize value) {
+                public void setConfiguredSize(SerializedDesign.SocketMap.HullSocket.ComponentData.ConfiguredSize value) {
                     this.configuredSize = value;
                 }
 
@@ -974,10 +974,10 @@ public class SerializedShip {
                  *
                  * @return
                  *     possible object is
-                 *     {@link SerializedShip.SocketMap.HullSocket.ComponentData.Load }
+                 *     {@link SerializedDesign.SocketMap.HullSocket.ComponentData.Load }
                  *
                  */
-                public SerializedShip.SocketMap.HullSocket.ComponentData.Load getLoad() {
+                public SerializedDesign.SocketMap.HullSocket.ComponentData.Load getLoad() {
                     return load;
                 }
 
@@ -986,10 +986,10 @@ public class SerializedShip {
                  *
                  * @param value
                  *     allowed object is
-                 *     {@link SerializedShip.SocketMap.HullSocket.ComponentData.Load }
+                 *     {@link SerializedDesign.SocketMap.HullSocket.ComponentData.Load }
                  *
                  */
-                public void setLoad(SerializedShip.SocketMap.HullSocket.ComponentData.Load value) {
+                public void setLoad(SerializedDesign.SocketMap.HullSocket.ComponentData.Load value) {
                     this.load = value;
                 }
 
@@ -1097,7 +1097,7 @@ public class SerializedShip {
                 public static class Load {
 
                     @XmlElement(name = "MagSaveData")
-                    protected List<SerializedShip.SocketMap.HullSocket.ComponentData.Load.MagSaveData> magSaveData;
+                    protected List<SerializedDesign.SocketMap.HullSocket.ComponentData.Load.MagSaveData> magSaveData;
 
                     /**
                      * Gets the value of the magSaveData property.
@@ -1117,13 +1117,13 @@ public class SerializedShip {
                      *
                      * <p>
                      * Objects of the following type(s) are allowed in the list
-                     * {@link SerializedShip.SocketMap.HullSocket.ComponentData.Load.MagSaveData }
+                     * {@link SerializedDesign.SocketMap.HullSocket.ComponentData.Load.MagSaveData }
                      *
                      *
                      */
-                    public List<SerializedShip.SocketMap.HullSocket.ComponentData.Load.MagSaveData> getMagSaveData() {
+                    public List<SerializedDesign.SocketMap.HullSocket.ComponentData.Load.MagSaveData> getMagSaveData() {
                         if (magSaveData == null) {
-                            magSaveData = new ArrayList<SerializedShip.SocketMap.HullSocket.ComponentData.Load.MagSaveData>();
+                            magSaveData = new ArrayList<SerializedDesign.SocketMap.HullSocket.ComponentData.Load.MagSaveData>();
                         }
                         return this.magSaveData;
                     }
@@ -1272,7 +1272,7 @@ public class SerializedShip {
                 public static class MissileLoad {
 
                     @XmlElement(name = "MagSaveData")
-                    protected List<SerializedShip.SocketMap.HullSocket.ComponentData.MissileLoad.MagSaveData> magSaveData;
+                    protected List<SerializedDesign.SocketMap.HullSocket.ComponentData.MissileLoad.MagSaveData> magSaveData;
 
                     /**
                      * Gets the value of the magSaveData property.
@@ -1292,13 +1292,13 @@ public class SerializedShip {
                      *
                      * <p>
                      * Objects of the following type(s) are allowed in the list
-                     * {@link SerializedShip.SocketMap.HullSocket.ComponentData.MissileLoad.MagSaveData }
+                     * {@link SerializedDesign.SocketMap.HullSocket.ComponentData.MissileLoad.MagSaveData }
                      *
                      *
                      */
-                    public List<SerializedShip.SocketMap.HullSocket.ComponentData.MissileLoad.MagSaveData> getMagSaveData() {
+                    public List<SerializedDesign.SocketMap.HullSocket.ComponentData.MissileLoad.MagSaveData> getMagSaveData() {
                         if (magSaveData == null) {
-                            magSaveData = new ArrayList<SerializedShip.SocketMap.HullSocket.ComponentData.MissileLoad.MagSaveData>();
+                            magSaveData = new ArrayList<SerializedDesign.SocketMap.HullSocket.ComponentData.MissileLoad.MagSaveData>();
                         }
                         return this.magSaveData;
                     }
@@ -1462,17 +1462,17 @@ public class SerializedShip {
     public static class WeaponGroups {
 
         @XmlElement(name = "WepGroup", required = true)
-        protected SerializedShip.WeaponGroups.WepGroup wepGroup;
+        protected SerializedDesign.WeaponGroups.WepGroup wepGroup;
 
         /**
          * Gets the value of the wepGroup property.
          *
          * @return
          *     possible object is
-         *     {@link SerializedShip.WeaponGroups.WepGroup }
+         *     {@link SerializedDesign.WeaponGroups.WepGroup }
          *
          */
-        public SerializedShip.WeaponGroups.WepGroup getWepGroup() {
+        public SerializedDesign.WeaponGroups.WepGroup getWepGroup() {
             return wepGroup;
         }
 
@@ -1481,10 +1481,10 @@ public class SerializedShip {
          *
          * @param value
          *     allowed object is
-         *     {@link SerializedShip.WeaponGroups.WepGroup }
+         *     {@link SerializedDesign.WeaponGroups.WepGroup }
          *
          */
-        public void setWepGroup(SerializedShip.WeaponGroups.WepGroup value) {
+        public void setWepGroup(SerializedDesign.WeaponGroups.WepGroup value) {
             this.wepGroup = value;
         }
 
@@ -1526,7 +1526,7 @@ public class SerializedShip {
         public static class WepGroup {
 
             @XmlElement(name = "MemberKeys", required = true)
-            protected SerializedShip.WeaponGroups.WepGroup.MemberKeys memberKeys;
+            protected SerializedDesign.WeaponGroups.WepGroup.MemberKeys memberKeys;
             @XmlAttribute(name = "Name")
             protected String name;
 
@@ -1535,10 +1535,10 @@ public class SerializedShip {
              *
              * @return
              *     possible object is
-             *     {@link SerializedShip.WeaponGroups.WepGroup.MemberKeys }
+             *     {@link SerializedDesign.WeaponGroups.WepGroup.MemberKeys }
              *
              */
-            public SerializedShip.WeaponGroups.WepGroup.MemberKeys getMemberKeys() {
+            public SerializedDesign.WeaponGroups.WepGroup.MemberKeys getMemberKeys() {
                 return memberKeys;
             }
 
@@ -1547,10 +1547,10 @@ public class SerializedShip {
              *
              * @param value
              *     allowed object is
-             *     {@link SerializedShip.WeaponGroups.WepGroup.MemberKeys }
+             *     {@link SerializedDesign.WeaponGroups.WepGroup.MemberKeys }
              *
              */
-            public void setMemberKeys(SerializedShip.WeaponGroups.WepGroup.MemberKeys value) {
+            public void setMemberKeys(SerializedDesign.WeaponGroups.WepGroup.MemberKeys value) {
                 this.memberKeys = value;
             }
 

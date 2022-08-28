@@ -3,11 +3,11 @@ package nebulous.conquest.logic;
 import java.util.List;
 
 public class Game {
-    private int turn = 0;
-    private Location[] locations;
-    private Design[] designs;
-    private Ship[] ships;
-    private Fleet[] fleets;
+    private int turn = 0; // filled by JSON
+    private Location[] locations; // filled by JSON
+    private Design[] designs; // filled by JSON
+    private Ship[] ships; // filled by JSON
+    private Fleet[] fleets; // filled by JSON
 
     public List<Location> allLocations;
     public List<Design> allDesigns;
@@ -31,8 +31,11 @@ public class Game {
         for (Design design: designs) {
             design.loadXML();
         }
+        for (Fleet fleet: fleets) {
+            fleet.loadXML();
+        }
         for (Ship ship: ships) {
-            ship.loadXML();
+            ship.init();
         }
         for (Fleet fleet: fleets) {
             fleet.init();
@@ -43,8 +46,8 @@ public class Game {
         for (Design design: designs) {
             design.saveXML();
         }
-        for (Ship ship: ships) {
-            ship.saveXML();
+        for (Fleet fleet: fleets) {
+            fleet.saveXML();
         }
         return String.format("""
 {
