@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyName>SaveFleetState</AssemblyName>
+    <Description></Description>
+    <Version>1.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UnityEngine.Modules" Version="2020.3.19" IncludeAssets="compile" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="lib\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>lib\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirror">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Nebulous\Nebulous_Data\Managed\Mirror.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>lib\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>lib\MonoMod.RuntimeDetour.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>lib\MonoMod.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Nebulous">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Nebulous\Nebulous_Data\Managed\Nebulous.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
