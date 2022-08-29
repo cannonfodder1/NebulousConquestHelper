@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="src\logic\**" />
+    <EmbeddedResource Remove="src\logic\**" />
+    <None Remove="src\logic\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Nebulous">
+      <HintPath>lib\Nebulous.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirror">
+      <HintPath>lib\Mirror.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>lib\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>lib\UnityEngine.SharedInternalsModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

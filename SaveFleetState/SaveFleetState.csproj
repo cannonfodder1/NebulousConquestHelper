@@ -26,7 +26,7 @@
       <HintPath>lib\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Mirror">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Nebulous\Nebulous_Data\Managed\Mirror.dll</HintPath>
+      <HintPath>lib\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>lib\Mono.Cecil.dll</HintPath>
@@ -38,7 +38,7 @@
       <HintPath>lib\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Nebulous">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Nebulous\Nebulous_Data\Managed\Nebulous.dll</HintPath>
+      <HintPath>lib\Nebulous.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
