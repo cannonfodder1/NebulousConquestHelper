@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<Fleet xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>Starter - TF Oak</Name>
+<Fleet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Conquest - TF Oak</Name>
   <Version>3</Version>
   <TotalPoints>2998</TotalPoints>
   <FactionKey>Stock/Alliance</FactionKey>
@@ -21,17 +21,18 @@
           <ComponentName>Stock/Mk66 Cannon</ComponentName>
           <ComponentState xsi:type="TurretedDiscreteWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>true</CycleActive>
-            <CycleTimeElapsed>7.48722839</CycleTimeElapsed>
+            <CycleTimeElapsed>7.4872284</CycleTimeElapsed>
             <AmmoSourceKey>Stock/450mm HE Shell</AmmoSourceKey>
             <WaitingForMuzzle>false</WaitingForMuzzle>
             <MuzzleAccum>0</MuzzleAccum>
             <Reloading>true</Reloading>
-            <ReloadAccum>7.45197439</ReloadAccum>
+            <ReloadAccum>7.4519744</ReloadAccum>
             <FiredCount>2</FiredCount>
             <TurretState>
-              <TraverseAngle>12.4145908</TraverseAngle>
-              <ElevationAngle>0.439023316</ElevationAngle>
+              <TraverseAngle>12.414591</TraverseAngle>
+              <ElevationAngle>0.43902332</ElevationAngle>
             </TurretState>
           </ComponentState>
         </HullSocket>
@@ -40,6 +41,7 @@
           <ComponentName>Stock/Mk66 Cannon</ComponentName>
           <ComponentState xsi:type="TurretedDiscreteWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>false</CycleActive>
             <CycleTimeElapsed>0</CycleTimeElapsed>
             <AmmoSourceKey>Stock/450mm HE Shell</AmmoSourceKey>
@@ -49,8 +51,8 @@
             <ReloadAccum>10.637043</ReloadAccum>
             <FiredCount>0</FiredCount>
             <TurretState>
-              <TraverseAngle>345.874756</TraverseAngle>
-              <ElevationAngle>0.428827941</ElevationAngle>
+              <TraverseAngle>345.87476</TraverseAngle>
+              <ElevationAngle>0.42882794</ElevationAngle>
             </TurretState>
           </ComponentState>
         </HullSocket>
@@ -59,13 +61,14 @@
           <ComponentName>Stock/Mk68 Cannon</ComponentName>
           <ComponentState xsi:type="TurretedDiscreteWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>true</CycleActive>
             <CycleTimeElapsed>5.799286</CycleTimeElapsed>
             <AmmoSourceKey>Stock/450mm HE Shell</AmmoSourceKey>
             <WaitingForMuzzle>false</WaitingForMuzzle>
             <MuzzleAccum>0</MuzzleAccum>
             <Reloading>true</Reloading>
-            <ReloadAccum>5.55669975</ReloadAccum>
+            <ReloadAccum>5.5566998</ReloadAccum>
             <FiredCount>3</FiredCount>
             <TurretState>
               <TraverseAngle>347.7163</TraverseAngle>
@@ -78,6 +81,7 @@
           <ComponentName>Stock/Mk90 'Aurora' PDT</ComponentName>
           <ComponentState xsi:type="TurretedContinuousWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>false</CycleActive>
             <CycleTimeElapsed>0</CycleTimeElapsed>
             <FiringAccum>0</FiringAccum>
@@ -95,16 +99,17 @@
           <ComponentName>Stock/Mk29 'Stonewall' PDT</ComponentName>
           <ComponentState xsi:type="TurretedDiscreteWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>false</CycleActive>
             <CycleTimeElapsed>0</CycleTimeElapsed>
             <AmmoSourceKey>Stock/Flak Round</AmmoSourceKey>
             <WaitingForMuzzle>false</WaitingForMuzzle>
-            <MuzzleAccum>0.259999961</MuzzleAccum>
+            <MuzzleAccum>0.25999996</MuzzleAccum>
             <Reloading>false</Reloading>
-            <ReloadAccum>0.139999986</ReloadAccum>
+            <ReloadAccum>0.13999999</ReloadAccum>
             <FiredCount>6</FiredCount>
             <TurretState>
-              <TraverseAngle>179.033569</TraverseAngle>
+              <TraverseAngle>179.03357</TraverseAngle>
               <ElevationAngle>5.000001</ElevationAngle>
             </TurretState>
           </ComponentState>
@@ -114,6 +119,7 @@
           <ComponentName>Stock/Mk90 'Aurora' PDT</ComponentName>
           <ComponentState xsi:type="TurretedContinuousWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>false</CycleActive>
             <CycleTimeElapsed>0</CycleTimeElapsed>
             <FiringAccum>0</FiringAccum>
@@ -121,7 +127,7 @@
             <WaitingForCooldown>false</WaitingForCooldown>
             <PartialFiring>false</PartialFiring>
             <TurretState>
-              <TraverseAngle>358.929169</TraverseAngle>
+              <TraverseAngle>358.92917</TraverseAngle>
               <ElevationAngle>348.2023</ElevationAngle>
             </TurretState>
           </ComponentState>
@@ -131,17 +137,18 @@
           <ComponentName>Stock/Mk29 'Stonewall' PDT</ComponentName>
           <ComponentState xsi:type="TurretedDiscreteWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>false</CycleActive>
             <CycleTimeElapsed>0</CycleTimeElapsed>
             <AmmoSourceKey>Stock/Flak Round</AmmoSourceKey>
             <WaitingForMuzzle>false</WaitingForMuzzle>
-            <MuzzleAccum>0.259999961</MuzzleAccum>
+            <MuzzleAccum>0.25999996</MuzzleAccum>
             <Reloading>false</Reloading>
-            <ReloadAccum>0.139999986</ReloadAccum>
+            <ReloadAccum>0.13999999</ReloadAccum>
             <FiredCount>11</FiredCount>
             <TurretState>
-              <TraverseAngle>178.184708</TraverseAngle>
-              <ElevationAngle>349.933075</ElevationAngle>
+              <TraverseAngle>178.18471</TraverseAngle>
+              <ElevationAngle>349.93307</ElevationAngle>
             </TurretState>
           </ComponentState>
         </HullSocket>
@@ -150,8 +157,9 @@
           <ComponentName>Stock/RF101 'Bullseye' Radar</ComponentName>
           <ComponentState xsi:type="SensorTurretComponentState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <TurretState>
-              <TraverseAngle>12.6370974</TraverseAngle>
+              <TraverseAngle>12.637097</TraverseAngle>
               <ElevationAngle>0.33620277</ElevationAngle>
             </TurretState>
           </ComponentState>
@@ -170,6 +178,7 @@
           </ComponentData>
           <ComponentState xsi:type="CellLauncherState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <Missiles>
               <MagStateData>
                 <MagazineKey>QoE_1Dz3bU28Bc5wRFwvzw</MagazineKey>
@@ -203,6 +212,7 @@
           </ComponentData>
           <ComponentState xsi:type="BulkMagazineState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <Mags>
               <MagStateData>
                 <MagazineKey>5Tlw-d6AHEiFfAGTwU2Rgw</MagazineKey>
@@ -224,6 +234,7 @@
           <ComponentName>Stock/Large DC Locker</ComponentName>
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <RestoresConsumed>0</RestoresConsumed>
           </ComponentState>
         </HullSocket>
@@ -232,7 +243,8 @@
           <ComponentName>Stock/Large DC Locker</ComponentName>
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
-            <RestoresConsumed>0</RestoresConsumed>
+            <Debuffs />
+            <RestoresConsumed>2</RestoresConsumed>
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -240,6 +252,7 @@
           <ComponentName>Stock/Reinforced CIC</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -266,6 +279,7 @@
           </ComponentData>
           <ComponentState xsi:type="BulkMagazineState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <Mags>
               <MagStateData>
                 <MagazineKey>s-iaBw4spUe5l6Ho01-4GA</MagazineKey>
@@ -287,6 +301,7 @@
           <ComponentName>Stock/Damage Control Central</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -294,6 +309,7 @@
           <ComponentName>Stock/Berthing</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -301,6 +317,7 @@
           <ComponentName>Stock/Reinforced DC Locker</ComponentName>
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <RestoresConsumed>0</RestoresConsumed>
           </ComponentState>
         </HullSocket>
@@ -309,6 +326,7 @@
           <ComponentName>Stock/FR4800 Reactor</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -316,6 +334,7 @@
           <ComponentName>Stock/FR4800 Reactor</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -323,6 +342,7 @@
           <ComponentName>Stock/FM500 Drive</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -330,6 +350,7 @@
           <ComponentName>Stock/Ammunition Elevators</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -337,6 +358,7 @@
           <ComponentName>Stock/Ammunition Elevators</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -344,6 +366,7 @@
           <ComponentName>Stock/Ammunition Elevators</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -351,6 +374,7 @@
           <ComponentName>Stock/Ammunition Elevators</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -358,6 +382,7 @@
           <ComponentName>Stock/Mount Gyros</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -365,6 +390,7 @@
           <ComponentName>Stock/RS41 'Spyglass' Radar</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -372,6 +398,7 @@
           <ComponentName>Stock/Adaptive Radar Receiver</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
       </SocketMap>
@@ -390,31 +417,10 @@
       </WeaponGroups>
       <SavedState>
         <Position>
-          <x>-137.2135</x>
-          <y>-39.9994164</y>
-          <z>-148.341858</z>
+          <x>0</x>
+          <y>0</y>
+          <z>0</z>
         </Position>
-        <Rotation>
-          <x>-0.001678286</x>
-          <y>0.2487751</y>
-          <z>-0.005497981</z>
-          <w>0.968544245</w>
-          <eulerAngles>
-            <x>359.970459</x>
-            <y>28.81074</y>
-            <z>359.341949</z>
-          </eulerAngles>
-        </Rotation>
-        <LinearVel>
-          <x>0.673298538</x>
-          <y>-6.788456E-05</y>
-          <z>1.67040873</z>
-        </LinearVel>
-        <AngularVel>
-          <x>-0.000401861034</x>
-          <y>-0.0150601584</y>
-          <z>-0.0006596274</z>
-        </AngularVel>
         <Eliminated>NotEliminated</Eliminated>
         <Vaporized>false</Vaporized>
         <LaunchedLifeboats>false</LaunchedLifeboats>
@@ -462,8 +468,8 @@
             </SerializedPartDamage>
             <SerializedPartDamage>
               <Key>mvGZ4uWEiEGBZ6KzyO5Arw</Key>
-              <Destroyed>false</Destroyed>
-              <HP>75</HP>
+              <Destroyed>true</Destroyed>
+              <HP>0</HP>
             </SerializedPartDamage>
             <SerializedPartDamage>
               <Key>neKh5fX0iEW6zNNw7D-vdg</Key>
@@ -839,44 +845,6 @@
             <Zone>Area</Zone>
           </PDSettings>
         </PDState>
-        <NavOrder xsi:type="SavedMoveToTask">
-          <Key>uMNmVKV5PUmYk-3KVlB97A</Key>
-          <OrderType>MoveTo</OrderType>
-          <Path>
-            <Vector3>
-              <x>-147.642883</x>
-              <y>-40.0000343</y>
-              <z>-175.216629</z>
-            </Vector3>
-            <Vector3>
-              <x>-77.05013</x>
-              <y>-40.0000343</y>
-              <z>4.351013</z>
-            </Vector3>
-          </Path>
-          <WaypointIndex>1</WaypointIndex>
-        </NavOrder>
-        <HoldHeading xsi:nil="true" />
-        <HoldUp xsi:nil="true" />
-        <Orders>
-          <SavedOrderTask xsi:type="SavedLockTargetTask">
-            <Key>xiTrwINjAU6-qgiAzATffA</Key>
-            <OrderType>LockTarget</OrderType>
-            <Target ID="1150" />
-          </SavedOrderTask>
-          <SavedOrderTask xsi:type="SavedFireTrackTask">
-            <Key>3iV-jw8A_kKsiZqfvfE9dg</Key>
-            <OrderType>FireTrack</OrderType>
-            <WeaponGroup>whDP9rtbukKsocnrqnqaLQ</WeaponGroup>
-            <Target ID="1150" />
-          </SavedOrderTask>
-          <SavedOrderTask xsi:type="SavedFireTrackTask">
-            <Key>Ia0tgU3JoEqOwtWc89yxKQ</Key>
-            <OrderType>FireTrack</OrderType>
-            <WeaponGroup>8CtCKPLfZEOOFvm1DhV-oQ</WeaponGroup>
-            <Target ID="1150" />
-          </SavedOrderTask>
-        </Orders>
         <BulkComponents>
           <ComponentState xsi:type="SavedSTOState">
             <TrackedBy>
@@ -884,9 +852,9 @@
                 <Team>TeamB</Team>
                 <ID ID="8401" />
                 <LostContactPosition>
-                  <x>-138.092026</x>
-                  <y>-39.9994774</y>
-                  <z>-150.595612</z>
+                  <x>-138.09203</x>
+                  <y>-39.999477</y>
+                  <z>-150.59561</z>
                 </LostContactPosition>
               </Record>
             </TrackedBy>
@@ -909,8 +877,9 @@
           <ComponentName>Stock/Mk66 Cannon</ComponentName>
           <ComponentState xsi:type="TurretedDiscreteWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>true</CycleActive>
-            <CycleTimeElapsed>5.46499634</CycleTimeElapsed>
+            <CycleTimeElapsed>5.4649963</CycleTimeElapsed>
             <AmmoSourceKey>Stock/450mm HE Shell</AmmoSourceKey>
             <WaitingForMuzzle>false</WaitingForMuzzle>
             <MuzzleAccum>0</MuzzleAccum>
@@ -918,8 +887,8 @@
             <ReloadAccum>5.222204</ReloadAccum>
             <FiredCount>2</FiredCount>
             <TurretState>
-              <TraverseAngle>337.596649</TraverseAngle>
-              <ElevationAngle>0.392904729</ElevationAngle>
+              <TraverseAngle>337.59665</TraverseAngle>
+              <ElevationAngle>0.39290473</ElevationAngle>
             </TurretState>
           </ComponentState>
         </HullSocket>
@@ -928,17 +897,18 @@
           <ComponentName>Stock/Mk66 Cannon</ComponentName>
           <ComponentState xsi:type="TurretedDiscreteWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>false</CycleActive>
             <CycleTimeElapsed>0</CycleTimeElapsed>
             <AmmoSourceKey>Stock/450mm HE Shell</AmmoSourceKey>
             <WaitingForMuzzle>false</WaitingForMuzzle>
             <MuzzleAccum>0</MuzzleAccum>
             <Reloading>false</Reloading>
-            <ReloadAccum>10.6448069</ReloadAccum>
+            <ReloadAccum>10.644807</ReloadAccum>
             <FiredCount>0</FiredCount>
             <TurretState>
               <TraverseAngle>125</TraverseAngle>
-              <ElevationAngle>0.211155787</ElevationAngle>
+              <ElevationAngle>0.21115579</ElevationAngle>
             </TurretState>
           </ComponentState>
         </HullSocket>
@@ -947,8 +917,9 @@
           <ComponentName>Stock/Mk68 Cannon</ComponentName>
           <ComponentState xsi:type="TurretedDiscreteWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>true</CycleActive>
-            <CycleTimeElapsed>5.89930725</CycleTimeElapsed>
+            <CycleTimeElapsed>5.8993073</CycleTimeElapsed>
             <AmmoSourceKey>Stock/450mm HE Shell</AmmoSourceKey>
             <WaitingForMuzzle>false</WaitingForMuzzle>
             <MuzzleAccum>0</MuzzleAccum>
@@ -956,8 +927,8 @@
             <ReloadAccum>6.207635</ReloadAccum>
             <FiredCount>3</FiredCount>
             <TurretState>
-              <TraverseAngle>22.2594681</TraverseAngle>
-              <ElevationAngle>0.427362144</ElevationAngle>
+              <TraverseAngle>22.259468</TraverseAngle>
+              <ElevationAngle>0.42736214</ElevationAngle>
             </TurretState>
           </ComponentState>
         </HullSocket>
@@ -966,6 +937,7 @@
           <ComponentName>Stock/Mk90 'Aurora' PDT</ComponentName>
           <ComponentState xsi:type="TurretedContinuousWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>false</CycleActive>
             <CycleTimeElapsed>0</CycleTimeElapsed>
             <FiringAccum>0.4600026</FiringAccum>
@@ -973,8 +945,8 @@
             <WaitingForCooldown>true</WaitingForCooldown>
             <PartialFiring>true</PartialFiring>
             <TurretState>
-              <TraverseAngle>1.23680294</TraverseAngle>
-              <ElevationAngle>336.863159</ElevationAngle>
+              <TraverseAngle>1.2368029</TraverseAngle>
+              <ElevationAngle>336.86316</ElevationAngle>
             </TurretState>
           </ComponentState>
         </HullSocket>
@@ -983,16 +955,17 @@
           <ComponentName>Stock/Mk29 'Stonewall' PDT</ComponentName>
           <ComponentState xsi:type="TurretedDiscreteWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>false</CycleActive>
             <CycleTimeElapsed>0</CycleTimeElapsed>
             <AmmoSourceKey>Stock/Flak Round</AmmoSourceKey>
             <WaitingForMuzzle>false</WaitingForMuzzle>
-            <MuzzleAccum>0.259999961</MuzzleAccum>
+            <MuzzleAccum>0.25999996</MuzzleAccum>
             <Reloading>false</Reloading>
-            <ReloadAccum>0.139999986</ReloadAccum>
+            <ReloadAccum>0.13999999</ReloadAccum>
             <FiredCount>10</FiredCount>
             <TurretState>
-              <TraverseAngle>182.287979</TraverseAngle>
+              <TraverseAngle>182.28798</TraverseAngle>
               <ElevationAngle>333.4959</ElevationAngle>
             </TurretState>
           </ComponentState>
@@ -1002,6 +975,7 @@
           <ComponentName>Stock/Mk90 'Aurora' PDT</ComponentName>
           <ComponentState xsi:type="TurretedContinuousWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>false</CycleActive>
             <CycleTimeElapsed>0</CycleTimeElapsed>
             <FiringAccum>0</FiringAccum>
@@ -1019,13 +993,14 @@
           <ComponentName>Stock/Mk29 'Stonewall' PDT</ComponentName>
           <ComponentState xsi:type="TurretedDiscreteWeaponState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <CycleActive>false</CycleActive>
             <CycleTimeElapsed>0</CycleTimeElapsed>
             <AmmoSourceKey>Stock/Flak Round</AmmoSourceKey>
             <WaitingForMuzzle>false</WaitingForMuzzle>
             <MuzzleAccum>0</MuzzleAccum>
             <Reloading>false</Reloading>
-            <ReloadAccum>0.139999986</ReloadAccum>
+            <ReloadAccum>0.13999999</ReloadAccum>
             <FiredCount>0</FiredCount>
             <TurretState>
               <TraverseAngle>0</TraverseAngle>
@@ -1038,9 +1013,10 @@
           <ComponentName>Stock/RF101 'Bullseye' Radar</ComponentName>
           <ComponentState xsi:type="SensorTurretComponentState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <TurretState>
-              <TraverseAngle>337.573517</TraverseAngle>
-              <ElevationAngle>0.226231769</ElevationAngle>
+              <TraverseAngle>337.57352</TraverseAngle>
+              <ElevationAngle>0.22623177</ElevationAngle>
             </TurretState>
           </ComponentState>
         </HullSocket>
@@ -1058,6 +1034,7 @@
           </ComponentData>
           <ComponentState xsi:type="CellLauncherState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <Missiles>
               <MagStateData>
                 <MagazineKey>QoE_1Dz3bU28Bc5wRFwvzw</MagazineKey>
@@ -1091,6 +1068,7 @@
           </ComponentData>
           <ComponentState xsi:type="BulkMagazineState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <Mags>
               <MagStateData>
                 <MagazineKey>Tr2C08hq9kuPaIfPrLijeQ</MagazineKey>
@@ -1112,6 +1090,7 @@
           <ComponentName>Stock/Large DC Locker</ComponentName>
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <RestoresConsumed>0</RestoresConsumed>
           </ComponentState>
         </HullSocket>
@@ -1120,6 +1099,7 @@
           <ComponentName>Stock/Large DC Locker</ComponentName>
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <RestoresConsumed>0</RestoresConsumed>
           </ComponentState>
         </HullSocket>
@@ -1128,6 +1108,7 @@
           <ComponentName>Stock/Reinforced CIC</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1154,6 +1135,7 @@
           </ComponentData>
           <ComponentState xsi:type="BulkMagazineState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <Mags>
               <MagStateData>
                 <MagazineKey>gjLpUQBUUEKILnoFsR-KlA</MagazineKey>
@@ -1175,6 +1157,7 @@
           <ComponentName>Stock/Damage Control Central</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1182,6 +1165,7 @@
           <ComponentName>Stock/Berthing</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1189,6 +1173,7 @@
           <ComponentName>Stock/Reinforced DC Locker</ComponentName>
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
             <RestoresConsumed>0</RestoresConsumed>
           </ComponentState>
         </HullSocket>
@@ -1197,6 +1182,7 @@
           <ComponentName>Stock/FR4800 Reactor</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1204,6 +1190,7 @@
           <ComponentName>Stock/FR4800 Reactor</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1211,6 +1198,7 @@
           <ComponentName>Stock/FM500 Drive</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1218,6 +1206,7 @@
           <ComponentName>Stock/Ammunition Elevators</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1225,6 +1214,7 @@
           <ComponentName>Stock/Ammunition Elevators</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1232,6 +1222,7 @@
           <ComponentName>Stock/Ammunition Elevators</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1239,6 +1230,7 @@
           <ComponentName>Stock/Ammunition Elevators</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1246,6 +1238,7 @@
           <ComponentName>Stock/Mount Gyros</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1253,6 +1246,7 @@
           <ComponentName>Stock/RM50 'Parallax' Radar</ComponentName>
           <ComponentState>
             <NextDebuffID>3</NextDebuffID>
+            <Debuffs />
           </ComponentState>
         </HullSocket>
       </SocketMap>
@@ -1271,31 +1265,10 @@
       </WeaponGroups>
       <SavedState>
         <Position>
-          <x>-114.333115</x>
-          <y>-39.9996834</y>
-          <z>-178.199371</z>
+          <x>0</x>
+          <y>0</y>
+          <z>0</z>
         </Position>
-        <Rotation>
-          <x>0.00241957535</x>
-          <y>0.485332519</y>
-          <z>0.00463874545</z>
-          <w>0.87431407</w>
-          <eulerAngles>
-            <x>359.984436</x>
-            <y>58.0693054</y>
-            <z>0.5993269</z>
-          </eulerAngles>
-        </Rotation>
-        <LinearVel>
-          <x>1.47846437</x>
-          <y>-2.67822452E-05</y>
-          <z>0.887420535</z>
-        </LinearVel>
-        <AngularVel>
-          <x>0.000396244577</x>
-          <y>0.0133612026</y>
-          <z>0.000271849334</z>
-        </AngularVel>
         <Eliminated>NotEliminated</Eliminated>
         <Vaporized>false</Vaporized>
         <LaunchedLifeboats>false</LaunchedLifeboats>
@@ -1715,44 +1688,6 @@
             <Zone>Area</Zone>
           </PDSettings>
         </PDState>
-        <NavOrder xsi:type="SavedMoveToTask">
-          <Key>nxvM3u-qy0qt0-uRnWHnJQ</Key>
-          <OrderType>MoveTo</OrderType>
-          <Path>
-            <Vector3>
-              <x>-133.500992</x>
-              <y>-40.0000343</y>
-              <z>-189.35878</z>
-            </Vector3>
-            <Vector3>
-              <x>22.767807</x>
-              <y>-40.0000343</y>
-              <z>-97.35022</z>
-            </Vector3>
-          </Path>
-          <WaypointIndex>1</WaypointIndex>
-        </NavOrder>
-        <HoldHeading xsi:nil="true" />
-        <HoldUp xsi:nil="true" />
-        <Orders>
-          <SavedOrderTask xsi:type="SavedLockTargetTask">
-            <Key>BP2GU4fKfEeH8FRc_u4xKA</Key>
-            <OrderType>LockTarget</OrderType>
-            <Target ID="1150" />
-          </SavedOrderTask>
-          <SavedOrderTask xsi:type="SavedFireTrackTask">
-            <Key>lBLieGSMyU6w1CjR6cE6aA</Key>
-            <OrderType>FireTrack</OrderType>
-            <WeaponGroup>whDP9rtbukKsocnrqnqaLQ</WeaponGroup>
-            <Target ID="1150" />
-          </SavedOrderTask>
-          <SavedOrderTask xsi:type="SavedFireTrackTask">
-            <Key>bhj1Mwvx9U6gBebws5tFBw</Key>
-            <OrderType>FireTrack</OrderType>
-            <WeaponGroup>8CtCKPLfZEOOFvm1DhV-oQ</WeaponGroup>
-            <Target ID="1150" />
-          </SavedOrderTask>
-        </Orders>
         <BulkComponents>
           <ComponentState xsi:type="SavedSTOState">
             <TrackedBy>
@@ -1760,9 +1695,9 @@
                 <Team>TeamB</Team>
                 <ID ID="3920" />
                 <LostContactPosition>
-                  <x>-116.290268</x>
-                  <y>-39.9997177</y>
-                  <z>-179.342255</z>
+                  <x>-116.29027</x>
+                  <y>-39.999718</y>
+                  <z>-179.34225</z>
                 </LostContactPosition>
               </Record>
             </TrackedBy>
@@ -1771,4 +1706,8 @@
       </SavedState>
     </Ship>
   </Ships>
+  <MissileTypes />
+  <ConquestInfo>
+    <CurrentLocation>Goguen</CurrentLocation>
+  </ConquestInfo>
 </Fleet>

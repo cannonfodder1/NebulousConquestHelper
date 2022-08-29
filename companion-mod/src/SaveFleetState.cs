@@ -1,7 +1,6 @@
 ﻿using Game;
 using HarmonyLib;
 using Modding;
-using Munitions;
 using Ships;
 using Ships.Serialization;
 using System;
@@ -36,7 +35,7 @@ namespace SaveFleetState
                 using (FileStream stream = new FileStream(filePath.RelativePath, FileMode.Create))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(SerializedFleet));
-                    serializer.Serialize(stream, fleet);
+                    serializer.Serialize(stream, PrepareSerializedFleet(fleet));
                     stream.Close();
                 }
             }
@@ -47,6 +46,55 @@ namespace SaveFleetState
                 return false;
             }
             return true;
+        }
+
+        // Thanks to Abrams on the discord for this function
+        public static SerializedFleet PrepareSerializedFleet(SerializedFleet fleet)
+        {
+            List<SerializedShip> removeShips = new List<SerializedShip>();
+            foreach (SerializedShip ship in fleet.Ships)
+            {
+                if (ship.SavedState.Eliminated == EliminationReason.Destroyed)
+                {
+                    removeShips.Add(ship);
+                    continue;
+                }
+
+                if (ship.SavedState.Eliminated == EliminationReason.Withdrew)
+                {
+                    ship.SavedState.Eliminated = EliminationReason.NotEliminated;
+                    ship.SavedState.Vaporized = false;
+                    ship.SavedState.LaunchedLifeboats = false;
+                }
+                //serShip.SavedState.Position = Vector3.zero; causes all the ships to collapse in Shooting Gallery
+                ship.SavedState.AngularVel = Vector3.zero;
+                ship.SavedState.LinearVel = Vector3.zero;
+                ship.SavedState.Throttle = MovementSpeed.Full;
+                ship.SavedState.NavOrder = null;
+                ship.SavedState.WeaponsControl = WeaponsControlStatus.Free;
+                ship.SavedState.Rotation = Quaternion.identity;
+                ship.SavedState.Orders = null;
+                ship.SavedState.MoveStyle = MovementStyle.Direct;
+                /*
+                foreach (var ss in fleet.FleetShips)
+                {
+                    if (ss.Key == serShip.Key)
+                    {
+                        serShip.SavedState.DCState = ss.Controller.DCDispatcher.SaveState();
+                        Debug.Log("Found DCState");
+                        break;
+                    }
+                }
+                */
+                //serShip.SavedState.DCState = ship.Controller.DCDispatcher.SaveState(); //is this one used by Mazer?
+            }
+
+
+            foreach (var deadShip in removeShips)
+            {
+                fleet.Ships.Remove(deadShip);
+            }
+            return fleet;
         }
     }
     
