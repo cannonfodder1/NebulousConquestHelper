@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml.Serialization;
 using Utility;
 
@@ -10,8 +9,9 @@ namespace NebulousConquestHelper
     [Serializable]
     public class GameInfo
     {
+        public string ScenarioName;
         public List<FleetInfo> Fleets;
-        public List<LocationInfo> Locations;
+        public SystemInfo System;
 
         public static bool init(object loaded)
         {
@@ -28,12 +28,43 @@ namespace NebulousConquestHelper
 
                 if (fleet.Fleet == null) return false;
 
-                fleet.Location = game.Locations.Find(loc => loc.Name == fleet.LocationName);
+                fleet.Location = game.FindLocationByName(fleet.LocationName);
 
                 if (fleet.Location == null) return false;
             }
 
             return true;
+        }
+
+        public LocationInfo FindLocationByName(string name)
+        {
+            LocationInfo FindLocationByNameInternal(string name, LocationInfo location)
+            {
+                if (location.Name == name)
+                {
+                    return location;
+                }
+
+                foreach (LocationInfo loc in location.OrbitingLocations)
+                {
+                    if (FindLocationByNameInternal(name, loc) != null)
+                    {
+                        return loc;
+                    }
+                }
+
+                return null;
+            }
+
+            foreach (LocationInfo loc in System.OrbitingLocations)
+            {
+                if (FindLocationByNameInternal(name, loc) != null)
+                {
+                    return loc;
+                }
+            }
+
+            return null;
         }
     }
 }
