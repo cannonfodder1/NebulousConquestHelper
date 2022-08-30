@@ -1,14 +1,63 @@
 <?xml version="1.0"?>
 <ConquestGame xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ScenarioName>Graznovian Conflict</ScenarioName>
   <Fleets>
     <FleetInfo>
       <FleetFileName>Conquest - TF Oak</FleetFileName>
       <LocationName>Badnarik</LocationName>
     </FleetInfo>
   </Fleets>
-  <Locations>
-    <LocationInfo>
-      <Name>Badnarik</Name>
-    </LocationInfo>
-  </Locations>
+  <System>
+    <Name>Camlaan Tarl</Name>
+    <OrbitingLocations>
+      <LocationInfo>
+        <Name>Hui Xing</Name>
+        <Type>PlanetGaseous</Type>
+        <OrbitalDistanceAU>0.55</OrbitalDistanceAU>
+        <OrbitalStartDegrees>0</OrbitalStartDegrees>
+      </LocationInfo>
+      <LocationInfo>
+        <Name>Badnarik</Name>
+        <Type>PlanetHabitable</Type>
+        <OrbitalDistanceAU>0.80</OrbitalDistanceAU>
+        <OrbitalStartDegrees>90</OrbitalStartDegrees>
+      </LocationInfo>
+      <LocationInfo>
+        <Name>Druj</Name>
+        <Type>PlanetBarren</Type>
+        <OrbitalDistanceAU>1.05</OrbitalDistanceAU>
+        <OrbitalStartDegrees>135</OrbitalStartDegrees>
+      </LocationInfo>
+      <LocationInfo>
+        <Name>Sphinx</Name>
+        <Type>PlanetHabitable</Type>
+        <OrbitalDistanceAU>1.35</OrbitalDistanceAU>
+        <OrbitalStartDegrees>270</OrbitalStartDegrees>
+      </LocationInfo>
+      <LocationInfo>
+        <Name>Mazurten</Name>
+        <Type>PlanetBarren</Type>
+        <OrbitalDistanceAU>1.70</OrbitalDistanceAU>
+        <OrbitalStartDegrees>315</OrbitalStartDegrees>
+      </LocationInfo>
+      <LocationInfo>
+        <Name>Satanaze</Name>
+        <Type>PlanetGaseous</Type>
+        <OrbitalDistanceAU>2.50</OrbitalDistanceAU>
+        <OrbitalStartDegrees>180</OrbitalStartDegrees>
+      </LocationInfo>
+    </OrbitingLocations>
+    <SurroundingBelts>
+      <BeltInfo>
+        <Name>Kolven's Disk</Name>
+        <NearEdgeDistanceAU>0.10</NearEdgeDistanceAU>
+        <FarEdgeDistanceAU>0.50</FarEdgeDistanceAU>
+      </BeltInfo>
+      <BeltInfo>
+        <Name>Kulantai Belt</Name>
+        <NearEdgeDistanceAU>1.90</NearEdgeDistanceAU>
+        <FarEdgeDistanceAU>2.10</FarEdgeDistanceAU>
+      </BeltInfo>
+    </SurroundingBelts>
+  </System>
 </ConquestGame>

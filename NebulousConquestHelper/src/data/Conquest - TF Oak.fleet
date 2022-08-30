@@ -1707,7 +1707,4 @@
     </Ship>
   </Ships>
   <MissileTypes />
-  <ConquestInfo>
-    <CurrentLocation>Goguen</CurrentLocation>
-  </ConquestInfo>
 </Fleet>
