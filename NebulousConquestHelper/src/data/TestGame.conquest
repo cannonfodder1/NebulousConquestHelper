@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ConquestGame xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Fleets>
+    <FleetInfo>
+      <FleetFileName>Conquest - TF Oak</FleetFileName>
+      <LocationName>Badnarik</LocationName>
+    </FleetInfo>
+  </Fleets>
+  <Locations>
+    <LocationInfo>
+      <Name>Badnarik</Name>
+    </LocationInfo>
+  </Locations>
+</ConquestGame>

@@ -7,17 +7,21 @@ namespace NebulousConquestHelper
 {
     class Helper
 	{
-		// extracted from Nebulous.dll with Unity logging removed
-		public static SerializedConquestFleet ReadFleetFile(FilePath path)
+		public const string DATA_FOLDER_PATH = "../../../src/data/";
+        public const string FLEET_FILE_TYPE = ".fleet";
+
+		// extracted from Nebulous.dll with Unity logging removed and heavily modified
+		public static object ReadXMLFile(Type type, FilePath path, Func<object, bool> postLoadInit = null)
 		{
 			try
 			{
 				using (FileStream stream = new FileStream(path.RelativePath, FileMode.Open, FileAccess.Read))
 				{
-					XmlSerializer serializer = new XmlSerializer(typeof(SerializedConquestFleet));
-					SerializedConquestFleet loaded = (SerializedConquestFleet)serializer.Deserialize(stream);
+					XmlSerializer serializer = new XmlSerializer(type);
+					object loaded = serializer.Deserialize(stream);
 					stream.Close();
-					return loaded;
+					bool resultOk = postLoadInit != null ? postLoadInit(loaded) : true;
+					if (resultOk) return loaded;
 				}
 			}
 			catch (Exception e)
@@ -27,8 +31,8 @@ namespace NebulousConquestHelper
 			return null;
 		}
 
-		// extracted from Nebulous.dll with Unity logging removed
-		public static bool WriteFleetFile(FilePath path, SerializedConquestFleet fleet)
+		// extracted from Nebulous.dll with Unity logging removed and heavily modified
+		public static bool WriteXMLFile(Type type, FilePath path, object obj)
 		{
 			try
 			{
@@ -39,8 +43,8 @@ namespace NebulousConquestHelper
 				}
 				using (FileStream stream = new FileStream(path.RelativePath, FileMode.Create))
 				{
-					XmlSerializer serializer = new XmlSerializer(typeof(SerializedConquestFleet));
-					serializer.Serialize(stream, fleet);
+					XmlSerializer serializer = new XmlSerializer(type);
+					serializer.Serialize(stream, obj);
 					stream.Close();
 				}
 			}

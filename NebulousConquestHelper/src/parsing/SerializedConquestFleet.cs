@@ -3,14 +3,13 @@ using Ships;
 using Ships.Serialization;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml.Serialization;
 
 // extracted from Nebulous.dll with Unity logging removed
 namespace NebulousConquestHelper
 {
-	// Token: 0x02000219 RID: 537
-	[XmlType("Fleet")]
+    // Token: 0x02000219 RID: 537
+    [XmlType("Fleet")]
 	[Serializable]
 	public class SerializedConquestFleet
 	{
@@ -40,8 +39,6 @@ namespace NebulousConquestHelper
 
 		// Token: 0x040009F4 RID: 2548
 		public List<SerializedMissileTemplate> MissileTypes = new List<SerializedMissileTemplate>();
-
-		public FleetInfo ConquestInfo = new FleetInfo();
 
 		public void ProcessBattleResults(bool losingTeam = false)
 		{

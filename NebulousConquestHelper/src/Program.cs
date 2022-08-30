@@ -1,5 +1,5 @@
-﻿using Utility;
-using static Ships.DCLockerComponent;
+﻿using System;
+using Utility;
 
 namespace NebulousConquestHelper
 {
@@ -7,12 +7,11 @@ namespace NebulousConquestHelper
 	{
 		static void Main(string[] args)
         {
-			FilePath path = new FilePath("../../../src/data/Conquest - TF Oak.fleet");
-			SerializedConquestFleet fleet = Helper.ReadFleetFile(path);
+			FilePath path = new FilePath("../../../src/data/TestGame.conquest");
+			GameInfo game = (GameInfo)Helper.ReadXMLFile(typeof(GameInfo), path, GameInfo.init);
 
-			// stuff happens here
-
-			Helper.WriteFleetFile(path, fleet);
+			Console.WriteLine(game.Fleets[0].Fleet.Name);
+			Console.WriteLine(game.Fleets[0].Location.Name);
         }
     }
 }
