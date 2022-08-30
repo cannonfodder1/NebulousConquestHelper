@@ -19,6 +19,12 @@ namespace NebulousConquestHelper
 
             if (game == null) return false;
 
+            void initLocation(LocationInfo loc)
+            {
+                loc.PresentFleets = new List<FleetInfo>();
+            }
+            game.System.ForeachLocation(initLocation);
+            
             foreach (FleetInfo fleet in game.Fleets)
             {
                 fleet.Fleet = (SerializedConquestFleet)Helper.ReadXMLFile(
@@ -28,43 +34,14 @@ namespace NebulousConquestHelper
 
                 if (fleet.Fleet == null) return false;
 
-                fleet.Location = game.FindLocationByName(fleet.LocationName);
+                fleet.Location = game.System.FindLocationByName(fleet.LocationName);
 
                 if (fleet.Location == null) return false;
+
+                fleet.Location.PresentFleets.Add(fleet);
             }
 
             return true;
-        }
-
-        public LocationInfo FindLocationByName(string name)
-        {
-            LocationInfo FindLocationByNameInternal(string name, LocationInfo location)
-            {
-                if (location.Name == name)
-                {
-                    return location;
-                }
-
-                foreach (LocationInfo loc in location.OrbitingLocations)
-                {
-                    if (FindLocationByNameInternal(name, loc) != null)
-                    {
-                        return loc;
-                    }
-                }
-
-                return null;
-            }
-
-            foreach (LocationInfo loc in System.OrbitingLocations)
-            {
-                if (FindLocationByNameInternal(name, loc) != null)
-                {
-                    return loc;
-                }
-            }
-
-            return null;
         }
     }
 }

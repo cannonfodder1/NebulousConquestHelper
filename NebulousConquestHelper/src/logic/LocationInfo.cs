@@ -27,6 +27,7 @@ namespace NebulousConquestHelper
         public LocationType Type;
         public List<LocationInfo> OrbitingLocations;
         public List<BeltInfo> SurroundingBelts;
+        public List<FleetInfo> PresentFleets; 
 
         public int GetCurrentDegrees(int daysFromStart)
         {

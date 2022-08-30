@@ -7,7 +7,7 @@ namespace NebulousConquestHelper
 {
     class Helper
 	{
-		public const string DATA_FOLDER_PATH = "../../../src/data/";
+		public const string DATA_FOLDER_PATH = "./src/data/";
         public const string FLEET_FILE_TYPE = ".fleet";
 
 		// extracted from Nebulous.dll with Unity logging removed and heavily modified

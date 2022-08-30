@@ -29,9 +29,11 @@ namespace NebulousConquestHelper
 
 			foreach (LocationInfo loc in game.System.OrbitingLocations)
             {
-				Console.WriteLine(loc.Name);
+				Console.WriteLine(loc.Name + " - " + loc.PresentFleets.Count);
 				Console.WriteLine(loc.OrbitalStartDegrees + " -> " + loc.GetCurrentDegrees(13 * 7));
             }
+
+			// test code above, feel free to remove
 
 			Program program = new Program();
 			program.RunBotAsync().GetAwaiter().GetResult();
