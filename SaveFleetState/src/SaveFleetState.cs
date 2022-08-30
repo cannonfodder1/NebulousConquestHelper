@@ -1,10 +1,8 @@
 ﻿using Game;
 using HarmonyLib;
 using Modding;
-using Ships;
 using Ships.Serialization;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
@@ -27,7 +25,7 @@ namespace SaveFleetState
 
         public static bool SaveFleetToFile(SerializedFleet fleet, string folder)
         {
-            FilePath filePath = new FilePath(fleet.Name + ".conquest", "Saves/Conquest/" + folder);
+            FilePath filePath = new FilePath(fleet.Name + ".fleet", "Saves/States/" + folder);
             Debug.Log("SAVEFLEETSTATE :: Saving fleet state to file: " + filePath.ToString());
             try
             {
@@ -51,22 +49,9 @@ namespace SaveFleetState
         // Thanks to Abrams on the discord for this function
         public static SerializedFleet PrepareSerializedFleet(SerializedFleet fleet)
         {
-            List<SerializedShip> removeShips = new List<SerializedShip>();
             foreach (SerializedShip ship in fleet.Ships)
             {
-                if (ship.SavedState.Eliminated == EliminationReason.Destroyed)
-                {
-                    removeShips.Add(ship);
-                    continue;
-                }
-
-                if (ship.SavedState.Eliminated == EliminationReason.Withdrew)
-                {
-                    ship.SavedState.Eliminated = EliminationReason.NotEliminated;
-                    ship.SavedState.Vaporized = false;
-                    ship.SavedState.LaunchedLifeboats = false;
-                }
-                //serShip.SavedState.Position = Vector3.zero; causes all the ships to collapse in Shooting Gallery
+                // need to keep ship.SavedState.Position, otherwise the Testing Range bugs out, and it doesn't matter on other maps
                 ship.SavedState.AngularVel = Vector3.zero;
                 ship.SavedState.LinearVel = Vector3.zero;
                 ship.SavedState.Throttle = MovementSpeed.Full;
@@ -75,25 +60,8 @@ namespace SaveFleetState
                 ship.SavedState.Rotation = Quaternion.identity;
                 ship.SavedState.Orders = null;
                 ship.SavedState.MoveStyle = MovementStyle.Direct;
-                /*
-                foreach (var ss in fleet.FleetShips)
-                {
-                    if (ss.Key == serShip.Key)
-                    {
-                        serShip.SavedState.DCState = ss.Controller.DCDispatcher.SaveState();
-                        Debug.Log("Found DCState");
-                        break;
-                    }
-                }
-                */
-                //serShip.SavedState.DCState = ship.Controller.DCDispatcher.SaveState(); //is this one used by Mazer?
             }
 
-
-            foreach (var deadShip in removeShips)
-            {
-                fleet.Ships.Remove(deadShip);
-            }
             return fleet;
         }
     }
@@ -114,7 +82,7 @@ namespace SaveFleetState
                     DateTime timestamp = SystemClock.now;
                     SaveFleetState.SaveFleetToFile(
                         skirmishPlayer.PlayerFleet.GetSerializable(true),
-                        /*mapName + " " + */timestamp.ToString("yyyy-dd-M---HH-mm-ss")
+                        timestamp.ToString("yyyy-dd-M---HH-mm-ss")
                         );
                 }
             }

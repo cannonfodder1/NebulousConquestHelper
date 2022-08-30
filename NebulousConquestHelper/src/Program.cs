@@ -8,7 +8,6 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Utility;
-using static Ships.DCLockerComponent;
 
 namespace NebulousConquestHelper
 {
@@ -22,14 +21,11 @@ namespace NebulousConquestHelper
 
 		static void Main(string[] args)
         {
-			FilePath path = new FilePath("../../../src/data/Conquest - TF Oak.fleet");
-			SerializedConquestFleet fleet = Helper.ReadFleetFile(path);
-			fleet.Ships[0].SavedState.Damage.Parts[8].HP = 0;
-			fleet.Ships[0].SavedState.Damage.Parts[8].Destroyed = true;
-			DCLockerState locker = (DCLockerState)fleet.Ships[0].SocketMap[11].ComponentState;
-			locker.RestoresConsumed = 2;
-			fleet.ConquestInfo.CurrentLocation = "Goguen";
-			Helper.WriteFleetFile(path, fleet);
+			FilePath path = new FilePath("../../../src/data/TestGame.conquest");
+			GameInfo game = (GameInfo)Helper.ReadXMLFile(typeof(GameInfo), path, GameInfo.init);
+
+			Console.WriteLine(game.Fleets[0].Fleet.Name);
+			Console.WriteLine(game.Fleets[0].Location.Name);
 
 			Program program = new Program();
 			program.RunBotAsync().GetAwaiter().GetResult();
