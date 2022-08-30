@@ -6,12 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="src\logic\**" />
-    <EmbeddedResource Remove="src\logic\**" />
-    <None Remove="src\logic\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Nebulous">
       <HintPath>lib\Nebulous.dll</HintPath>
     </Reference>

@@ -7,7 +7,7 @@ namespace NebulousConquestHelper
 {
     [XmlType("ConquestInfo")]
     [Serializable]
-    public class SerializedConquestInfo
+    public class FleetInfo
     {
         public string CurrentLocation;
     }
