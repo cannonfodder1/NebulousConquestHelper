@@ -2,3 +2,8 @@
 /NebulousConquestHelper/obj/
 /SaveFleetState/bin/
 /SaveFleetState/obj/
+/NebulousConquestHelper/src/data/config.json
+/obj/
+/bin/
+/out/
+/.vs/
