@@ -18,11 +18,17 @@ namespace NebulousConquestHelper
 		public DiscordClient Client { get; set; }
 		public CommandsNextExtension Commands { get; set; }
 
-
 		static void Main(string[] args)
-        {
-			FilePath path = new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.conquest");
-			GameInfo game = (GameInfo)Helper.ReadXMLFile(typeof(GameInfo), path, GameInfo.init);
+		{
+			Helper.registry = (ComponentRegistry)Helper.ReadXMLFile(
+				typeof(ComponentRegistry),
+				new FilePath(Helper.DATA_FOLDER_PATH + "ComponentRegistry.xml")
+			);
+			GameInfo game = (GameInfo)Helper.ReadXMLFile(
+				typeof(GameInfo), 
+				new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.conquest"), 
+				GameInfo.init
+			);
 
 			// test code below, feel free to remove
 
