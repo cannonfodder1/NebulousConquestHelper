@@ -4,7 +4,6 @@ using DSharpPlus.EventArgs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +31,8 @@ namespace NebulousConquestHelper
 				Console.WriteLine(loc.Name + " - " + loc.PresentFleets.Count);
 				Console.WriteLine(loc.OrbitalStartDegrees + " -> " + loc.GetCurrentDegrees(13 * 7));
             }
+
+			Mapping.CreateSystemMap(game.System);
 
 			// test code above, feel free to remove
 
