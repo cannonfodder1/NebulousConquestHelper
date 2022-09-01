@@ -1,0 +1,12 @@
+{
+    "app_id": "",
+    "app_secret": "",
+    "guild_id": "",
+    "bot_token": "",
+    "events": [
+        {
+            "name": "High Five",
+            "type": 2
+        }
+    ]
+}

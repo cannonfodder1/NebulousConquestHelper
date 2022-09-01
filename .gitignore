@@ -7,3 +7,5 @@
 /bin/
 /out/
 /.vs/
+/scripts/bearer_token.txt
+/scripts/config.json
