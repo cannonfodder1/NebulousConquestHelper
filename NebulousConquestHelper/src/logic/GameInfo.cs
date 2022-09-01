@@ -9,7 +9,14 @@ namespace NebulousConquestHelper
     [Serializable]
     public class GameInfo
     {
+        public enum ConquestTeam
+        {
+            GreenTeam,
+            OrangeTeam
+        }
+
         public string ScenarioName;
+        public List<TeamInfo> Teams;
         public List<FleetInfo> Fleets;
         public SystemInfo System;
 
@@ -19,12 +26,12 @@ namespace NebulousConquestHelper
 
             if (game == null) return false;
 
-            void initLocation(LocationInfo loc)
+            game.System.InitSystem();
+            foreach (LocationInfo loc in game.System.AllLocations)
             {
                 loc.PresentFleets = new List<FleetInfo>();
             }
-            game.System.ForeachLocation(initLocation);
-            
+
             foreach (FleetInfo fleet in game.Fleets)
             {
                 fleet.Fleet = (SerializedConquestFleet)Helper.ReadXMLFile(
@@ -42,6 +49,11 @@ namespace NebulousConquestHelper
             }
 
             return true;
+        }
+
+        public TeamInfo GetTeam(ConquestTeam team)
+        {
+            return team == ConquestTeam.GreenTeam ? Teams[0] : Teams[1];
         }
     }
 }

@@ -11,6 +11,7 @@ namespace NebulousConquestHelper
         public string Name;
         public List<LocationInfo> OrbitingLocations;
         public List<BeltInfo> SurroundingBelts;
+        [XmlIgnore] public List<LocationInfo> AllLocations;
 
         public LocationInfo FindLocationByName(string name)
         {
@@ -43,20 +44,23 @@ namespace NebulousConquestHelper
             return null;
         }
 
-        public void ForeachLocation(Action<LocationInfo> action)
+        public void InitSystem()
         {
-            void ForeachLocationInternal(LocationInfo loc, Action<LocationInfo> action)
+            void InitSystemInternal(LocationInfo loc)
             {
-                action(loc);
+                AllLocations.Add(loc);
+
                 foreach (LocationInfo subloc in loc.OrbitingLocations)
                 {
-                    ForeachLocationInternal(subloc, action);
+                    InitSystemInternal(subloc);
                 }
             }
 
+            AllLocations = new List<LocationInfo>();
+
             foreach (LocationInfo loc in OrbitingLocations)
             {
-                ForeachLocationInternal(loc, action);
+                InitSystemInternal(loc);
             }
         }
     }

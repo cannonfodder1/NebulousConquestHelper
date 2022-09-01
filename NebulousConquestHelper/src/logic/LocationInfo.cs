@@ -10,6 +10,12 @@ namespace NebulousConquestHelper
     {
         public enum LocationType
         {
+            Planet,
+            Station
+        }
+
+        public enum LocationSubType
+        {
             PlanetHabitable,
             PlanetBarren,
             PlanetGaseous,
@@ -24,10 +30,12 @@ namespace NebulousConquestHelper
         public string Name;
         public float OrbitalDistanceAU;
         public int OrbitalStartDegrees;
-        public LocationType Type;
+        public LocationType MainType;
+        public LocationSubType SubType;
+        public GameInfo.ConquestTeam ControllingTeam;
         public List<LocationInfo> OrbitingLocations;
         public List<BeltInfo> SurroundingBelts;
-        public List<FleetInfo> PresentFleets; 
+        [XmlIgnore] public List<FleetInfo> PresentFleets; 
 
         public int GetCurrentDegrees(int daysFromStart)
         {
