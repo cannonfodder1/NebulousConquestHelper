@@ -1,7 +1,10 @@
 ﻿using DSharpPlus;
 using DSharpPlus.CommandsNext;
+using DSharpPlus.CommandsNext.Exceptions;
+using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using Microsoft.Extensions.Logging;
+using NebulousConquestHelper.src.bot;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -51,24 +54,24 @@ namespace NebulousConquestHelper
 
 		public async Task RunBotAsync()
         {
-			var configFileName = "src/data/config.json";
-			var json = "";
+			String configFileName = "src/data/config.json";
+			String json = "";
 			if (!File.Exists(configFileName))
 			{
 				Console.WriteLine("config.json is missing. Copy config.example.json and put in the discord bot token");
 				return;
 			}
-			using (var fs = File.OpenRead(configFileName))
-			using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
+			using (FileStream fs = File.OpenRead(configFileName))
+			using (StreamReader sr = new StreamReader(fs, new UTF8Encoding(false)))
 				json = await sr.ReadToEndAsync();
 
-			var cfgjson = JsonConvert.DeserializeObject<ConfigJson>(json);
+            ConfigJson cfgjson = JsonConvert.DeserializeObject<ConfigJson>(json);
 			if (string.IsNullOrEmpty(cfgjson.Token))
             {
 				Console.WriteLine("Missing token in config");
 				return;
             }
-			var cfg = new DiscordConfiguration
+            DiscordConfiguration cfg = new DiscordConfiguration
 			{
 				Token = cfgjson.Token,
 				TokenType = TokenType.Bot,
@@ -77,13 +80,13 @@ namespace NebulousConquestHelper
 				MinimumLogLevel = LogLevel.Debug,
 			};
 
-			this.Client = new DiscordClient(cfg);
+			Client = new DiscordClient(cfg);
 
-			this.Client.Ready += this.Client_Ready;
-			this.Client.GuildAvailable += this.Client_GuildAvailable;
-            this.Client.ClientErrored += this.Client_ClientErrored;
+			Client.Ready += Client_Ready;
+			Client.GuildAvailable += Client_GuildAvailable;
+            Client.ClientErrored += Client_ClientErrored;
 
-			/*
+			
 			var ccfg = new CommandsNextConfiguration
 			{
 				StringPrefixes = new[] { cfgjson.CommandPrefix },
@@ -91,11 +94,45 @@ namespace NebulousConquestHelper
 				EnableMentionPrefix = true
 			};
 
-			this.Commands = this.Client.UseCommandsNext(ccfg);*/
+			Commands = Client.UseCommandsNext(ccfg);
 
-			await this.Client.ConnectAsync();
+            Commands.CommandExecuted += Commands_CommandExecuted;
+            Commands.CommandErrored += Commands_CommandErrored;
+
+			Commands.RegisterCommands<BotCommands>();
+
+			Commands.SetHelpFormatter<BotHelpFormatter>();
+
+			await Client.ConnectAsync();
 
 			await Task.Delay(-1);
+		}
+
+        private async Task Commands_CommandErrored(CommandsNextExtension sender, CommandErrorEventArgs e)
+		{
+			// Log details
+			e.Context.Client.Logger.LogError(BotEventId, $"{e.Context.User.Username} tried executing '{e.Command?.QualifiedName ?? "<unknown command>"}' but it errored: {e.Exception.GetType()}: {e.Exception.Message ?? "<no message>"}", DateTime.Now);
+
+			// Check for lacking permissions and respond
+			if (e.Exception is ChecksFailedException ex)
+			{
+				var emoji = DiscordEmoji.FromName(e.Context.Client, ":no_entry:");
+
+				var embed = new DiscordEmbedBuilder
+				{
+					Title = "Access denied",
+					Description = $"{emoji} You do not have the permissions required to execute this command.",
+					Color = new DiscordColor(0xFF0000) // red
+				};
+				await e.Context.RespondAsync(embed);
+			}
+		}
+
+        private Task Commands_CommandExecuted(CommandsNextExtension sender, CommandExecutionEventArgs e)
+		{
+			e.Context.Client.Logger.LogInformation(BotEventId, $"{e.Context.User.Username} successfully executed '{e.Command.QualifiedName}'");
+
+			return Task.CompletedTask;
 		}
 
         private Task Client_ClientErrored(DiscordClient sender, ClientErrorEventArgs e)
