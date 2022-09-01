@@ -40,6 +40,9 @@ namespace NebulousConquestHelper
 
 			Mapping.CreateSystemMap(game.System);
 
+			game.Fleets[0].UpdateRestoreCount();
+			game.SaveGame();
+
 			// test code above, feel free to remove
 
 			Program program = new Program();

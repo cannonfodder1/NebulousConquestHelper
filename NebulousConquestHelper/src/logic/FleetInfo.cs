@@ -3,6 +3,7 @@ using Ships.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Utility;
 
 namespace NebulousConquestHelper
 {
@@ -18,6 +19,11 @@ namespace NebulousConquestHelper
 		public int Restores;
 		[XmlIgnore] public SerializedConquestFleet Fleet;
 		[XmlIgnore] public LocationInfo Location;
+
+		public void SaveFleet()
+        {
+			Helper.WriteXMLFile(typeof(SerializedConquestFleet), new FilePath(Helper.DATA_FOLDER_PATH + FleetFileName), Fleet);
+        }
 
 		public void ProcessBattleResults(bool losingTeam = false)
 		{

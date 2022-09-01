@@ -51,6 +51,16 @@ namespace NebulousConquestHelper
             return true;
         }
 
+        public void SaveGame()
+        {
+            foreach (FleetInfo fleet in Fleets)
+            {
+                fleet.SaveFleet();
+            }
+
+            Helper.WriteXMLFile(typeof(GameInfo), new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.conquest"), this);
+        }
+
         public TeamInfo GetTeam(ConquestTeam team)
         {
             return team == ConquestTeam.GreenTeam ? Teams[0] : Teams[1];
