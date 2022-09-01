@@ -10,5 +10,6 @@ namespace NebulousConquestHelper
         public string Name;
         public float MaxHP;
         public float MinHP;
+        public int Restores;
     }
 }

@@ -20,11 +20,10 @@ namespace NebulousConquestHelper
             PlanetBarren,
             PlanetGaseous,
             StationMining,
-            StationFoundry,
+            StationFactory,
             StationCivilian,
-            StationFleetHub,
-            StationFleetDepot,
-            StationFleetShipyard
+            StationMinorRepair,
+            StationMajorRepair
         }
 
         public string Name;

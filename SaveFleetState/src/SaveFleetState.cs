@@ -95,6 +95,7 @@ namespace SaveFleetState
                 ship.SavedState.Rotation = Quaternion.identity;
                 ship.SavedState.Orders = null;
                 ship.SavedState.MoveStyle = MovementStyle.Direct;
+                ship.SavedState.DCState = null;
             }
 
             return fleet;

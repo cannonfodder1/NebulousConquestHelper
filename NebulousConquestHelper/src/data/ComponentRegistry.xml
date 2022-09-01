@@ -30,16 +30,19 @@
       <Name>Stock/Small DC Locker</Name>
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
+      <Restores>1</Restores>
     </ComponentInfo>
     <ComponentInfo>
       <Name>Stock/Reinforced DC Locker</Name>
       <MaxHP>200</MaxHP>
       <MinHP>20</MinHP>
+      <Restores>1</Restores>
     </ComponentInfo>
     <ComponentInfo>
       <Name>Stock/Large DC Locker</Name>
       <MaxHP>150</MaxHP>
       <MinHP>10</MinHP>
+      <Restores>2</Restores>
     </ComponentInfo>
     <ComponentInfo>
       <Name>Stock/Rapid DC Locker</Name>

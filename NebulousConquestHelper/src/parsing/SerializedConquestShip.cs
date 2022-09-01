@@ -18,7 +18,7 @@ namespace NebulousConquestHelper
 		// Token: 0x06000F13 RID: 3859 RVA: 0x00039A6C File Offset: 0x00037C6C
 		public string ComputeHash()
 		{
-			SerializedConquestShip copy = (SerializedConquestShip)base.MemberwiseClone();
+			SerializedConquestShip copy = (SerializedConquestShip)MemberwiseClone();
 			copy.SaveID = null;
 			copy.Key = Guid.Empty;
 			copy.Name = null;
