@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NebulousConquestHelper.src.bot
+namespace NebulousConquestHelper
 {
     public class BotCommands : BaseCommandModule
     {
