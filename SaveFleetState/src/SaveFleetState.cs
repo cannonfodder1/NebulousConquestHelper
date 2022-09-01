@@ -1,9 +1,13 @@
-﻿using Game;
+﻿using Bundles;
+using Game;
 using HarmonyLib;
 using Modding;
+using Ships;
 using Ships.Serialization;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Xml.Serialization;
 using UnityEngine;
 using Utility;
@@ -16,6 +20,37 @@ namespace SaveFleetState
         {
             Harmony harmony = new Harmony("nebulous.save-fleet-state");
             harmony.PatchAll();
+            /*
+            ComponentRegistry registry = new ComponentRegistry();
+            registry.Components = new List<ComponentInfo>();
+            foreach (HullComponent comp in BundleManager.Instance.AllComponents)
+            {
+                ComponentInfo info = new ComponentInfo();
+                FieldInfo field1 = typeof(HullPart).GetField("_maxHealth", BindingFlags.NonPublic | BindingFlags.Instance);
+                FieldInfo field2 = typeof(HullPart).GetField("_functioningThreshold", BindingFlags.NonPublic | BindingFlags.Instance);
+
+                info.Name = comp.SaveKey;
+                info.MaxHP = (float)field1.GetValue(comp);
+                info.MinHP = (float)field2.GetValue(comp);
+                registry.Components.Add(info);
+            }
+
+            FilePath filePath = new FilePath("ComponentRegistry.xml", "Saves/States");
+            try
+            {
+                filePath.CreateDirectoryIfNeeded();
+                using (FileStream stream = new FileStream(filePath.RelativePath, FileMode.Create))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(ComponentRegistry));
+                    serializer.Serialize(stream, registry);
+                    stream.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+            */
         }
 
         public void PreLoad()

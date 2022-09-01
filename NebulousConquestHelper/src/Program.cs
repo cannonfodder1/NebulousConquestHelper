@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using NebulousConquestHelper.src.bot;
 using Newtonsoft.Json;
 using System;
-using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,11 +21,17 @@ namespace NebulousConquestHelper
 		public DiscordClient Client { get; set; }
 		public CommandsNextExtension Commands { get; set; }
 
-
 		static void Main(string[] args)
-        {
-			FilePath path = new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.conquest");
-			GameInfo game = (GameInfo)Helper.ReadXMLFile(typeof(GameInfo), path, GameInfo.init);
+		{
+			Helper.registry = (ComponentRegistry)Helper.ReadXMLFile(
+				typeof(ComponentRegistry),
+				new FilePath(Helper.DATA_FOLDER_PATH + "ComponentRegistry.xml")
+			);
+			GameInfo game = (GameInfo)Helper.ReadXMLFile(
+				typeof(GameInfo), 
+				new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.conquest"), 
+				GameInfo.init
+			);
 
 			// test code below, feel free to remove
 
@@ -35,6 +40,8 @@ namespace NebulousConquestHelper
 				Console.WriteLine(loc.Name + " - " + loc.PresentFleets.Count);
 				Console.WriteLine(loc.OrbitalStartDegrees + " -> " + loc.GetCurrentDegrees(13 * 7));
             }
+
+			Mapping.CreateSystemMap(game.System);
 
 			// test code above, feel free to remove
 
