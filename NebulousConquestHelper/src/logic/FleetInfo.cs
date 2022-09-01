@@ -20,6 +20,21 @@ namespace NebulousConquestHelper
 		[XmlIgnore] public SerializedConquestFleet Fleet;
 		[XmlIgnore] public LocationInfo Location;
 
+		public FleetInfo() { }
+
+		public FleetInfo(string fleetFileName, string locationName)
+        {
+			FleetFileName = fleetFileName;
+			LocationName = locationName;
+
+			Fleet = (SerializedConquestFleet)Helper.ReadXMLFile(
+				typeof(SerializedConquestFleet),
+				new FilePath(Helper.DATA_FOLDER_PATH + fleetFileName)
+			);
+
+			UpdateRestoreCount();
+		}
+
 		public void SaveFleet()
         {
 			Helper.WriteXMLFile(typeof(SerializedConquestFleet), new FilePath(Helper.DATA_FOLDER_PATH + FleetFileName), Fleet);
@@ -78,6 +93,34 @@ namespace NebulousConquestHelper
 			Restores = totalRestores;
 		}
 
+		public int GetRestoreCapacity()
+		{
+			if (DC_LOCKER_COMPONENTS.Count < 4)
+			{
+				string prefix = "Stock/";
+				DC_LOCKER_COMPONENTS.Clear();
+				DC_LOCKER_COMPONENTS.Add(prefix + "Rapid DC Locker");
+				DC_LOCKER_COMPONENTS.Add(prefix + "Small DC Locker");
+				DC_LOCKER_COMPONENTS.Add(prefix + "Large DC Locker");
+				DC_LOCKER_COMPONENTS.Add(prefix + "Reinforced DC Locker");
+			}
+
+			int totalRestores = 0;
+
+			foreach (SerializedConquestShip ship in Fleet.Ships)
+			{
+				foreach (SerializedHullSocket socket in ship.SocketMap)
+				{
+					if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
+					{
+						totalRestores += Helper.registry.Components.Find(x => x.Name == socket.ComponentName).Restores;
+					}
+				}
+			}
+
+			return totalRestores;
+		}
+
 		public static bool IsShipMobile(SerializedConquestShip ship)
 		{
 			if (MAIN_DRIVE_COMPONENTS.Count < 11)
@@ -118,7 +161,7 @@ namespace NebulousConquestHelper
             return false;
         }
 
-        public static int GetShipRestores(SerializedConquestShip ship)
+		public static int GetShipRestores(SerializedConquestShip ship)
 		{
 			if (DC_LOCKER_COMPONENTS.Count < 4)
 			{

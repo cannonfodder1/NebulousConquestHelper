@@ -20,7 +20,7 @@ namespace NebulousConquestHelper
         public List<FleetInfo> Fleets;
         public SystemInfo System;
 
-        public static bool init(object loaded)
+        public static bool Init(object loaded)
         {
             GameInfo game = (GameInfo)loaded;
 
@@ -49,6 +49,16 @@ namespace NebulousConquestHelper
             }
 
             return true;
+        }
+
+        public void CreateNewFleet(string fleetFileName, string locationName)
+        {
+            FleetInfo newFleet = new FleetInfo(fleetFileName, locationName);
+
+            newFleet.Location = System.FindLocationByName(locationName);
+            newFleet.Location.PresentFleets.Add(newFleet);
+
+            Fleets.Add(newFleet);
         }
 
         public void SaveGame()

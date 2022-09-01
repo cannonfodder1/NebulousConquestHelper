@@ -4,7 +4,6 @@ using DSharpPlus.CommandsNext.Exceptions;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using Microsoft.Extensions.Logging;
-using NebulousConquestHelper.src.bot;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -23,17 +22,19 @@ namespace NebulousConquestHelper
 
 		static void Main(string[] args)
 		{
+			// test code below, feel free to remove
+
 			Helper.registry = (ComponentRegistry)Helper.ReadXMLFile(
 				typeof(ComponentRegistry),
 				new FilePath(Helper.DATA_FOLDER_PATH + "ComponentRegistry.xml")
 			);
 			GameInfo game = (GameInfo)Helper.ReadXMLFile(
-				typeof(GameInfo), 
-				new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.conquest"), 
-				GameInfo.init
+				typeof(GameInfo),
+				new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.scenario"),
+				GameInfo.Init
 			);
 
-			// test code below, feel free to remove
+			game.CreateNewFleet("Conquest - TF Oak.fleet", "Badnarik");
 
 			foreach (LocationInfo loc in game.System.OrbitingLocations)
             {
@@ -43,7 +44,6 @@ namespace NebulousConquestHelper
 
 			Mapping.CreateSystemMap(game.System);
 
-			game.Fleets[0].UpdateRestoreCount();
 			game.SaveGame();
 
 			// test code above, feel free to remove
