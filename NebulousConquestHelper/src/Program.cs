@@ -46,12 +46,12 @@ namespace NebulousConquestHelper
 			// test code above, feel free to remove
 
 			Program program = new Program();
+			program.DiscordBot = new Bot(game);
 			program.RunBot();
         }
 
         private void RunBot()
         {
-			DiscordBot = new Bot();
 			DiscordBot.RunBotAsync().GetAwaiter().GetResult();
         }
     }

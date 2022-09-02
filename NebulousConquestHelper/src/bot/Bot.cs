@@ -19,7 +19,13 @@ namespace NebulousConquestHelper
 
         public DiscordClient Client { get; set; }
         public CommandsNextExtension Commands { get; set; }
+		
+		public GameInfo Game { get; set; }	
 
+		public Bot(GameInfo game)
+        {
+			Game = game;
+        }
 
 		public async Task RunBotAsync()
 		{
@@ -99,11 +105,15 @@ namespace NebulousConquestHelper
 
             try
             {
-				using (FileStream fs = new FileStream(Helper.DATA_FOLDER_PATH + "SystemMap.png", FileMode.Open, FileAccess.Read))
+				if (e.Interaction.Data.Name == "map")
 				{
-					await e.Interaction.CreateFollowupMessageAsync(new DiscordFollowupMessageBuilder()
-						.WithContent("Here is the map for the current game state:")
-						.AddFile("SystemMap.png", fs));
+					Mapping.CreateSystemMap(Game.System);
+					using (FileStream fs = new FileStream(Helper.DATA_FOLDER_PATH + "SystemMap.png", FileMode.Open, FileAccess.Read))
+					{
+						await e.Interaction.CreateFollowupMessageAsync(new DiscordFollowupMessageBuilder()
+							.WithContent("Here is the map for the current game state:")
+							.AddFile("SystemMap.png", fs));
+					}
 				}
 			}
             catch (Exception ex)
