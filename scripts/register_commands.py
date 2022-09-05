@@ -17,6 +17,9 @@ try:
     bot_token = data["bot_token"]
     app_id = data["app_id"]
     guild_id = data["guild_id"]
+
+    f = open("events.json")
+    data = json.loads(f.read())
     events = data["events"]
 except Exception as ex:
     print("Failed to open file %s" %ex)

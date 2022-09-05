@@ -1,0 +1,9 @@
+{
+    "events": [
+        {
+            "name": "map",
+            "description": "Show the system map",
+            "type": 1
+        }
+    ]
+}

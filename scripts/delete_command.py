@@ -22,8 +22,6 @@ except Exception as ex:
 
 bearer_token = ''
 
-url = "https://discord.com/api/v10/applications/%s/guilds/%s/commands" %(app_id, guild_id)
-
 if exists("bearer_token.txt") == False:
     print("Missing token file. Run 'get_token.py'")
     exit()
