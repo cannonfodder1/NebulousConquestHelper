@@ -8,9 +8,9 @@ namespace NebulousConquestHelper
 {
     public class Mapping
     {
-        private const int CANVAS_LENGTH = 1024;
-        private const int CANVAS_HEIGHT = 1024;
-        private const int PIXELS_PER_AU = 128;
+        public const int CANVAS_LENGTH = 1024;
+        public const int CANVAS_HEIGHT = 1024;
+        public const int PIXELS_PER_AU = 128;
         private const int DIAMETER_STAR = 32;
         private const int DIAMETER_PLANET = 16;
 
@@ -33,6 +33,13 @@ namespace NebulousConquestHelper
         {
             return new Rectangle(point.X - (length / 2), point.Y - (height / 2), length, height);
         }
+        
+        private static Point PixelsFromAU(PointF point)
+        {
+            float x = CANVAS_LENGTH / 2 + (point.X * PIXELS_PER_AU);
+            float y = CANVAS_HEIGHT / 2 + (point.Y * PIXELS_PER_AU);
+            return new Point((int)x, (int)y);
+        }
 
         private static void DrawCaption(Graphics map, string caption, Point textPos, int offset = 0)
         {
@@ -50,14 +57,6 @@ namespace NebulousConquestHelper
                 Brushes.White,
                 new Point(textX, textY)
             );
-        }
-
-        public static Point GetLocationCoordinates(LocationInfo loc, int daysFromStart)
-        {
-            double radians = loc.GetCurrentDegrees(daysFromStart) * (Math.PI / 180);
-            double planetX = Math.Sin(radians) * loc.OrbitalDistanceAU * PIXELS_PER_AU;
-            double planetY = Math.Cos(radians) * loc.OrbitalDistanceAU * PIXELS_PER_AU * -1;
-            return new Point((int)(CANVAS_LENGTH / 2 + planetX), (int)(CANVAS_HEIGHT / 2 + planetY));
         }
 
         public static void CreateSystemMap(SystemInfo star, int daysFromStart = 0)
@@ -82,7 +81,7 @@ namespace NebulousConquestHelper
             foreach (LocationInfo planet in star.OrbitingLocations)
             {
                 map.DrawEllipse(Pens.Blue, RectangleAround(Centre(), (int)(planet.OrbitalDistanceAU * PIXELS_PER_AU * 2)));
-                Point planetPos = GetLocationCoordinates(planet, daysFromStart);
+                Point planetPos = PixelsFromAU(planet.GetCoordinates(daysFromStart));
                 Brush planetColour = planet.ControllingTeam == GameInfo.ConquestTeam.GreenTeam ? Brushes.Green : Brushes.OrangeRed;
                 map.FillEllipse(planetColour, RectangleAround(planetPos, DIAMETER_PLANET));
             }
@@ -94,7 +93,7 @@ namespace NebulousConquestHelper
 
             foreach (LocationInfo planet in star.OrbitingLocations)
             {
-                Point planetPos = GetLocationCoordinates(planet, daysFromStart);
+                Point planetPos = PixelsFromAU(planet.GetCoordinates(daysFromStart));
                 DrawCaption(map, planet.Name, planetPos, DIAMETER_PLANET / 2);
             }
 

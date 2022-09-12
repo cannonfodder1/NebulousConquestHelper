@@ -35,11 +35,17 @@ namespace NebulousConquestHelper
 
 			foreach (LocationInfo loc in game.System.OrbitingLocations)
             {
-				Console.WriteLine(loc.Name + " - " + loc.PresentFleets.Count);
-				Console.WriteLine(loc.OrbitalStartDegrees + " -> " + loc.GetCurrentDegrees(13 * 7));
+				Console.WriteLine(loc.Name + " - " + loc.PresentFleets.Count + " Fleets");
             }
 
-			Mapping.CreateSystemMap(game.System);
+			game.Fleets[0].IssueMoveOrder("Satanaze");
+			GameInfo.ConquestTurnError error;
+			for (int i = 0; i < 21; i++)
+			{
+				game.Advance(out error);
+			}
+
+			Mapping.CreateSystemMap(game.System, game.DaysPassed);
 
 			game.SaveGame();
 

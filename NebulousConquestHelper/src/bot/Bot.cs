@@ -100,14 +100,14 @@ namespace NebulousConquestHelper
             catch (Exception ex)
             {
 				Client.Logger.LogError(BotEventId, "Exception when responding to interaction");
-                throw;
+                throw ex;
             }
 
             try
             {
 				if (e.Interaction.Data.Name == "map")
 				{
-					Mapping.CreateSystemMap(Game.System);
+					Mapping.CreateSystemMap(Game.System, Game.DaysPassed);
 					using (FileStream fs = new FileStream(Helper.DATA_FOLDER_PATH + "SystemMap.png", FileMode.Open, FileAccess.Read))
 					{
 						await e.Interaction.CreateFollowupMessageAsync(new DiscordFollowupMessageBuilder()
@@ -121,6 +121,7 @@ namespace NebulousConquestHelper
 				await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, 
 					new DiscordInteractionResponseBuilder()
 					.WithContent("Failed to retrieve map"));
+				throw ex;
             }
         }
 

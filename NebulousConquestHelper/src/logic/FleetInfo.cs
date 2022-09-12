@@ -11,12 +11,40 @@ namespace NebulousConquestHelper
     [Serializable]
     public class FleetInfo
 	{
+		public enum FleetOrderType
+		{
+			[XmlEnum] None,
+			[XmlEnum] Move,
+			[XmlEnum] Idle,
+			[XmlEnum] InTransit
+		}
+
+		public class FleetOrderData
+		{
+			public string MoveToLocation;
+			public bool DefendNearby;
+
+            public FleetOrderData() { }
+			
+            public FleetOrderData(string destination)
+            {
+				MoveToLocation = destination;
+            }
+
+            public FleetOrderData(bool defend)
+            {
+				DefendNearby = defend;
+            }
+        }
+
 		private static List<string> MAIN_DRIVE_COMPONENTS = new List<string>();
 		private static List<string> DC_LOCKER_COMPONENTS = new List<string>();
 
 		public string FleetFileName;
         public string LocationName;
 		public int Restores;
+		public FleetOrderType OrderType = FleetOrderType.None;
+		public FleetOrderData OrderData = null;
 		[XmlIgnore] public SerializedConquestFleet Fleet;
 		[XmlIgnore] public LocationInfo Location;
 
@@ -121,7 +149,7 @@ namespace NebulousConquestHelper
 			return totalRestores;
 		}
 
-		public static bool IsShipMobile(SerializedConquestShip ship)
+        public static bool IsShipMobile(SerializedConquestShip ship)
 		{
 			if (MAIN_DRIVE_COMPONENTS.Count < 11)
 			{
@@ -191,5 +219,22 @@ namespace NebulousConquestHelper
 
 			return initialRestores - expendedRestores;
         }
+
+		public void IssueMoveOrder(string destination)
+        {
+			OrderType = FleetOrderType.Move;
+			OrderData = new FleetOrderData(destination);
+		}
+
+		public void IssueIdleOrder(bool defend)
+		{
+			OrderType = FleetOrderType.Idle;
+			OrderData = new FleetOrderData(defend);
+		}
+
+		public bool ReadyToAdvanceTurn()
+		{
+			return OrderType != FleetOrderType.None && OrderData != null;
+		}
 	}
 }
