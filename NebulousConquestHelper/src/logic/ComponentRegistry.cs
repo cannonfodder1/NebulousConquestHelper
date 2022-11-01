@@ -8,6 +8,6 @@ namespace NebulousConquestHelper
     [Serializable]
     public class ComponentRegistry
     {
-        public List<ComponentInfo> Components;
+        public List<Component> Components;
     }
 }

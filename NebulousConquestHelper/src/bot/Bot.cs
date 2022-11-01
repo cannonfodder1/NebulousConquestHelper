@@ -20,9 +20,9 @@ namespace NebulousConquestHelper
         public DiscordClient Client { get; set; }
         public CommandsNextExtension Commands { get; set; }
 		
-		public GameInfo Game { get; set; }	
+		public Game Game { get; set; }	
 
-		public Bot(GameInfo game)
+		public Bot(Game game)
         {
 			Game = game;
         }

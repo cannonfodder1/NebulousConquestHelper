@@ -7,9 +7,9 @@ using Utility;
 
 namespace NebulousConquestHelper
 {
-    [XmlType("FleetInfo")]
+    [XmlType("Fleet")]
     [Serializable]
-    public class FleetInfo
+    public class Fleet
 	{
 		public enum FleetOrderType
 		{
@@ -43,36 +43,46 @@ namespace NebulousConquestHelper
 		public string FleetFileName;
         public string LocationName;
 		public int Restores;
+		public int Fuel;
+		public Game.ConquestTeam ControllingTeam;
 		public FleetOrderType OrderType = FleetOrderType.None;
 		public FleetOrderData OrderData = null;
-		[XmlIgnore] public SerializedConquestFleet Fleet;
-		[XmlIgnore] public LocationInfo Location;
+		[XmlIgnore] public SerializedConquestFleet FleetXML;
+		[XmlIgnore] public Location Location;
 
-		public FleetInfo() { }
+		public Fleet() { }
 
-		public FleetInfo(string fleetFileName, string locationName)
+		public Fleet(string fleetFileName, string locationName, Game.ConquestTeam team)
         {
 			FleetFileName = fleetFileName;
 			LocationName = locationName;
+			ControllingTeam = team;
 
-			Fleet = (SerializedConquestFleet)Helper.ReadXMLFile(
-				typeof(SerializedConquestFleet),
-				new FilePath(Helper.DATA_FOLDER_PATH + fleetFileName)
-			);
+			UpdateFromFile();
 
 			UpdateRestoreCount();
 		}
 
+		public void UpdateFromFile()
+		{
+			FleetXML = (SerializedConquestFleet)Helper.ReadXMLFile(
+				typeof(SerializedConquestFleet),
+				new FilePath(Helper.DATA_FOLDER_PATH + FleetFileName)
+			);
+		}
+
 		public void SaveFleet()
         {
-			Helper.WriteXMLFile(typeof(SerializedConquestFleet), new FilePath(Helper.DATA_FOLDER_PATH + FleetFileName), Fleet);
+			Helper.WriteXMLFile(typeof(SerializedConquestFleet), new FilePath(Helper.DATA_FOLDER_PATH + FleetFileName), FleetXML);
         }
 
 		public void ProcessBattleResults(bool losingTeam = false)
 		{
+			UpdateFromFile();
+
 			List<SerializedConquestShip> removeShips = new List<SerializedConquestShip>();
 
-			foreach (SerializedConquestShip ship in Fleet.Ships)
+			foreach (SerializedConquestShip ship in FleetXML.Ships)
 			{
 				if (losingTeam)
 				{
@@ -103,7 +113,7 @@ namespace NebulousConquestHelper
 
 			foreach (var deadShip in removeShips)
 			{
-				Fleet.Ships.Remove(deadShip);
+				FleetXML.Ships.Remove(deadShip);
 			}
 
 			UpdateRestoreCount();
@@ -113,7 +123,7 @@ namespace NebulousConquestHelper
 		{
 			int totalRestores = 0;
 
-			foreach (SerializedConquestShip ship in Fleet.Ships)
+			foreach (SerializedConquestShip ship in FleetXML.Ships)
 			{
 				totalRestores += GetShipRestores(ship);
 			}
@@ -135,13 +145,13 @@ namespace NebulousConquestHelper
 
 			int totalRestores = 0;
 
-			foreach (SerializedConquestShip ship in Fleet.Ships)
+			foreach (SerializedConquestShip ship in FleetXML.Ships)
 			{
 				foreach (SerializedHullSocket socket in ship.SocketMap)
 				{
 					if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
 					{
-						totalRestores += Helper.registry.Components.Find(x => x.Name == socket.ComponentName).Restores;
+						totalRestores += Helper.Registry.Components.Find(x => x.Name == socket.ComponentName).Restores;
 					}
 				}
 			}
@@ -151,6 +161,8 @@ namespace NebulousConquestHelper
 
         public static bool IsShipMobile(SerializedConquestShip ship)
 		{
+			if (ship.SavedState == null) return true;
+
 			if (MAIN_DRIVE_COMPONENTS.Count < 11)
 			{
 				string prefix = "Stock/";
@@ -176,7 +188,7 @@ namespace NebulousConquestHelper
                     {
                         if (part.Key == socket.Key)
                         {
-                            ComponentInfo component = Helper.registry.Components.Find(x => x.Name == socket.ComponentName);
+                            Component component = Helper.Registry.Components.Find(x => x.Name == socket.ComponentName);
                             if (!part.Destroyed && part.HP >= component.MinHP)
                             {
 								return true;
@@ -208,8 +220,8 @@ namespace NebulousConquestHelper
 			{
 				if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
 				{
-					initialRestores += Helper.registry.Components.Find(x => x.Name == socket.ComponentName).Restores;
-					if (socket.ComponentState is DCLockerComponent.DCLockerState)
+					initialRestores += Helper.Registry.Components.Find(x => x.Name == socket.ComponentName).Restores;
+					if (socket.ComponentState != null && socket.ComponentState is DCLockerComponent.DCLockerState)
 					{
 						DCLockerComponent.DCLockerState locker = (DCLockerComponent.DCLockerState)socket.ComponentState;
 						expendedRestores += (int)locker.RestoresConsumed;
@@ -232,9 +244,56 @@ namespace NebulousConquestHelper
 			OrderData = new FleetOrderData(defend);
 		}
 
-		public bool ReadyToAdvanceTurn()
+		public int GetFuelConsumption()
+        {
+			int total = 0;
+
+			foreach (SerializedConquestShip ship in FleetXML.Ships)
+            {
+				switch (ship.HullType)
+				{
+					case "Stock/Sprinter Corvette":
+						total += 3;
+						break;
+					case "Stock/Raines Frigate":
+						total += 5;
+						break;
+					case "Stock/Keystone Destroyer":
+						total += 8;
+						break;
+					case "Stock/Vauxhall Light Cruiser":
+						total += 10;
+						break;
+					case "Stock/Axford Heavy Cruiser":
+						total += 13;
+						break;
+					case "Stock/Solomon Battleship":
+						total += 21;
+						break;
+					default:
+						Console.WriteLine("ERROR! Unknown Hull Type: " + ship.HullType);
+						total += ship.Cost / 100;
+						break;
+				}
+            }
+
+			return total;
+        }
+		/*
+		public int GetFoodConsumption()
 		{
-			return OrderType != FleetOrderType.None && OrderData != null;
+			int total = 0;
+
+			foreach (SerializedConquestShip ship in FleetXML.Ships)
+			{
+				foreach (SerializedHullSocket socket in ship.SocketMap)
+				{
+					total += Helper.Registry.Components.Find(x => x.Name == socket.ComponentName).Crew;
+				}
+			}
+
+			return total;
 		}
+		*/
 	}
 }

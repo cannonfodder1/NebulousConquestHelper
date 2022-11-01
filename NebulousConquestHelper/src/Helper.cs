@@ -10,7 +10,7 @@ namespace NebulousConquestHelper
 		public const string DATA_FOLDER_PATH = "./src/data/";
         public const string FLEET_FILE_TYPE = ".fleet";
 
-		public static ComponentRegistry registry;
+		public static ComponentRegistry Registry;
 
 		// extracted from Nebulous.dll with Unity logging removed and heavily modified
 		public static object ReadXMLFile(Type type, FilePath path, Func<object, bool> postLoadInit = null)

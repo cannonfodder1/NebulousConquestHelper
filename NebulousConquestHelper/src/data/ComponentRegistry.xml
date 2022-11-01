@@ -1,428 +1,593 @@
 <?xml version="1.0"?>
 <ComponentRegistry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Components>
-    <ComponentInfo>
+    <Component>
       <Name>Stock/Basic CIC</Name>
       <MaxHP>200</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>20</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Reinforced CIC</Name>
       <MaxHP>200</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>20</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Citadel CIC</Name>
       <MaxHP>400</MaxHP>
       <MinHP>20</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>40</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Auxiliary Steering</Name>
       <MaxHP>150</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>5</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Berthing</Name>
       <MaxHP>50</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Small DC Locker</Name>
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
-      <Restores>1</Restores>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Reinforced DC Locker</Name>
       <MaxHP>200</MaxHP>
       <MinHP>20</MinHP>
-      <Restores>1</Restores>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Large DC Locker</Name>
       <MaxHP>150</MaxHP>
       <MinHP>10</MinHP>
-      <Restores>2</Restores>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>15</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Rapid DC Locker</Name>
       <MaxHP>70</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>5</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Damage Control Central</Name>
       <MaxHP>125</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Small Workshop</Name>
       <MaxHP>75</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Bulk Magazine</Name>
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Reinforced Magazine</Name>
       <MaxHP>150</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Gun Plotting Center</Name>
       <MaxHP>100</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>30</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Battle Dressing Station</Name>
       <MaxHP>125</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>8</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Analysis Annex</Name>
       <MaxHP>100</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>20</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Intelligence Center</Name>
       <MaxHP>200</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>45</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Plant Control Center</Name>
       <MaxHP>100</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>15</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Strike Planning Center</Name>
       <MaxHP>100</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>20</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM200 Drive</Name>
       <MaxHP>250</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM200R Drive</Name>
       <MaxHP>500</MaxHP>
       <MinHP>25</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM230 'Whiplash' Drive</Name>
       <MaxHP>250</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM240 'Dragonfly' Drive</Name>
       <MaxHP>250</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM280 'Raider' Drive</Name>
       <MaxHP>250</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM30X 'Prowler' Drive</Name>
       <MaxHP>200</MaxHP>
       <MinHP>30</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM500 Drive</Name>
       <MaxHP>1000</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM500R Drive</Name>
       <MaxHP>1500</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM530 'Whiplash' Drive</Name>
       <MaxHP>1000</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM540 'Dragonfly' Drive</Name>
       <MaxHP>1000</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FM580 'Raider' Drive</Name>
       <MaxHP>1000</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FR3300 Micro Reactor</Name>
       <MaxHP>200</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>5</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/FR4800 Reactor</Name>
       <MaxHP>300</MaxHP>
       <MinHP>50</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Small Reactor Booster</Name>
       <MaxHP>40</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Adaptive Radar Receiver</Name>
       <MaxHP>40</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Track Correlator</Name>
       <MaxHP>40</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mount Gyros</Name>
       <MaxHP>40</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Supplementary Radio Amplifiers</Name>
       <MaxHP>40</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Launcher Deluge System</Name>
       <MaxHP>75</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Magazine Sprinklers</Name>
       <MaxHP>75</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Redundant Reactor Failsafes</Name>
       <MaxHP>75</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Reinforced Thruster Nozzles</Name>
       <MaxHP>50</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Energy Regulator</Name>
       <MaxHP>100</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Small Energy Regulator</Name>
       <MaxHP>75</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Focused Particle Accelerator</Name>
       <MaxHP>150</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Ammunition Elevators</Name>
       <MaxHP>100</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Actively Cooled Amplifiers</Name>
       <MaxHP>40</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Missile Programming Bus</Name>
       <MaxHP>80</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Missile Programming Bus Array</Name>
       <MaxHP>100</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Missile Parallel Interface</Name>
       <MaxHP>100</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/RS35 'Frontline' Radar</Name>
       <MaxHP>200</MaxHP>
       <MinHP>30</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/RS41 'Spyglass' Radar</Name>
       <MaxHP>200</MaxHP>
       <MinHP>30</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/RM50 'Parallax' Radar</Name>
       <MaxHP>300</MaxHP>
       <MinHP>30</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/CR10 Antenna</Name>
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/CR70 Antenna</Name>
       <MaxHP>250</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk61 Cannon</Name>
       <MaxHP>150</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>4</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk62 Cannon</Name>
       <MaxHP>150</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>8</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk64 Cannon</Name>
       <MaxHP>225</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>15</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk66 Cannon</Name>
       <MaxHP>350</MaxHP>
       <MinHP>30</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>25</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk68 Cannon</Name>
       <MaxHP>450</MaxHP>
       <MinHP>30</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>40</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk81 Railgun</Name>
       <MaxHP>300</MaxHP>
       <MinHP>30</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>15</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk82 Railgun</Name>
       <MaxHP>400</MaxHP>
       <MinHP>30</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>25</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk550 Mass Driver</Name>
       <MaxHP>450</MaxHP>
       <MinHP>20</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>15</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk600 Beam Cannon</Name>
       <MaxHP>450</MaxHP>
       <MinHP>20</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>15</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk610 Beam Turret</Name>
       <MaxHP>400</MaxHP>
       <MinHP>30</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>20</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/VLS-2 Launcher</Name>
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/VLS-3 Launcher</Name>
       <MaxHP>175</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/CLS-3 Launcher</Name>
       <MaxHP>175</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/VLS-1-23 Launcher</Name>
       <MaxHP>75</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/VLS-1-46 Launcher</Name>
       <MaxHP>125</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk20 'Defender' PDT</Name>
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>3</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk25 'Rebound' PDT</Name>
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>3</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk29 'Stonewall' PDT</Name>
       <MaxHP>150</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>5</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk90 'Aurora' PDT</Name>
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk95 'Sarissa' PDT</Name>
       <MaxHP>150</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>4</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/ES22 'Pinard' Electronic Support Module</Name>
       <MaxHP>50</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/ES32 'Scryer' Missile ID System</Name>
       <MaxHP>150</MaxHP>
       <MinHP>15</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/E55 'Spotlight' Illuminator</Name>
       <MaxHP>75</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/E57 'Floodlight' Illuminator</Name>
       <MaxHP>75</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/E71 'Hangup' Jammer</Name>
       <MaxHP>75</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/E70 'Interruption' Jammer</Name>
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/E90 'Blanket' Jammer</Name>
       <MaxHP>75</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/RF101 'Bullseye' Radar</Name>
       <MaxHP>70</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/E15 'Masquerade' Signature Booster</Name>
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
-    <ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Signature Scrambler</Name>
       <MaxHP>50</MaxHP>
       <MinHP>10</MinHP>
-    </ComponentInfo>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
   </Components>
 </ComponentRegistry>

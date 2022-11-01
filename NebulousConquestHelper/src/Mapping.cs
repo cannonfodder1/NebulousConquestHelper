@@ -13,6 +13,7 @@ namespace NebulousConquestHelper
         public const int PIXELS_PER_AU = 128;
         private const int DIAMETER_STAR = 32;
         private const int DIAMETER_PLANET = 16;
+        private const int DIAMETER_STATION = 8;
 
         private static Point Centre()
         {
@@ -59,17 +60,17 @@ namespace NebulousConquestHelper
             );
         }
 
-        public static void CreateSystemMap(SystemInfo star, int daysFromStart = 0)
+        public static void CreateSystemMap(System star, int daysFromStart = 0)
         {
             Image img = Image.FromFile(Helper.DATA_FOLDER_PATH + "canvas.png");
             Graphics map = Graphics.FromImage(img);
 
             map.Clear(Color.Navy);
 
-            List<BeltInfo> belts = star.SurroundingBelts;
+            List<Belt> belts = star.SurroundingBelts;
             belts.Sort();
 
-            foreach (BeltInfo belt in belts)
+            foreach (Belt belt in belts)
             {
                 Brush beltColour = belt.NearEdgeDistanceAU <= 2.00f ? Brushes.DarkGoldenrod : Brushes.LightSkyBlue;
                 map.FillEllipse(beltColour, RectangleAround(Centre(), (int)(belt.FarEdgeDistanceAU * PIXELS_PER_AU * 2)));
@@ -78,23 +79,36 @@ namespace NebulousConquestHelper
 
             map.FillEllipse(Brushes.LightGoldenrodYellow, RectangleAround(Centre(), DIAMETER_STAR));
             
-            foreach (LocationInfo planet in star.OrbitingLocations)
+            foreach (Location planet in star.OrbitingLocations)
             {
                 map.DrawEllipse(Pens.Blue, RectangleAround(Centre(), (int)(planet.OrbitalDistanceAU * PIXELS_PER_AU * 2)));
                 Point planetPos = PixelsFromAU(planet.GetCoordinates(daysFromStart));
-                Brush planetColour = planet.ControllingTeam == GameInfo.ConquestTeam.GreenTeam ? Brushes.Green : Brushes.OrangeRed;
+                Brush planetColour = planet.ControllingTeam == Game.ConquestTeam.GreenTeam ? Brushes.Green : Brushes.OrangeRed;
                 map.FillEllipse(planetColour, RectangleAround(planetPos, DIAMETER_PLANET));
+
+                foreach (Location station in planet.LagrangeLocations)
+                {
+                    Point stationPos = PixelsFromAU(station.GetCoordinates(daysFromStart));
+                    Brush stationColour = station.ControllingTeam == Game.ConquestTeam.GreenTeam ? Brushes.Green : Brushes.OrangeRed;
+                    map.FillRectangle(stationColour, RectangleAround(stationPos, DIAMETER_STATION));
+                }
             }
 
-            foreach (BeltInfo belt in belts)
+            foreach (Belt belt in belts)
             {
                 DrawCaption(map, belt.Name, new Point((int)(belt.FarEdgeDistanceAU * PIXELS_PER_AU + (CANVAS_LENGTH / 2)), CANVAS_HEIGHT / 2));
             }
 
-            foreach (LocationInfo planet in star.OrbitingLocations)
+            foreach (Location planet in star.OrbitingLocations)
             {
                 Point planetPos = PixelsFromAU(planet.GetCoordinates(daysFromStart));
                 DrawCaption(map, planet.Name, planetPos, DIAMETER_PLANET / 2);
+
+                foreach (Location station in planet.LagrangeLocations)
+                {
+                    Point stationPos = PixelsFromAU(station.GetCoordinates(daysFromStart));
+                    DrawCaption(map, station.Name, stationPos, DIAMETER_STATION / 2);
+                }
             }
 
             img.Save(Helper.DATA_FOLDER_PATH + "SystemMap.png", ImageFormat.Png);

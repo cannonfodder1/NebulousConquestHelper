@@ -7,9 +7,13 @@ namespace NebulousConquestHelper
 {
     [XmlType("ConquestGame")]
     [Serializable]
-    public class GameInfo
+    public class Game
     {
         private const double AU_PER_DAY = 0.2;
+        private const int WP_PLANET_TAKEN = 6;
+        private const int WP_STATION_TAKEN = 3;
+        private const int WP_PER_SHIP = 1;
+        private const int WP_PERFECT_MULT = 2;
 
         public enum ConquestTeam
         {
@@ -27,7 +31,9 @@ namespace NebulousConquestHelper
         {
             NONE,
             PHASE,
-            FLEET
+            FLEET_NEEDS_ORDER,
+            FLEET_NEEDS_FUEL,
+            BATTLE
         }
 
         public struct ConquestMovingFleet
@@ -50,32 +56,34 @@ namespace NebulousConquestHelper
         }
 
         public string ScenarioName;
-        public List<TeamInfo> Teams;
-        public List<FleetInfo> Fleets;
-        public SystemInfo System;
+        public List<Team> Teams;
+        public List<Fleet> Fleets;
+        public System System;
         public int DaysPassed = 0;
+        public int WarProgress = 50;
         public ConquestTurnData TurnData = new ConquestTurnData();
+        public List<string> BattleLocations = new List<string>();
 
         public static bool Init(object loaded)
         {
-            GameInfo game = (GameInfo)loaded;
+            Game game = (Game)loaded;
 
             if (game == null) return false;
 
             game.System.InitSystem();
-            foreach (LocationInfo loc in game.System.AllLocations)
+            foreach (Location loc in game.System.AllLocations)
             {
-                loc.PresentFleets = new List<FleetInfo>();
+                loc.PresentFleets = new List<Fleet>();
             }
 
-            foreach (FleetInfo fleet in game.Fleets)
+            foreach (Fleet fleet in game.Fleets)
             {
-                fleet.Fleet = (SerializedConquestFleet)Helper.ReadXMLFile(
+                fleet.FleetXML = (SerializedConquestFleet)Helper.ReadXMLFile(
                     typeof(SerializedConquestFleet),
                     new FilePath(Helper.DATA_FOLDER_PATH + fleet.FleetFileName + Helper.FLEET_FILE_TYPE)
                 );
 
-                if (fleet.Fleet == null) return false;
+                if (fleet.FleetXML == null) return false;
 
                 fleet.Location = game.System.FindLocationByName(fleet.LocationName);
 
@@ -96,9 +104,9 @@ namespace NebulousConquestHelper
             return true;
         }
 
-        public void CreateNewFleet(string fleetFileName, string locationName)
+        public void CreateNewFleet(string fleetFileName, string locationName, ConquestTeam team)
         {
-            FleetInfo newFleet = new FleetInfo(fleetFileName, locationName);
+            Fleet newFleet = new Fleet(fleetFileName, locationName, team);
 
             newFleet.Location = System.FindLocationByName(locationName);
             newFleet.Location.PresentFleets.Add(newFleet);
@@ -108,15 +116,15 @@ namespace NebulousConquestHelper
 
         public void SaveGame()
         {
-            foreach (FleetInfo fleet in Fleets)
+            foreach (Fleet fleet in Fleets)
             {
                 fleet.SaveFleet();
             }
 
-            Helper.WriteXMLFile(typeof(GameInfo), new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.conquest"), this);
+            Helper.WriteXMLFile(typeof(Game), new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.conquest"), this);
         }
 
-        public TeamInfo GetTeam(ConquestTeam team)
+        public Team GetTeam(ConquestTeam team)
         {
             return team == ConquestTeam.GreenTeam ? Teams[0] : Teams[1];
         }
@@ -138,12 +146,34 @@ namespace NebulousConquestHelper
                 error = ConquestTurnError.PHASE;
                 return false;
             }
-            foreach (FleetInfo fleet in Fleets)
+
+            if (BattleLocations.Count > 0)
             {
-                if (!fleet.ReadyToAdvanceTurn())
+                error = ConquestTurnError.BATTLE;
+                return false;
+            }
+
+            foreach (Fleet fleet in Fleets)
+            {
+                if (fleet.OrderType == Fleet.FleetOrderType.None || fleet.OrderData == null)
                 {
-                    error = ConquestTurnError.FLEET;
+                    error = ConquestTurnError.FLEET_NEEDS_ORDER;
                     return false;
+                }
+
+                if (fleet.OrderType == Fleet.FleetOrderType.Move)
+                {
+                    Location depart = System.FindLocationByName(fleet.LocationName);
+                    Location arrive = System.FindLocationByName(fleet.OrderData.MoveToLocation);
+                    double distance = depart.GetDistanceTo(arrive, DaysPassed);
+                    int travelTime = (int)(distance / AU_PER_DAY);
+                    if (distance % AU_PER_DAY != 0) travelTime++;
+                    
+                    if (fleet.Fuel < fleet.GetFuelConsumption() * travelTime)
+                    {
+                        error = ConquestTurnError.FLEET_NEEDS_FUEL;
+                        return false;
+                    }
                 }
             }
 
@@ -175,30 +205,36 @@ namespace NebulousConquestHelper
                     }
                 }
 
-                foreach (FleetInfo fleet in Fleets)
+                foreach (Fleet fleet in Fleets)
                 {
-                    if (fleet.OrderType == FleetInfo.FleetOrderType.Idle && fleet.OrderData.DefendNearby)
+                    if (fleet.OrderType == Fleet.FleetOrderType.Idle && fleet.OrderData.DefendNearby)
                     {
-                        TurnData.responseFleets.Add(fleet.Fleet.Name);
+                        TurnData.responseFleets.Add(fleet.FleetXML.Name);
                     }
-                    else if (fleet.OrderType == FleetInfo.FleetOrderType.Move)
+                    else if (fleet.OrderType == Fleet.FleetOrderType.Move)
                     {
-                        LocationInfo depart = System.FindLocationByName(fleet.LocationName);
-                        LocationInfo arrive = System.FindLocationByName(fleet.OrderData.MoveToLocation);
+                        Location depart = System.FindLocationByName(fleet.LocationName);
+                        Location arrive = System.FindLocationByName(fleet.OrderData.MoveToLocation);
                         double distance = depart.GetDistanceTo(arrive, DaysPassed);
                         int travelTime = (int)(distance / AU_PER_DAY);
                         if (distance % AU_PER_DAY != 0) travelTime++;
                         if (travelTime <= 7)
                         {
-                            TurnData.arrivingSoon[travelTime-1].Add(fleet.Fleet.Name);
+                            TurnData.arrivingSoon[travelTime-1].Add(fleet.FleetXML.Name);
                         }
                         else
                         {
                             Console.WriteLine("Fleet Ordered to Move - Arriving In " + travelTime + " Days");
-                            TurnData.arrivingLater.Add(new ConquestMovingFleet(fleet.Fleet.Name, travelTime));
+                            TurnData.arrivingLater.Add(new ConquestMovingFleet(fleet.FleetXML.Name, travelTime));
                         }
-                        fleet.OrderType = FleetInfo.FleetOrderType.InTransit;
+                        fleet.OrderType = Fleet.FleetOrderType.InTransit;
+                        fleet.Fuel -= fleet.GetFuelConsumption() * travelTime;
                     }
+                }
+                
+                foreach (Location loc in System.AllLocations)
+                {
+                    loc.AdvanceTurn();
                 }
 
                 AdvanceDay();
@@ -219,14 +255,18 @@ namespace NebulousConquestHelper
             Console.WriteLine("Advancing Day: " + daysSinceTasking);
             foreach (string fleetName in TurnData.arrivingSoon[daysSinceTasking - 1])
             {
-                FleetInfo fleet = Fleets.Find(x => x.Fleet.Name == fleetName);
+                Fleet fleet = Fleets.Find(x => x.FleetXML.Name == fleetName);
                 Console.WriteLine(" - Fleet Arriving: " + fleetName);
                 fleet.LocationName = fleet.OrderData.MoveToLocation;
                 fleet.Location.PresentFleets.Remove(fleet);
                 fleet.Location = System.FindLocationByName(fleet.LocationName);
                 fleet.Location.PresentFleets.Add(fleet);
-                fleet.OrderType = FleetInfo.FleetOrderType.None;
+                fleet.OrderType = Fleet.FleetOrderType.None;
                 fleet.OrderData = null;
+                if (fleet.Location.PresentFleets.FindIndex(x => x.ControllingTeam != fleet.ControllingTeam) != -1 && !BattleLocations.Contains(fleet.LocationName))
+                {
+                    BattleLocations.Add(fleet.LocationName);
+                }
             }
             TurnData.arrivingSoon[daysSinceTasking - 1].Clear();
             return true;
@@ -236,6 +276,43 @@ namespace NebulousConquestHelper
         {
             error = ConquestTurnError.NONE;
             return GetPhase() == ConquestPhase.TaskingPhase ? AdvanceTurn(out error) : AdvanceDay();
+        }
+
+        public void ResolveBattle(string location, ConquestTeam winner)
+        {
+            // should only be called after .fleet files are updated with generated post-battle states
+
+            int winnerShipsBefore = 0;
+            int winnerShipsAfter = 0;
+            int loserShipsBefore = 0;
+            int loserShipsAfter = 0;
+
+            foreach (Fleet fleet in System.FindLocationByName(location).PresentFleets)
+            {
+                if (fleet.ControllingTeam == winner)
+                {
+                    winnerShipsBefore += fleet.FleetXML.Ships.Count;
+                    fleet.ProcessBattleResults(false);
+                    winnerShipsAfter += fleet.FleetXML.Ships.Count;
+                }
+                else
+                {
+                    loserShipsBefore += fleet.FleetXML.Ships.Count;
+                    fleet.ProcessBattleResults(true);
+                    loserShipsAfter += fleet.FleetXML.Ships.Count;
+                }
+            }
+
+            int winnerShipsLost = winnerShipsBefore - winnerShipsAfter;
+            int loserShipsLost = loserShipsBefore - loserShipsAfter;
+            
+            int reward = System.FindLocationByName(location).MainType == Location.LocationType.Planet ? WP_PLANET_TAKEN : WP_STATION_TAKEN;
+            if (winnerShipsLost < 1) reward = reward * WP_PERFECT_MULT;
+            reward = reward + (loserShipsLost * WP_PER_SHIP);
+            reward = reward - (winnerShipsLost * WP_PER_SHIP);
+
+            WarProgress = winner == ConquestTeam.GreenTeam ? WarProgress - reward : WarProgress + reward;
+            BattleLocations.Remove(location);
         }
     }
 }

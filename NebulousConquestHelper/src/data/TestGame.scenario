@@ -2,78 +2,86 @@
 <ConquestGame xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ScenarioName>Graznovian Conflict</ScenarioName>
   <Teams>
-    <TeamInfo>
+    <Team>
       <ShortName>Alliance</ShortName>
       <LongName>Shelter Alliance</LongName>
-    </TeamInfo>
-    <TeamInfo>
+      <MaximumTransportCapacity>500</MaximumTransportCapacity>
+    </Team>
+    <Team>
       <ShortName>Federation</ShortName>
       <LongName>Graznovian Federation</LongName>
-    </TeamInfo>
+      <MaximumTransportCapacity>500</MaximumTransportCapacity>
+    </Team>
   </Teams>
   <System>
     <Name>Camlaan Tarl</Name>
     <OrbitingLocations>
-      <LocationInfo>
+      <Location>
         <Name>Hui Xing</Name>
+        <Code>CT1</Code>
         <MainType>Planet</MainType>
         <SubType>PlanetGaseous</SubType>
         <ControllingTeam>GreenTeam</ControllingTeam>
         <OrbitalDistanceAU>0.80</OrbitalDistanceAU>
         <OrbitalStartDegrees>0</OrbitalStartDegrees>
-      </LocationInfo>
-      <LocationInfo>
+      </Location>
+      <Location>
         <Name>Badnarik</Name>
+        <Code>CT2</Code>
         <MainType>Planet</MainType>
         <SubType>PlanetHabitable</SubType>
         <ControllingTeam>OrangeTeam</ControllingTeam>
         <OrbitalDistanceAU>1.10</OrbitalDistanceAU>
         <OrbitalStartDegrees>270</OrbitalStartDegrees>
-      </LocationInfo>
-      <LocationInfo>
+      </Location>
+      <Location>
         <Name>Druj</Name>
+        <Code>CT3</Code>
         <MainType>Planet</MainType>
         <SubType>PlanetBarren</SubType>
         <ControllingTeam>GreenTeam</ControllingTeam>
         <OrbitalDistanceAU>1.40</OrbitalDistanceAU>
         <OrbitalStartDegrees>135</OrbitalStartDegrees>
-      </LocationInfo>
-      <LocationInfo>
+      </Location>
+      <Location>
         <Name>Sphinx</Name>
+        <Code>CT4</Code>
         <MainType>Planet</MainType>
         <SubType>PlanetHabitable</SubType>
         <ControllingTeam>GreenTeam</ControllingTeam>
         <OrbitalDistanceAU>1.70</OrbitalDistanceAU>
         <OrbitalStartDegrees>90</OrbitalStartDegrees>
-      </LocationInfo>
-      <LocationInfo>
+      </Location>
+      <Location>
         <Name>Mazurten</Name>
+        <Code>CT5</Code>
         <MainType>Planet</MainType>
         <SubType>PlanetBarren</SubType>
         <ControllingTeam>OrangeTeam</ControllingTeam>
         <OrbitalDistanceAU>2.00</OrbitalDistanceAU>
         <OrbitalStartDegrees>315</OrbitalStartDegrees>
-      </LocationInfo>
-      <LocationInfo>
+      </Location>
+      <Location>
         <Name>Satanaze</Name>
+        <Code>CT6</Code>
         <MainType>Planet</MainType>
         <SubType>PlanetGaseous</SubType>
         <ControllingTeam>OrangeTeam</ControllingTeam>
         <OrbitalDistanceAU>3.20</OrbitalDistanceAU>
         <OrbitalStartDegrees>180</OrbitalStartDegrees>
-      </LocationInfo>
+      </Location>
     </OrbitingLocations>
     <SurroundingBelts>
-      <BeltInfo>
+      <Belt>
         <Name>Kolven's Disk</Name>
         <NearEdgeDistanceAU>0.30</NearEdgeDistanceAU>
         <FarEdgeDistanceAU>0.70</FarEdgeDistanceAU>
-      </BeltInfo>
-      <BeltInfo>
+      </Belt>
+      <Belt>
         <Name>Kulantai Belt</Name>
         <NearEdgeDistanceAU>2.45</NearEdgeDistanceAU>
         <FarEdgeDistanceAU>2.75</FarEdgeDistanceAU>
-      </BeltInfo>
+      </Belt>
     </SurroundingBelts>
   </System>
 </ConquestGame>

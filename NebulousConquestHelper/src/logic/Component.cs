@@ -3,13 +3,14 @@ using System.Xml.Serialization;
 
 namespace NebulousConquestHelper
 {
-    [XmlType("ComponentInfo")]
+    [XmlType("Component")]
     [Serializable]
-    public class ComponentInfo
+    public class Component
     {
         public string Name;
         public float MaxHP;
         public float MinHP;
+        public int Crew;
         public int Restores;
     }
 }
