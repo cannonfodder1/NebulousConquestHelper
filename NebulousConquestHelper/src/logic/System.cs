@@ -28,6 +28,10 @@ namespace NebulousConquestHelper
                 {
                     InitSystemInternal(subloc);
                 }
+                foreach (Location subloc in loc.LagrangeLocations)
+                {
+                    InitSystemInternal(subloc);
+                }
             }
 
             AllLocations = new List<Location>();
