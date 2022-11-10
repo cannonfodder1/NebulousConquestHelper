@@ -11,6 +11,8 @@ namespace NebulousConquestHelper
     [Serializable]
     public class Fleet
 	{
+		private const int MAXIMUM_DAYS_OF_FUEL = 20;
+
 		public enum FleetOrderType
 		{
 			[XmlEnum] None,
@@ -119,6 +121,19 @@ namespace NebulousConquestHelper
 			UpdateRestoreCount();
 		}
 
+		private static void InitializeDamconComponents()
+		{
+			if (DC_LOCKER_COMPONENTS.Count < 4)
+			{
+				string prefix = "Stock/";
+				DC_LOCKER_COMPONENTS.Clear();
+				DC_LOCKER_COMPONENTS.Add(prefix + "Rapid DC Locker");
+				DC_LOCKER_COMPONENTS.Add(prefix + "Small DC Locker");
+				DC_LOCKER_COMPONENTS.Add(prefix + "Large DC Locker");
+				DC_LOCKER_COMPONENTS.Add(prefix + "Reinforced DC Locker");
+			}
+		}
+
 		public void UpdateRestoreCount()
 		{
 			int totalRestores = 0;
@@ -133,15 +148,7 @@ namespace NebulousConquestHelper
 
 		public int GetRestoreCapacity()
 		{
-			if (DC_LOCKER_COMPONENTS.Count < 4)
-			{
-				string prefix = "Stock/";
-				DC_LOCKER_COMPONENTS.Clear();
-				DC_LOCKER_COMPONENTS.Add(prefix + "Rapid DC Locker");
-				DC_LOCKER_COMPONENTS.Add(prefix + "Small DC Locker");
-				DC_LOCKER_COMPONENTS.Add(prefix + "Large DC Locker");
-				DC_LOCKER_COMPONENTS.Add(prefix + "Reinforced DC Locker");
-			}
+			InitializeDamconComponents();
 
 			int totalRestores = 0;
 
@@ -202,37 +209,31 @@ namespace NebulousConquestHelper
         }
 
 		public static int GetShipRestores(SerializedConquestShip ship)
-		{
-			if (DC_LOCKER_COMPONENTS.Count < 4)
-			{
-				string prefix = "Stock/";
-				DC_LOCKER_COMPONENTS.Clear();
-				DC_LOCKER_COMPONENTS.Add(prefix + "Rapid DC Locker");
-				DC_LOCKER_COMPONENTS.Add(prefix + "Small DC Locker");
-				DC_LOCKER_COMPONENTS.Add(prefix + "Large DC Locker");
-				DC_LOCKER_COMPONENTS.Add(prefix + "Reinforced DC Locker");
-			}
+        {
+            InitializeDamconComponents();
 
-			int initialRestores = 0;
-			int expendedRestores = 0;
+            int initialRestores = 0;
+            int expendedRestores = 0;
 
-			foreach (SerializedHullSocket socket in ship.SocketMap)
-			{
-				if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
+            foreach (SerializedHullSocket socket in ship.SocketMap)
+            {
+                if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
 				{
 					initialRestores += Helper.Registry.Components.Find(x => x.Name == socket.ComponentName).Restores;
+					//Console.WriteLine("ADDING RESTORES: " + initialRestores);
 					if (socket.ComponentState != null && socket.ComponentState is DCLockerComponent.DCLockerState)
-					{
-						DCLockerComponent.DCLockerState locker = (DCLockerComponent.DCLockerState)socket.ComponentState;
-						expendedRestores += (int)locker.RestoresConsumed;
+                    {
+                        DCLockerComponent.DCLockerState locker = (DCLockerComponent.DCLockerState)socket.ComponentState;
+                        expendedRestores += (int)locker.RestoresConsumed;
+						//Console.WriteLine("NIXING RESTORES: " + expendedRestores);
 					}
-				}
-			}
+                }
+            }
 
-			return initialRestores - expendedRestores;
+            return initialRestores - expendedRestores;
         }
 
-		public void IssueMoveOrder(string destination)
+        public void IssueMoveOrder(string destination)
         {
 			OrderType = FleetOrderType.Move;
 			OrderData = new FleetOrderData(destination);
@@ -279,21 +280,56 @@ namespace NebulousConquestHelper
 
 			return total;
         }
-		/*
-		public int GetFoodConsumption()
-		{
-			int total = 0;
 
-			foreach (SerializedConquestShip ship in FleetXML.Ships)
+		public int GetFuelCapacity()
+		{
+			return GetFuelConsumption() * MAXIMUM_DAYS_OF_FUEL;
+		}
+
+		public void RestockFromLocation(bool restockFuel = true, bool restockRestores = true)
+		{
+			if (Location.ControllingTeam != ControllingTeam)
 			{
-				foreach (SerializedHullSocket socket in ship.SocketMap)
-				{
-					total += Helper.Registry.Components.Find(x => x.Name == socket.ComponentName).Crew;
-				}
+				Console.WriteLine("ERROR! Fleet attempting to restock from location of opposite team: " + Location.Name);
+				return;
 			}
 
-			return total;
+			if (restockFuel && Location.Resources.Exists(x => (x.Type == ResourceType.Fuel) && (x.Stockpile > 0)))
+			{
+				Resource resource = Location.Resources.Find(x => (x.Type == ResourceType.Fuel) && (x.Stockpile > 0));
+				int amount = Math.Min(resource.Stockpile, GetFuelCapacity() - Fuel);
+				resource.Stockpile -= amount;
+				Fuel += amount;
+			}
+			if (restockRestores && Location.Resources.Exists(x => (x.Type == ResourceType.Restores) && (x.Stockpile > 0)))
+			{
+				Resource resource = Location.Resources.Find(x => (x.Type == ResourceType.Restores) && (x.Stockpile > 0));
+				int amount = resource.Stockpile;
+				InitializeDamconComponents();
+
+				foreach (SerializedConquestShip ship in FleetXML.Ships)
+				{
+					if (amount == 0) break;
+					foreach (SerializedHullSocket socket in ship.SocketMap)
+					{
+						if (amount == 0) break;
+						if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
+						{
+							int totalRestores = Helper.Registry.Components.Find(x => x.Name == socket.ComponentName).Restores;
+							if (socket.ComponentState != null && socket.ComponentState is DCLockerComponent.DCLockerState)
+							{
+								DCLockerComponent.DCLockerState locker = (DCLockerComponent.DCLockerState)socket.ComponentState;
+								int restocked = Math.Min(amount, (int)locker.RestoresConsumed);
+								locker.RestoresConsumed -= (uint)restocked;
+								amount -= restocked;
+							}
+						}
+					}
+				}
+
+				resource.Stockpile = amount;
+				UpdateRestoreCount();
+			}
 		}
-		*/
 	}
 }

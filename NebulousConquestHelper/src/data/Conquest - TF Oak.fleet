@@ -235,7 +235,7 @@
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
             <Debuffs />
-            <RestoresConsumed>0</RestoresConsumed>
+            <RestoresConsumed>2</RestoresConsumed>
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -318,7 +318,7 @@
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
             <Debuffs />
-            <RestoresConsumed>0</RestoresConsumed>
+            <RestoresConsumed>1</RestoresConsumed>
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1091,7 +1091,7 @@
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
             <Debuffs />
-            <RestoresConsumed>0</RestoresConsumed>
+            <RestoresConsumed>2</RestoresConsumed>
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1100,7 +1100,7 @@
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
             <Debuffs />
-            <RestoresConsumed>0</RestoresConsumed>
+            <RestoresConsumed>2</RestoresConsumed>
           </ComponentState>
         </HullSocket>
         <HullSocket>
@@ -1174,7 +1174,7 @@
           <ComponentState xsi:type="DCLockerState">
             <NextDebuffID>3</NextDebuffID>
             <Debuffs />
-            <RestoresConsumed>0</RestoresConsumed>
+            <RestoresConsumed>1</RestoresConsumed>
           </ComponentState>
         </HullSocket>
         <HullSocket>

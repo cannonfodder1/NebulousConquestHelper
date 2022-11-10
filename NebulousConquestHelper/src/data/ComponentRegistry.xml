@@ -41,21 +41,21 @@
       <MaxHP>100</MaxHP>
       <MinHP>10</MinHP>
       <Crew>10</Crew>
-      <Restores>0</Restores>
+      <Restores>1</Restores>
     </Component>
     <Component>
       <Name>Stock/Reinforced DC Locker</Name>
       <MaxHP>200</MaxHP>
       <MinHP>20</MinHP>
       <Crew>10</Crew>
-      <Restores>0</Restores>
+      <Restores>1</Restores>
     </Component>
     <Component>
       <Name>Stock/Large DC Locker</Name>
       <MaxHP>150</MaxHP>
       <MinHP>10</MinHP>
       <Crew>15</Crew>
-      <Restores>0</Restores>
+      <Restores>2</Restores>
     </Component>
     <Component>
       <Name>Stock/Rapid DC Locker</Name>

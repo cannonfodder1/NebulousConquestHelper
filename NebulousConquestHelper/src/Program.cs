@@ -22,21 +22,17 @@ namespace NebulousConquestHelper
 			);
 
 			SetupSystemResources(game.System);
-			/*
-			game.CreateNewFleet("Conquest - TF Oak.fleet", "Badnarik", Game.ConquestTeam.GreenTeam);
 
-			foreach (Location loc in game.System.OrbitingLocations)
-			{
-				Console.WriteLine(loc.Name + " - " + loc.PresentFleets.Count + " Fleets");
-			}
+			game.CreateNewFleet("Conquest - TF Oak.fleet", "Sph-L4", Game.ConquestTeam.GreenTeam);
 
-			game.System.FindLocationByName("Hui Xing").Resources.Add(new Resource(ResourceType.Fuel, 0, 100, 0));
-			game.System.FindLocationByName("Hui Xing").Resources.Add(new Resource(ResourceType.Parts, 7, 0, 5));
+			Console.WriteLine("Fuel: " + game.Fleets[0].Fuel);
+			Console.WriteLine("Restores: " + game.Fleets[0].Restores);
 
-			game.Fleets[0].Fuel = 1000;
-			game.Fleets[0].IssueMoveOrder("Satanaze");
+			game.Fleets[0].RestockFromLocation();
+			game.Fleets[0].IssueMoveOrder("Sat-L3");
+
 			Game.ConquestTurnError error;
-			for (int i = 0; i < 21; i++)
+			for (int i = 0; i < 14; i++)
 			{
 				game.Advance(out error);
 				if (error != Game.ConquestTurnError.NONE)
@@ -46,9 +42,10 @@ namespace NebulousConquestHelper
 				}
 			}
 
-			Console.WriteLine(game.Fleets[0].Fuel);
-			Console.WriteLine(game.System.FindLocationByName("Hui Xing").Resources[0].Stockpile);
-			*/
+			Console.WriteLine("Fuel: " + game.Fleets[0].Fuel);
+			Console.WriteLine("Restores: " + game.Fleets[0].Restores);
+			Console.WriteLine(game.System.FindLocationByName("Sph-L4").PrintResources());
+
 			Mapping.CreateSystemMap("SystemMap_Overview.png", game.System, game.DaysPassed, false, false);
 			Mapping.CreateSystemMap("SystemMap_Situation.png", game.System, game.DaysPassed, true, false);
 			Mapping.CreateSystemMap("SystemMap_Logistics.png", game.System, game.DaysPassed, true, true);

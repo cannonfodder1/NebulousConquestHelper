@@ -127,5 +127,22 @@ namespace NebulousConquestHelper
                 res.Produce(satisfaction);
             }
         }
+
+        public string PrintResources()
+        {
+            string print = Name + " Resource Report" + "\n";
+
+            foreach (Resource resource in Resources)
+            {
+                print += "  " + resource.Type.ToString() + ":\n";
+                print += "    Pile = " + resource.Stockpile + "\n";
+                if (resource.Production > 0) print += "    Prod = " + resource.Production + "\n";
+                if (resource.Consumption > 0) print += "    Cons = " + resource.Consumption + "\n";
+            }
+
+            print = print.Substring(0, print.Length - 1);
+
+            return print;
+        }
     }
 }
