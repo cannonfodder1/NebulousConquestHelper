@@ -37,9 +37,11 @@ namespace NebulousConquestHelper
         
         private static Point PixelsFromAU(PointF point)
         {
-            float x = CANVAS_LENGTH / 2 + (point.X * PIXELS_PER_AU);
-            float y = CANVAS_HEIGHT / 2 + (point.Y * PIXELS_PER_AU);
-            return new Point((int)x, (int)y);
+            float x = point.X * PIXELS_PER_AU;
+            if (point.X % 1 > 0.5) x++;
+            float y = point.Y * PIXELS_PER_AU;
+            if (point.Y % 1 > 0.5) y++;
+            return new Point((int)((CANVAS_LENGTH / 2) + x), (int)((CANVAS_LENGTH / 2) + y));
         }
 
         private static void DrawCaption(Graphics map, string caption, Point textPos, int offset = 0)
@@ -60,7 +62,30 @@ namespace NebulousConquestHelper
             );
         }
 
-        public static void CreateSystemMap(System star, int daysFromStart = 0)
+        private static Brush GetColourForType(Location.LocationSubType type)
+        {
+            switch (type)
+            {
+                case Location.LocationSubType.PlanetHabitable:
+                    return Brushes.Green;
+                case Location.LocationSubType.PlanetGaseous:
+                    return Brushes.Purple;
+                case Location.LocationSubType.PlanetBarren:
+                    return Brushes.LightGray;
+                case Location.LocationSubType.StationMining:
+                    return Brushes.OrangeRed;
+                case Location.LocationSubType.StationFactoryParts:
+                    return Brushes.White;
+                case Location.LocationSubType.StationFactoryRestores:
+                    return Brushes.White;
+                case Location.LocationSubType.StationSupplyDepot:
+                    return Brushes.Aqua;
+            }
+
+            return Brushes.Black;
+        }
+
+        public static void CreateSystemMap(string fileName, System star, int daysFromStart = 0, bool showStations = false, bool showTypes = false)
         {
             Image img = Image.FromFile(Helper.DATA_FOLDER_PATH + "canvas.png");
             Graphics map = Graphics.FromImage(img);
@@ -84,19 +109,21 @@ namespace NebulousConquestHelper
                 map.DrawEllipse(Pens.Blue, RectangleAround(Centre(), (int)(planet.OrbitalDistanceAU * PIXELS_PER_AU * 2)));
                 Point planetPos = PixelsFromAU(planet.GetCoordinates(daysFromStart));
                 Brush planetColour = planet.ControllingTeam == Game.ConquestTeam.GreenTeam ? Brushes.Green : Brushes.OrangeRed;
+                if (showTypes) planetColour = GetColourForType(planet.SubType);
                 map.FillEllipse(planetColour, RectangleAround(planetPos, DIAMETER_PLANET));
 
                 foreach (Location station in planet.LagrangeLocations)
                 {
                     Point stationPos = PixelsFromAU(station.GetCoordinates(daysFromStart));
                     Brush stationColour = station.ControllingTeam == Game.ConquestTeam.GreenTeam ? Brushes.Green : Brushes.OrangeRed;
+                    if (showTypes) stationColour = GetColourForType(station.SubType);
                     map.FillRectangle(stationColour, RectangleAround(stationPos, DIAMETER_STATION));
                 }
             }
 
             foreach (Belt belt in belts)
             {
-                DrawCaption(map, belt.Name, new Point((int)(belt.FarEdgeDistanceAU * PIXELS_PER_AU + (CANVAS_LENGTH / 2)), CANVAS_HEIGHT / 2));
+                if (!showStations) DrawCaption(map, belt.Name, new Point((int)(belt.FarEdgeDistanceAU * PIXELS_PER_AU + (CANVAS_LENGTH / 2)), CANVAS_HEIGHT / 2));
             }
 
             foreach (Location planet in star.OrbitingLocations)
@@ -107,11 +134,11 @@ namespace NebulousConquestHelper
                 foreach (Location station in planet.LagrangeLocations)
                 {
                     Point stationPos = PixelsFromAU(station.GetCoordinates(daysFromStart));
-                    DrawCaption(map, station.Name, stationPos, DIAMETER_STATION / 2);
+                    if (showStations) DrawCaption(map, station.Name, stationPos, DIAMETER_STATION / 2);
                 }
             }
 
-            img.Save(Helper.DATA_FOLDER_PATH + "SystemMap.png", ImageFormat.Png);
+            img.Save(Helper.DATA_FOLDER_PATH + fileName, ImageFormat.Png);
         }
     }
 }

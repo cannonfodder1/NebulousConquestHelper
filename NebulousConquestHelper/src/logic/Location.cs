@@ -17,14 +17,16 @@ namespace NebulousConquestHelper
 
         public enum LocationSubType
         {
-            PlanetHabitable,
-            PlanetBarren,
-            PlanetGaseous,
-            StationMining,
-            StationFactory,
-            StationCivilian,
-            StationMinorRepair,
-            StationMajorRepair
+            PlanetHabitable,        // 2x, Polymers+++ Fuel+ Metals+
+            PlanetBarren,           // 2x, Rares+++ Polymers+ Metals+
+            PlanetGaseous,          // 2x, Fuel+++ Rares+ Metals+
+            StationMining,          // 4x, Metals+++
+            StationFactoryParts,    // 4x, Metals--- Polymers- Parts++
+            StationFactoryRestores, // 4x, Parts- Rares-- Polymers- Restores+
+            StationSupplyDepot      // 6x,
+                                    // Repairs:  Metals--- Restores-
+                                    // Missiles: Rares- Parts-
+                                    // Ammo:     Metals- Rares-
         }
 
         public string Name;
@@ -45,9 +47,10 @@ namespace NebulousConquestHelper
             Location loc = new Location();
             loc.SubType = type;
 
-            loc.Name = Code + "-L" + lagIndex;
+            loc.Name = Name.Substring(0, 3) + "-L" + lagIndex;
             loc.MainType = LocationType.Station;
             loc.OrbitalDistanceAU = OrbitalDistanceAU;
+            loc.ControllingTeam = ControllingTeam;
 
             if (lagIndex == 3)
             {

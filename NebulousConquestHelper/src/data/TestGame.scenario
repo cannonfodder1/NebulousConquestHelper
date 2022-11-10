@@ -19,56 +19,230 @@
       <Location>
         <Name>Hui Xing</Name>
         <Code>CT1</Code>
+        <OrbitalDistanceAU>0.8</OrbitalDistanceAU>
+        <OrbitalStartDegrees>0</OrbitalStartDegrees>
         <MainType>Planet</MainType>
         <SubType>PlanetGaseous</SubType>
         <ControllingTeam>GreenTeam</ControllingTeam>
-        <OrbitalDistanceAU>0.80</OrbitalDistanceAU>
-        <OrbitalStartDegrees>0</OrbitalStartDegrees>
+        <Resources />
+        <OrbitingLocations />
+        <LagrangeLocations>
+          <Location>
+            <Name>Hui-L3</Name>
+            <OrbitalDistanceAU>0.8</OrbitalDistanceAU>
+            <OrbitalStartDegrees>180</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationSupplyDepot</SubType>
+            <ControllingTeam>GreenTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Hui-L4</Name>
+            <OrbitalDistanceAU>0.8</OrbitalDistanceAU>
+            <OrbitalStartDegrees>300</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationMining</SubType>
+            <ControllingTeam>GreenTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Hui-L5</Name>
+            <OrbitalDistanceAU>0.8</OrbitalDistanceAU>
+            <OrbitalStartDegrees>60</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationMining</SubType>
+            <ControllingTeam>GreenTeam</ControllingTeam>
+          </Location>
+        </LagrangeLocations>
+        <SurroundingBelts />
       </Location>
       <Location>
         <Name>Badnarik</Name>
         <Code>CT2</Code>
+        <OrbitalDistanceAU>1.1</OrbitalDistanceAU>
+        <OrbitalStartDegrees>270</OrbitalStartDegrees>
         <MainType>Planet</MainType>
         <SubType>PlanetHabitable</SubType>
         <ControllingTeam>OrangeTeam</ControllingTeam>
-        <OrbitalDistanceAU>1.10</OrbitalDistanceAU>
-        <OrbitalStartDegrees>270</OrbitalStartDegrees>
+        <Resources />
+        <OrbitingLocations />
+        <LagrangeLocations>
+          <Location>
+            <Name>Bad-L3</Name>
+            <OrbitalDistanceAU>1.1</OrbitalDistanceAU>
+            <OrbitalStartDegrees>90</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationFactoryParts</SubType>
+            <ControllingTeam>OrangeTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Bad-L4</Name>
+            <OrbitalDistanceAU>1.1</OrbitalDistanceAU>
+            <OrbitalStartDegrees>210</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationSupplyDepot</SubType>
+            <ControllingTeam>OrangeTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Bad-L5</Name>
+            <OrbitalDistanceAU>1.1</OrbitalDistanceAU>
+            <OrbitalStartDegrees>330</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationFactoryRestores</SubType>
+            <ControllingTeam>OrangeTeam</ControllingTeam>
+          </Location>
+        </LagrangeLocations>
+        <SurroundingBelts />
       </Location>
       <Location>
         <Name>Druj</Name>
         <Code>CT3</Code>
+        <OrbitalDistanceAU>1.4</OrbitalDistanceAU>
+        <OrbitalStartDegrees>135</OrbitalStartDegrees>
         <MainType>Planet</MainType>
         <SubType>PlanetBarren</SubType>
         <ControllingTeam>GreenTeam</ControllingTeam>
-        <OrbitalDistanceAU>1.40</OrbitalDistanceAU>
-        <OrbitalStartDegrees>135</OrbitalStartDegrees>
+        <Resources />
+        <OrbitingLocations />
+        <LagrangeLocations>
+          <Location>
+            <Name>Dru-L3</Name>
+            <OrbitalDistanceAU>1.4</OrbitalDistanceAU>
+            <OrbitalStartDegrees>315</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationSupplyDepot</SubType>
+            <ControllingTeam>GreenTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Dru-L4</Name>
+            <OrbitalDistanceAU>1.4</OrbitalDistanceAU>
+            <OrbitalStartDegrees>75</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationFactoryRestores</SubType>
+            <ControllingTeam>GreenTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Dru-L5</Name>
+            <OrbitalDistanceAU>1.4</OrbitalDistanceAU>
+            <OrbitalStartDegrees>195</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationFactoryParts</SubType>
+            <ControllingTeam>GreenTeam</ControllingTeam>
+          </Location>
+        </LagrangeLocations>
+        <SurroundingBelts />
       </Location>
       <Location>
         <Name>Sphinx</Name>
         <Code>CT4</Code>
+        <OrbitalDistanceAU>1.7</OrbitalDistanceAU>
+        <OrbitalStartDegrees>90</OrbitalStartDegrees>
         <MainType>Planet</MainType>
         <SubType>PlanetHabitable</SubType>
         <ControllingTeam>GreenTeam</ControllingTeam>
-        <OrbitalDistanceAU>1.70</OrbitalDistanceAU>
-        <OrbitalStartDegrees>90</OrbitalStartDegrees>
+        <Resources />
+        <OrbitingLocations />
+        <LagrangeLocations>
+          <Location>
+            <Name>Sph-L3</Name>
+            <OrbitalDistanceAU>1.7</OrbitalDistanceAU>
+            <OrbitalStartDegrees>270</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationFactoryRestores</SubType>
+            <ControllingTeam>GreenTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Sph-L4</Name>
+            <OrbitalDistanceAU>1.7</OrbitalDistanceAU>
+            <OrbitalStartDegrees>30</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationSupplyDepot</SubType>
+            <ControllingTeam>GreenTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Sph-L5</Name>
+            <OrbitalDistanceAU>1.7</OrbitalDistanceAU>
+            <OrbitalStartDegrees>150</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationFactoryParts</SubType>
+            <ControllingTeam>GreenTeam</ControllingTeam>
+          </Location>
+        </LagrangeLocations>
+        <SurroundingBelts />
       </Location>
       <Location>
         <Name>Mazurten</Name>
         <Code>CT5</Code>
+        <OrbitalDistanceAU>2</OrbitalDistanceAU>
+        <OrbitalStartDegrees>315</OrbitalStartDegrees>
         <MainType>Planet</MainType>
         <SubType>PlanetBarren</SubType>
         <ControllingTeam>OrangeTeam</ControllingTeam>
-        <OrbitalDistanceAU>2.00</OrbitalDistanceAU>
-        <OrbitalStartDegrees>315</OrbitalStartDegrees>
+        <Resources />
+        <OrbitingLocations />
+        <LagrangeLocations>
+          <Location>
+            <Name>Maz-L3</Name>
+            <OrbitalDistanceAU>2</OrbitalDistanceAU>
+            <OrbitalStartDegrees>135</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationSupplyDepot</SubType>
+            <ControllingTeam>OrangeTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Maz-L4</Name>
+            <OrbitalDistanceAU>2</OrbitalDistanceAU>
+            <OrbitalStartDegrees>255</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationFactoryParts</SubType>
+            <ControllingTeam>OrangeTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Maz-L5</Name>
+            <OrbitalDistanceAU>2</OrbitalDistanceAU>
+            <OrbitalStartDegrees>15</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationFactoryRestores</SubType>
+            <ControllingTeam>OrangeTeam</ControllingTeam>
+          </Location>
+        </LagrangeLocations>
+        <SurroundingBelts />
       </Location>
       <Location>
         <Name>Satanaze</Name>
         <Code>CT6</Code>
+        <OrbitalDistanceAU>3.2</OrbitalDistanceAU>
+        <OrbitalStartDegrees>180</OrbitalStartDegrees>
         <MainType>Planet</MainType>
         <SubType>PlanetGaseous</SubType>
         <ControllingTeam>OrangeTeam</ControllingTeam>
-        <OrbitalDistanceAU>3.20</OrbitalDistanceAU>
-        <OrbitalStartDegrees>180</OrbitalStartDegrees>
+        <Resources />
+        <OrbitingLocations />
+        <LagrangeLocations>
+          <Location>
+            <Name>Sat-L3</Name>
+            <OrbitalDistanceAU>3.2</OrbitalDistanceAU>
+            <OrbitalStartDegrees>360</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationSupplyDepot</SubType>
+            <ControllingTeam>OrangeTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Sat-L4</Name>
+            <OrbitalDistanceAU>3.2</OrbitalDistanceAU>
+            <OrbitalStartDegrees>120</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationMining</SubType>
+            <ControllingTeam>OrangeTeam</ControllingTeam>
+          </Location>
+          <Location>
+            <Name>Sat-L5</Name>
+            <OrbitalDistanceAU>3.2</OrbitalDistanceAU>
+            <OrbitalStartDegrees>240</OrbitalStartDegrees>
+            <MainType>Station</MainType>
+            <SubType>StationMining</SubType>
+            <ControllingTeam>OrangeTeam</ControllingTeam>
+          </Location>
+        </LagrangeLocations>
+        <SurroundingBelts />
       </Location>
     </OrbitingLocations>
     <SurroundingBelts>

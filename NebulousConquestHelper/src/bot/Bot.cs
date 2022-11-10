@@ -107,12 +107,13 @@ namespace NebulousConquestHelper
             {
 				if (e.Interaction.Data.Name == "map")
 				{
-					Mapping.CreateSystemMap(Game.System, Game.DaysPassed);
-					using (FileStream fs = new FileStream(Helper.DATA_FOLDER_PATH + "SystemMap.png", FileMode.Open, FileAccess.Read))
+					string fileName = "SystemMap.png";
+					Mapping.CreateSystemMap(fileName, Game.System, Game.DaysPassed);
+					using (FileStream fs = new FileStream(Helper.DATA_FOLDER_PATH + fileName, FileMode.Open, FileAccess.Read))
 					{
 						await e.Interaction.CreateFollowupMessageAsync(new DiscordFollowupMessageBuilder()
 							.WithContent("Here is the map for the current game state:")
-							.AddFile("SystemMap.png", fs));
+							.AddFile(fileName, fs));
 					}
 				}
 			}

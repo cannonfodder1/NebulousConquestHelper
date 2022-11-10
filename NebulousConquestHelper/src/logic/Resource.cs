@@ -5,16 +5,11 @@ namespace NebulousConquestHelper
     public enum ResourceType
     {
         Fuel,
-        Ores,
         Rares,
+        Metals,
         Polymers,
-        Metals, // from Ores
-        Parts, // from Metals and Polymers
-        Restores // from Parts and Rares
-        
-        // Repairs, from Restores
-        // Missiles, from Parts
-        // Ammunition, from Metals
+        Parts,
+        Restores
     }
 
     public class Resource
