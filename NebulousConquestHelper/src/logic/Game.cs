@@ -114,14 +114,14 @@ namespace NebulousConquestHelper
             Fleets.Add(newFleet);
         }
 
-        public void SaveGame()
+        public void SaveGame(string fileName = "TestGame")
         {
             foreach (Fleet fleet in Fleets)
             {
                 fleet.SaveFleet();
             }
 
-            Helper.WriteXMLFile(typeof(Game), new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.conquest"), this);
+            Helper.WriteXMLFile(typeof(Game), new FilePath(Helper.DATA_FOLDER_PATH + fileName + ".conquest"), this);
         }
 
         public Team GetTeam(ConquestTeam team)
@@ -228,7 +228,7 @@ namespace NebulousConquestHelper
                             TurnData.arrivingLater.Add(new ConquestMovingFleet(fleet.FleetXML.Name, travelTime));
                         }
                         fleet.OrderType = Fleet.FleetOrderType.InTransit;
-                        fleet.Fuel -= fleet.GetFuelConsumption() * travelTime;
+                        fleet.Fuel -= fleet.GetFuelConsumption();
                     }
                 }
                 

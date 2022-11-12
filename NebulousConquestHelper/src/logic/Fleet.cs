@@ -11,7 +11,8 @@ namespace NebulousConquestHelper
     [Serializable]
     public class Fleet
 	{
-		private const int MAXIMUM_DAYS_OF_FUEL = 20;
+		private const int FUEL_BURNED_PER_MASS = 4;
+		private const int MAXIMUM_BURNS_OF_FUEL = 20;
 
 		public enum FleetOrderType
 		{
@@ -247,43 +248,43 @@ namespace NebulousConquestHelper
 
 		public int GetFuelConsumption()
         {
-			int total = 0;
+			int mass = 0;
 
 			foreach (SerializedConquestShip ship in FleetXML.Ships)
             {
 				switch (ship.HullType)
 				{
 					case "Stock/Sprinter Corvette":
-						total += 3;
+						mass += 3;
 						break;
 					case "Stock/Raines Frigate":
-						total += 5;
+						mass += 5;
 						break;
 					case "Stock/Keystone Destroyer":
-						total += 8;
+						mass += 8;
 						break;
 					case "Stock/Vauxhall Light Cruiser":
-						total += 10;
+						mass += 10;
 						break;
 					case "Stock/Axford Heavy Cruiser":
-						total += 13;
+						mass += 13;
 						break;
 					case "Stock/Solomon Battleship":
-						total += 21;
+						mass += 21;
 						break;
 					default:
 						Console.WriteLine("ERROR! Unknown Hull Type: " + ship.HullType);
-						total += ship.Cost / 100;
+						mass += ship.Cost / 100;
 						break;
 				}
             }
 
-			return total;
+			return mass * FUEL_BURNED_PER_MASS;
         }
 
 		public int GetFuelCapacity()
 		{
-			return GetFuelConsumption() * MAXIMUM_DAYS_OF_FUEL;
+			return GetFuelConsumption() * MAXIMUM_BURNS_OF_FUEL;
 		}
 
 		public void RestockFromLocation(bool restockFuel = true, bool restockRestores = true)

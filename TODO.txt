@@ -1,0 +1,10 @@
+- implement loc-to-loc transfer of resources
+- implement fleet merging and split offs with the program generating new .fleet files
+- implement restocking of missiles/ammo at supply depots
+- implement ship repairs at supply depots
+- probably swap the whole thing over to a GM-run local program rather than a discord bot
+- implement different kinds of mapmodes for the map printer (fleets present, fuel present, resource satisfaction, etc)
+- autogenerate 'info packages' for each team at the conclusion of each turn (fleets, resources, war progress, etc)
+- reduce fleet move speed if they cross an asteroid belt during their travel
+- allow teams to toggle increased production at a location in exchange for war progress loss multiplier
+- fix SaveFleetState bug where a random amount of fleets are not properly saved at the end of the match
