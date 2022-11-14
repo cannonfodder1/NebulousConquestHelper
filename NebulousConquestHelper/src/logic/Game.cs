@@ -10,6 +10,7 @@ namespace NebulousConquestHelper
     public class Game
     {
         private const double AU_PER_DAY = 0.2;
+        private const double AU_PER_DAY_THRU_BELT = 0.1;
         private const int WP_PLANET_TAKEN = 6;
         private const int WP_STATION_TAKEN = 3;
         private const int WP_PER_SHIP = 1;
@@ -163,13 +164,7 @@ namespace NebulousConquestHelper
 
                 if (fleet.OrderType == Fleet.FleetOrderType.Move)
                 {
-                    Location depart = System.FindLocationByName(fleet.LocationName);
-                    Location arrive = System.FindLocationByName(fleet.OrderData.MoveToLocation);
-                    double distance = depart.GetDistanceTo(arrive, DaysPassed);
-                    int travelTime = (int)(distance / AU_PER_DAY);
-                    if (distance % AU_PER_DAY != 0) travelTime++;
-                    
-                    if (fleet.Fuel < fleet.GetFuelConsumption() * travelTime)
+                    if (fleet.Fuel < fleet.GetFuelConsumption())
                     {
                         error = ConquestTurnError.FLEET_NEEDS_FUEL;
                         return false;
@@ -215,8 +210,20 @@ namespace NebulousConquestHelper
                     {
                         Location depart = System.FindLocationByName(fleet.LocationName);
                         Location arrive = System.FindLocationByName(fleet.OrderData.MoveToLocation);
+                        
                         double distance = depart.GetDistanceTo(arrive, DaysPassed);
-                        int travelTime = (int)(distance / AU_PER_DAY);
+                        double speed = AU_PER_DAY;
+
+                        foreach (Belt belt in System.SurroundingBelts)
+                        {
+                            if (belt.TraversingAsteroidBelt(depart, arrive, DaysPassed))
+                            {
+                                speed = AU_PER_DAY_THRU_BELT;
+                                break;
+                            }
+                        }
+
+                        int travelTime = (int)(distance / speed);
                         if (distance % AU_PER_DAY != 0) travelTime++;
                         if (travelTime <= 7)
                         {
@@ -227,6 +234,7 @@ namespace NebulousConquestHelper
                             Console.WriteLine("Fleet Ordered to Move - Arriving In " + travelTime + " Days");
                             TurnData.arrivingLater.Add(new ConquestMovingFleet(fleet.FleetXML.Name, travelTime));
                         }
+
                         fleet.OrderType = Fleet.FleetOrderType.InTransit;
                         fleet.Fuel -= fleet.GetFuelConsumption();
                     }
