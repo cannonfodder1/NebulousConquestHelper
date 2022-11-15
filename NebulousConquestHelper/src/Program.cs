@@ -11,19 +11,21 @@ namespace NebulousConquestHelper
 		{
 			// test code below, feel free to remove
 
-			Helper.Registry = (ComponentRegistry)Helper.ReadXMLFile(
-				typeof(ComponentRegistry),
-				new FilePath(Helper.DATA_FOLDER_PATH + "ComponentRegistry.xml")
-			);
-			Game game = (Game)Helper.ReadXMLFile(
-				typeof(Game),
-				new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.scenario"),
-				Game.Init
-			);
+			BackingXmlFile<ComponentRegistry> registryFile =
+				BackingXmlFile<ComponentRegistry>.ComponentRegistry("ComponentRegistry");
+			Helper.Registry = registryFile.Object;
+			BackingXmlFile<Game> gameFile = BackingXmlFile<Game>.Game("TestGame");
+			Game game = gameFile.Object;
+			bool success = Game.Init(game);
+			if (!success)
+            {
+				Console.WriteLine("Failed to initialize Game");
+				return;
+            }
 
 			SetupSystemResources(game.System);
 
-			game.CreateNewFleet("Conquest - TF Oak.fleet", "Sph-L4", Game.ConquestTeam.GreenTeam);
+			game.CreateNewFleet("Conquest - TF Oak", "Sph-L4", Game.ConquestTeam.GreenTeam);
 
 			Console.WriteLine("Fuel: " + game.Fleets[0].Fuel);
 			Console.WriteLine("Restores: " + game.Fleets[0].Restores);

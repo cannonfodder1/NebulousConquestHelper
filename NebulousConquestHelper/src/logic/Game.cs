@@ -64,6 +64,24 @@ namespace NebulousConquestHelper
         public int WarProgress = 50;
         public ConquestTurnData TurnData = new ConquestTurnData();
         public List<string> BattleLocations = new List<string>();
+        private string _gameFileName;
+        private BackingXmlFile<Game> backingFile {
+            get
+            {
+                return BackingXmlFile<Game>.Game(this._gameFileName);
+            }
+            set
+            {
+                this._gameFileName = value.Name;
+            }
+        }
+
+        private Game() { }
+
+        public Game(BackingXmlFile<Game> backingFile)
+        {
+            this.backingFile = backingFile;
+        }
 
         public static bool Init(object loaded)
         {
@@ -79,11 +97,6 @@ namespace NebulousConquestHelper
 
             foreach (Fleet fleet in game.Fleets)
             {
-                fleet.FleetXML = (SerializedConquestFleet)Helper.ReadXMLFile(
-                    typeof(SerializedConquestFleet),
-                    new FilePath(Helper.DATA_FOLDER_PATH + fleet.FleetFileName + Helper.FLEET_FILE_TYPE)
-                );
-
                 if (fleet.FleetXML == null) return false;
 
                 fleet.Location = game.System.FindLocationByName(fleet.LocationName);
@@ -107,7 +120,9 @@ namespace NebulousConquestHelper
 
         public void CreateNewFleet(string fleetFileName, string locationName, ConquestTeam team)
         {
-            Fleet newFleet = new Fleet(fleetFileName, locationName, team);
+            BackingXmlFile<SerializedConquestFleet> backingFile = BackingXmlFile<SerializedConquestFleet>.Fleet(fleetFileName);
+
+            Fleet newFleet = new Fleet(backingFile, locationName, team);
 
             newFleet.Location = System.FindLocationByName(locationName);
             newFleet.Location.PresentFleets.Add(newFleet);
@@ -122,7 +137,7 @@ namespace NebulousConquestHelper
                 fleet.SaveFleet();
             }
 
-            Helper.WriteXMLFile(typeof(Game), new FilePath(Helper.DATA_FOLDER_PATH + fileName + ".conquest"), this);
+            this.backingFile.Object = this;
         }
 
         public Team GetTeam(ConquestTeam team)

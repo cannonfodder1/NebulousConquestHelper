@@ -44,45 +44,56 @@ namespace NebulousConquestHelper
 		private static List<string> DC_LOCKER_COMPONENTS = new List<string>();
 
 		public string FleetFileName;
+
         public string LocationName;
 		public int Restores;
 		public int Fuel;
 		public Game.ConquestTeam ControllingTeam;
 		public FleetOrderType OrderType = FleetOrderType.None;
 		public FleetOrderData OrderData = null;
-		[XmlIgnore] public SerializedConquestFleet FleetXML;
+		private BackingXmlFile<SerializedConquestFleet> backingFile {
+			get
+            {
+				return BackingXmlFile<SerializedConquestFleet>.Fleet(
+					this.FleetFileName
+				);
+            }
+			set
+            {
+				this.FleetFileName = value.Name;
+            }
+		}
+		private SerializedConquestFleet _fleetXML;
+		[XmlIgnore] public SerializedConquestFleet FleetXML {
+			get
+            {
+				if (this._fleetXML == null)
+                {
+					this._fleetXML = this.backingFile.Object;
+                }
+				return this._fleetXML;
+            }
+		}
 		[XmlIgnore] public Location Location;
 
 		public Fleet() { }
 
-		public Fleet(string fleetFileName, string locationName, Game.ConquestTeam team)
+		public Fleet(BackingXmlFile<SerializedConquestFleet> backingFile, string locationName, Game.ConquestTeam team)
         {
-			FleetFileName = fleetFileName;
 			LocationName = locationName;
 			ControllingTeam = team;
-
-			UpdateFromFile();
+			this.backingFile = backingFile;
 
 			UpdateRestoreCount();
 		}
 
-		public void UpdateFromFile()
-		{
-			FleetXML = (SerializedConquestFleet)Helper.ReadXMLFile(
-				typeof(SerializedConquestFleet),
-				new FilePath(Helper.DATA_FOLDER_PATH + FleetFileName)
-			);
-		}
-
 		public void SaveFleet()
         {
-			Helper.WriteXMLFile(typeof(SerializedConquestFleet), new FilePath(Helper.DATA_FOLDER_PATH + FleetFileName), FleetXML);
+			this.backingFile.Object = FleetXML;
         }
 
 		public void ProcessBattleResults(bool losingTeam = false)
 		{
-			UpdateFromFile();
-
 			List<SerializedConquestShip> removeShips = new List<SerializedConquestShip>();
 
 			foreach (SerializedConquestShip ship in FleetXML.Ships)
