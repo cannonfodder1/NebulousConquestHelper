@@ -163,5 +163,11 @@ namespace NebulousConquestHelper
 
             return print;
         }
+
+        public void SpawnFleet(Fleet fleet)
+		{
+            fleet.SpawnAtLocation(this);
+            this.PresentFleets.Add(fleet);
+		}
     }
 }

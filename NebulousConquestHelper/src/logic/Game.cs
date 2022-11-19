@@ -83,22 +83,20 @@ namespace NebulousConquestHelper
             this.backingFile = backingFile;
         }
 
+        public void SpawnFleets()
+		{
+            foreach (Fleet fleet in this.Fleets)
+			{
+                Location loc = this.System.FindLocationByName(fleet.LocationName);
+                loc.SpawnFleet(fleet);
+			}
+		}
+
         public static bool Init(object loaded)
         {
             Game game = (Game)loaded;
 
-            if (game == null) return false;
-
-            foreach (Fleet fleet in game.Fleets)
-            {
-                if (fleet.FleetXML == null) return false;
-
-                fleet.Location = game.System.FindLocationByName(fleet.LocationName);
-
-                if (fleet.Location == null) return false;
-
-                fleet.Location.PresentFleets.Add(fleet);
-            }
+            game.SpawnFleets();
 
             game.TurnData.responseFleets = new List<string>();
             game.TurnData.arrivingLater = new List<ConquestMovingFleet>();

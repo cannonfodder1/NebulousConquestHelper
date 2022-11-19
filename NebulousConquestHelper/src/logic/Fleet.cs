@@ -343,5 +343,10 @@ namespace NebulousConquestHelper
 				UpdateRestoreCount();
 			}
 		}
+
+		public void SpawnAtLocation(Location loc)
+		{
+			this.Location = loc;
+		}
 	}
 }
