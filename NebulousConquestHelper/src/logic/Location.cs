@@ -42,6 +42,25 @@ namespace NebulousConquestHelper
         public List<Belt> SurroundingBelts;
         [XmlIgnore] public List<Fleet> PresentFleets;
 
+        [XmlIgnore] public List<Location> AllLocations
+		{
+            get
+			{
+                List<Location> topLocations = new List<Location>(this.OrbitingLocations);
+                topLocations.AddRange(this.LagrangeLocations);
+
+                List<Location> ret = new List<Location>(topLocations.Count);
+
+                foreach (Location loc in topLocations)
+				{
+                    ret.AddRange(loc.AllLocations);
+				}
+
+                ret.InsertRange(0, topLocations);
+                return ret;
+			}
+		}
+
         public void AddLagrangeStation(int lagIndex, LocationSubType type)
         {
             Location loc = new Location();
