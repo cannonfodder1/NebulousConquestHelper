@@ -40,7 +40,7 @@ namespace NebulousConquestHelper
         public List<Location> OrbitingLocations;
         public List<Location> LagrangeLocations;
         public List<Belt> SurroundingBelts;
-        [XmlIgnore] public List<Fleet> PresentFleets;
+        [XmlIgnore] public List<Fleet> PresentFleets = new List<Fleet>();
 
         [XmlIgnore] public List<Location> AllLocations
 		{

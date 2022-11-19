@@ -89,11 +89,6 @@ namespace NebulousConquestHelper
 
             if (game == null) return false;
 
-            foreach (Location loc in game.System.AllLocations)
-            {
-                loc.PresentFleets = new List<Fleet>();
-            }
-
             foreach (Fleet fleet in game.Fleets)
             {
                 if (fleet.FleetXML == null) return false;
