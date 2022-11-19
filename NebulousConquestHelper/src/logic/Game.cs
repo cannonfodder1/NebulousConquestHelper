@@ -7,7 +7,7 @@ namespace NebulousConquestHelper
 {
     [XmlType("ConquestGame")]
     [Serializable]
-    public class Game
+    public class Game : Backed<Game>
     {
         private const double AU_PER_DAY = 0.2;
         private const double AU_PER_DAY_THRU_BELT = 0.1;
@@ -72,23 +72,12 @@ namespace NebulousConquestHelper
         public int WarProgress = 50;
         public ConquestTurnData TurnData = new ConquestTurnData();
         public List<string> BattleLocations = new List<string>();
-        private string _gameFileName;
-        private BackingXmlFile<Game> backingFile {
-            get
-            {
-                return BackingXmlFile<Game>.Game(this._gameFileName);
-            }
-            set
-            {
-                this._gameFileName = value.Name;
-            }
-        }
 
-        private Game() { }
+		private Game() { }
 
         public Game(BackingXmlFile<Game> backingFile)
         {
-            this.backingFile = backingFile;
+            this.BackingFile = backingFile;
         }
 
         public void SpawnFleets()
@@ -148,7 +137,7 @@ namespace NebulousConquestHelper
 
         public Fleet CreateNewFleet(string fleetFileName, string locationName, ConquestTeam team)
         {
-            BackingXmlFile<SerializedConquestFleet> backingFile = BackingXmlFile<SerializedConquestFleet>.Fleet(fleetFileName);
+            BackingXmlFile<SerializedConquestFleet> backingFile = Fleet.NewFile(fleetFileName);
 
             Fleet newFleet = new Fleet(backingFile, locationName, team);
 
@@ -167,7 +156,7 @@ namespace NebulousConquestHelper
                 fleet.SaveFleet();
             }
 
-            this.backingFile.Object = this;
+            this.BackingFile.Object = this;
         }
 
         public Team GetTeam(ConquestTeam team)
@@ -249,7 +238,7 @@ namespace NebulousConquestHelper
                 {
                     if (fleet.OrderType == Fleet.FleetOrderType.Idle && fleet.OrderData.DefendNearby)
                     {
-                        TurnData.responseFleets.Add(fleet.FleetXML.Name);
+                        TurnData.responseFleets.Add(fleet.XML.Name);
                     }
                     else if (fleet.OrderType == Fleet.FleetOrderType.Move)
                     {
@@ -272,12 +261,12 @@ namespace NebulousConquestHelper
                         if (distance % AU_PER_DAY != 0) travelTime++;
                         if (travelTime <= 7)
                         {
-                            TurnData.arrivingSoon[travelTime-1].Add(fleet.FleetXML.Name);
+                            TurnData.arrivingSoon[travelTime-1].Add(fleet.XML.Name);
                         }
                         else
                         {
                             Console.WriteLine("Fleet Ordered to Move - Arriving In " + travelTime + " Days");
-                            TurnData.arrivingLater.Add(new ConquestMovingFleet(fleet.FleetXML.Name, travelTime));
+                            TurnData.arrivingLater.Add(new ConquestMovingFleet(fleet.XML.Name, travelTime));
                         }
 
                         fleet.OrderType = Fleet.FleetOrderType.InTransit;
@@ -308,7 +297,7 @@ namespace NebulousConquestHelper
             Console.WriteLine("Advancing Day: " + daysSinceTasking);
             foreach (string fleetName in TurnData.arrivingSoon[daysSinceTasking - 1])
             {
-                Fleet fleet = Fleets.Find(x => x.FleetXML.Name == fleetName);
+                Fleet fleet = Fleets.Find(x => x.XML.Name == fleetName);
                 Console.WriteLine(" - Fleet Arriving: " + fleetName);
                 fleet.LocationName = fleet.OrderData.MoveToLocation;
                 fleet.Location.PresentFleets.Remove(fleet);
@@ -344,15 +333,15 @@ namespace NebulousConquestHelper
             {
                 if (fleet.ControllingTeam == winner)
                 {
-                    winnerShipsBefore += fleet.FleetXML.Ships.Count;
+                    winnerShipsBefore += fleet.XML.Ships.Count;
                     fleet.ProcessBattleResults(false);
-                    winnerShipsAfter += fleet.FleetXML.Ships.Count;
+                    winnerShipsAfter += fleet.XML.Ships.Count;
                 }
                 else
                 {
-                    loserShipsBefore += fleet.FleetXML.Ships.Count;
+                    loserShipsBefore += fleet.XML.Ships.Count;
                     fleet.ProcessBattleResults(true);
-                    loserShipsAfter += fleet.FleetXML.Ships.Count;
+                    loserShipsAfter += fleet.XML.Ships.Count;
                 }
             }
 

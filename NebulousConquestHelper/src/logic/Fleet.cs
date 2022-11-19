@@ -9,7 +9,7 @@ namespace NebulousConquestHelper
 {
     [XmlType("Fleet")]
     [Serializable]
-    public class Fleet
+    public class Fleet : Backed<SerializedConquestFleet>
 	{
 		private const int FUEL_BURNED_PER_MASS = 4;
 		private const int MAXIMUM_BURNS_OF_FUEL = 20;
@@ -43,37 +43,13 @@ namespace NebulousConquestHelper
 		private static List<string> MAIN_DRIVE_COMPONENTS = new List<string>();
 		private static List<string> DC_LOCKER_COMPONENTS = new List<string>();
 
-		public string FleetFileName;
-
         public string LocationName;
 		public int Restores;
 		public int Fuel;
 		public Game.ConquestTeam ControllingTeam;
 		public FleetOrderType OrderType = FleetOrderType.None;
 		public FleetOrderData OrderData = null;
-		private BackingXmlFile<SerializedConquestFleet> backingFile {
-			get
-            {
-				return BackingXmlFile<SerializedConquestFleet>.Fleet(
-					this.FleetFileName
-				);
-            }
-			set
-            {
-				this.FleetFileName = value.Name;
-            }
-		}
-		private SerializedConquestFleet _fleetXML;
-		[XmlIgnore] public SerializedConquestFleet FleetXML {
-			get
-            {
-				if (this._fleetXML == null)
-                {
-					this._fleetXML = this.backingFile.Object;
-                }
-				return this._fleetXML;
-            }
-		}
+
 		[XmlIgnore] public Location Location;
 
 		public Fleet() { }
@@ -82,21 +58,21 @@ namespace NebulousConquestHelper
         {
 			LocationName = locationName;
 			ControllingTeam = team;
-			this.backingFile = backingFile;
+			this.BackingFile = backingFile;
 
 			UpdateRestoreCount();
 		}
 
 		public void SaveFleet()
         {
-			this.backingFile.Object = FleetXML;
+			BackingFile.Object = XML;
         }
 
 		public void ProcessBattleResults(bool losingTeam = false)
 		{
 			List<SerializedConquestShip> removeShips = new List<SerializedConquestShip>();
 
-			foreach (SerializedConquestShip ship in FleetXML.Ships)
+			foreach (SerializedConquestShip ship in XML.Ships)
 			{
 				if (losingTeam)
 				{
@@ -127,7 +103,7 @@ namespace NebulousConquestHelper
 
 			foreach (var deadShip in removeShips)
 			{
-				FleetXML.Ships.Remove(deadShip);
+				XML.Ships.Remove(deadShip);
 			}
 
 			UpdateRestoreCount();
@@ -150,7 +126,7 @@ namespace NebulousConquestHelper
 		{
 			int totalRestores = 0;
 
-			foreach (SerializedConquestShip ship in FleetXML.Ships)
+			foreach (SerializedConquestShip ship in XML.Ships)
 			{
 				totalRestores += GetShipRestores(ship);
 			}
@@ -164,7 +140,7 @@ namespace NebulousConquestHelper
 
 			int totalRestores = 0;
 
-			foreach (SerializedConquestShip ship in FleetXML.Ships)
+			foreach (SerializedConquestShip ship in XML.Ships)
 			{
 				foreach (SerializedHullSocket socket in ship.SocketMap)
 				{
@@ -261,7 +237,7 @@ namespace NebulousConquestHelper
         {
 			int mass = 0;
 
-			foreach (SerializedConquestShip ship in FleetXML.Ships)
+			foreach (SerializedConquestShip ship in XML.Ships)
             {
 				switch (ship.HullType)
 				{
@@ -319,7 +295,7 @@ namespace NebulousConquestHelper
 				int amount = resource.Stockpile;
 				InitializeDamconComponents();
 
-				foreach (SerializedConquestShip ship in FleetXML.Ships)
+				foreach (SerializedConquestShip ship in XML.Ships)
 				{
 					if (amount == 0) break;
 					foreach (SerializedHullSocket socket in ship.SocketMap)

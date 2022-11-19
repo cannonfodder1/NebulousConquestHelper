@@ -6,7 +6,7 @@ namespace NebulousConquestHelper
 {
     [XmlType("ComponentRegistry")]
     [Serializable]
-    public class ComponentRegistry
+    public class ComponentRegistry : Backed<ComponentRegistry>
     {
         public List<Component> Components;
     }

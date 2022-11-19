@@ -10,21 +10,7 @@ namespace NebulousConquestHelper
         private readonly String fileName;
         private readonly FileType fileType;
 
-        public static BackingXmlFile<SerializedConquestFleet> Fleet(string fleetName)
-        {
-            return new BackingXmlFile<SerializedConquestFleet>(fleetName, FileType.Fleet);
-        }
-
-        public static BackingXmlFile<Game> Game(string gameName)
-        {
-            return new BackingXmlFile<Game>(gameName, FileType.Game);
-        }
-        public static BackingXmlFile<ComponentRegistry> ComponentRegistry(string registryName)
-        {
-            return new BackingXmlFile<ComponentRegistry>(registryName, FileType.ComponentRegistry);
-        }
-
-        private BackingXmlFile(String fileName, FileType fileType)
+        public BackingXmlFile(String fileName, FileType fileType)
         {
             this.fileName = fileName;
             this.fileType = fileType;
