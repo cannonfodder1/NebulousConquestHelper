@@ -49,11 +49,19 @@ namespace NebulousConquestHelper
             }
         }
 
-        public struct ConquestTurnData
+        public class ConquestTurnData
         {
-            public List<string> responseFleets;
-            public List<List<string>> arrivingSoon;
-            public List<ConquestMovingFleet> arrivingLater;
+            public List<string> responseFleets = new List<string>();
+            public List<List<string>> arrivingSoon = new List<List<string>>();
+            public List<ConquestMovingFleet> arrivingLater = new List<ConquestMovingFleet>();
+
+            public ConquestTurnData()
+			{
+				for (int i = 0; i < 7; i++)
+				{
+					this.arrivingSoon.Add(new List<string>());
+				}
+			}
         }
 
         public string ScenarioName;
@@ -95,16 +103,6 @@ namespace NebulousConquestHelper
         public bool Init()
         {
             this.SpawnFleets();
-
-            this.TurnData.responseFleets = new List<string>();
-            this.TurnData.arrivingLater = new List<ConquestMovingFleet>();
-            this.TurnData.arrivingSoon = new List<List<string>>();
-            for (int i = 0; i < 7; i++)
-            {
-                this.TurnData.arrivingSoon.Add(new List<string>());
-            }
-            if (this.TurnData.arrivingSoon.Count != 7) return false;
-
             return true;
         }
 
