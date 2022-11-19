@@ -100,6 +100,52 @@ namespace NebulousConquestHelper
 			}
 		}
 
+        public void SpawnResources()
+		{
+			foreach (Location loc in this.System.AllLocations)
+			{
+				switch (loc.SubType)
+				{
+					case Location.LocationSubType.PlanetHabitable:
+						loc.SpawnResource(new Resource(ResourceType.Polymers, 0, 300, 0));
+						loc.SpawnResource(new Resource(ResourceType.Fuel, 0, 100, 0));
+						loc.SpawnResource(new Resource(ResourceType.Metals, 0, 100, 0));
+						break;
+					case Location.LocationSubType.PlanetGaseous:
+						loc.SpawnResource(new Resource(ResourceType.Fuel, 0, 300, 0));
+						loc.SpawnResource(new Resource(ResourceType.Rares, 0, 100, 0));
+						loc.SpawnResource(new Resource(ResourceType.Metals, 0, 100, 0));
+						break;
+					case Location.LocationSubType.PlanetBarren:
+						loc.SpawnResource(new Resource(ResourceType.Rares, 0, 300, 0));
+						loc.SpawnResource(new Resource(ResourceType.Polymers, 0, 100, 0));
+						loc.SpawnResource(new Resource(ResourceType.Metals, 0, 100, 0));
+						break;
+					case Location.LocationSubType.StationMining:
+						loc.SpawnResource(new Resource(ResourceType.Metals, 0, 300, 0));
+						break;
+					case Location.LocationSubType.StationFactoryParts:
+						loc.SpawnResource(new Resource(ResourceType.Parts, 0, 200, 0));
+						loc.SpawnResource(new Resource(ResourceType.Metals, 0, 0, 300));
+						loc.SpawnResource(new Resource(ResourceType.Polymers, 0, 0, 100));
+						break;
+					case Location.LocationSubType.StationFactoryRestores:
+						loc.SpawnResource(new Resource(ResourceType.Restores, 0, 100, 0));
+						loc.SpawnResource(new Resource(ResourceType.Parts, 0, 0, 100));
+						loc.SpawnResource(new Resource(ResourceType.Rares, 0, 0, 200));
+						loc.SpawnResource(new Resource(ResourceType.Polymers, 0, 0, 100));
+						break;
+					case Location.LocationSubType.StationSupplyDepot:
+						loc.SpawnResource(new Resource(ResourceType.Fuel, 500, 0, 0));
+						loc.SpawnResource(new Resource(ResourceType.Metals, 400, 0, 0));
+						loc.SpawnResource(new Resource(ResourceType.Rares, 200, 0, 0));
+						loc.SpawnResource(new Resource(ResourceType.Parts, 100, 0, 0));
+						loc.SpawnResource(new Resource(ResourceType.Restores, 100, 0, 0));
+						break;
+				}
+			}
+		}
+
         public void CreateNewFleet(string fleetFileName, string locationName, ConquestTeam team)
         {
             BackingXmlFile<SerializedConquestFleet> backingFile = BackingXmlFile<SerializedConquestFleet>.Fleet(fleetFileName);

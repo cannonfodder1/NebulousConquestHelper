@@ -17,8 +17,7 @@ namespace NebulousConquestHelper
 			BackingXmlFile<Game> gameFile = BackingXmlFile<Game>.Game("TestGame");
 			Game game = gameFile.Object;
 			game.SpawnFleets();
-
-			SetupSystemResources(game.System);
+			game.SpawnResources();
 
 			game.CreateNewFleet("Conquest - TF Oak", "Sph-L4", Game.ConquestTeam.GreenTeam);
 
@@ -56,51 +55,5 @@ namespace NebulousConquestHelper
         {
 			DiscordBot.RunBotAsync().GetAwaiter().GetResult();
         }
-
-		private static void SetupSystemResources(System system)
-		{
-			foreach (Location loc in system.AllLocations)
-			{
-				switch (loc.SubType)
-				{
-					case Location.LocationSubType.PlanetHabitable:
-						loc.Resources.Add(new Resource(ResourceType.Polymers, 0, 300, 0));
-						loc.Resources.Add(new Resource(ResourceType.Fuel, 0, 100, 0));
-						loc.Resources.Add(new Resource(ResourceType.Metals, 0, 100, 0));
-						break;
-					case Location.LocationSubType.PlanetGaseous:
-						loc.Resources.Add(new Resource(ResourceType.Fuel, 0, 300, 0));
-						loc.Resources.Add(new Resource(ResourceType.Rares, 0, 100, 0));
-						loc.Resources.Add(new Resource(ResourceType.Metals, 0, 100, 0));
-						break;
-					case Location.LocationSubType.PlanetBarren:
-						loc.Resources.Add(new Resource(ResourceType.Rares, 0, 300, 0));
-						loc.Resources.Add(new Resource(ResourceType.Polymers, 0, 100, 0));
-						loc.Resources.Add(new Resource(ResourceType.Metals, 0, 100, 0));
-						break;
-					case Location.LocationSubType.StationMining:
-						loc.Resources.Add(new Resource(ResourceType.Metals, 0, 300, 0));
-						break;
-					case Location.LocationSubType.StationFactoryParts:
-						loc.Resources.Add(new Resource(ResourceType.Parts, 0, 200, 0));
-						loc.Resources.Add(new Resource(ResourceType.Metals, 0, 0, 300));
-						loc.Resources.Add(new Resource(ResourceType.Polymers, 0, 0, 100));
-						break;
-					case Location.LocationSubType.StationFactoryRestores:
-						loc.Resources.Add(new Resource(ResourceType.Restores, 0, 100, 0));
-						loc.Resources.Add(new Resource(ResourceType.Parts, 0, 0, 100));
-						loc.Resources.Add(new Resource(ResourceType.Rares, 0, 0, 200));
-						loc.Resources.Add(new Resource(ResourceType.Polymers, 0, 0, 100));
-						break;
-					case Location.LocationSubType.StationSupplyDepot:
-						loc.Resources.Add(new Resource(ResourceType.Fuel, 500, 0, 0));
-						loc.Resources.Add(new Resource(ResourceType.Metals, 400, 0, 0));
-						loc.Resources.Add(new Resource(ResourceType.Rares, 200, 0, 0));
-						loc.Resources.Add(new Resource(ResourceType.Parts, 100, 0, 0));
-						loc.Resources.Add(new Resource(ResourceType.Restores, 100, 0, 0));
-						break;
-				}
-			}
-		}
 	}
 }
