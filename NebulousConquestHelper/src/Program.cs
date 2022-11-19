@@ -11,10 +11,8 @@ namespace NebulousConquestHelper
 		{
 			// test code below, feel free to remove
 
-			BackingXmlFile<ComponentRegistry> registryFile = ComponentRegistry.NewFile("ComponentRegistry");
-			Helper.Registry = registryFile.Object;
-			BackingXmlFile<Game> gameFile = Game.NewFile("TestGame");
-			Game game = gameFile.Object;
+			Helper.Registry = ComponentRegistry.Load("ComponentRegistry");
+			Game game = Game.Load("TestGame");
 			game.SpawnFleets();
 			game.SpawnResources();
 

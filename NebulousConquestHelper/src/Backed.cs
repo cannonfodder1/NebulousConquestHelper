@@ -5,6 +5,11 @@ namespace NebulousConquestHelper
 {
 	public abstract class Backed<T>
 	{
+		public static T Load(string fileName)
+		{
+			return NewFile(fileName).Object;
+		}
+
 		public static BackingXmlFile<T> NewFile(string fileName)
 		{
             return new BackingXmlFile<T>(fileName, FileType);
