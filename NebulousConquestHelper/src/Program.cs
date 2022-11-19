@@ -16,12 +16,7 @@ namespace NebulousConquestHelper
 			Helper.Registry = registryFile.Object;
 			BackingXmlFile<Game> gameFile = BackingXmlFile<Game>.Game("TestGame");
 			Game game = gameFile.Object;
-			bool success = game.Init();
-			if (!success)
-            {
-				Console.WriteLine("Failed to initialize Game");
-				return;
-            }
+			game.SpawnFleets();
 
 			SetupSystemResources(game.System);
 

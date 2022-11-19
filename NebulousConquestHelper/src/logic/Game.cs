@@ -100,12 +100,6 @@ namespace NebulousConquestHelper
 			}
 		}
 
-        public bool Init()
-        {
-            this.SpawnFleets();
-            return true;
-        }
-
         public void CreateNewFleet(string fleetFileName, string locationName, ConquestTeam team)
         {
             BackingXmlFile<SerializedConquestFleet> backingFile = BackingXmlFile<SerializedConquestFleet>.Fleet(fleetFileName);
