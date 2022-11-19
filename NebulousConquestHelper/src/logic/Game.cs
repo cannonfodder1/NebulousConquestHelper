@@ -152,8 +152,8 @@ namespace NebulousConquestHelper
 
             Fleet newFleet = new Fleet(backingFile, locationName, team);
 
-            newFleet.Location = System.FindLocationByName(locationName);
-            newFleet.Location.PresentFleets.Add(newFleet);
+            Location loc = System.FindLocationByName(locationName);
+            loc.SpawnFleet(newFleet);
 
             Fleets.Add(newFleet);
         }
