@@ -16,7 +16,7 @@ namespace NebulousConquestHelper
 			Helper.Registry = registryFile.Object;
 			BackingXmlFile<Game> gameFile = BackingXmlFile<Game>.Game("TestGame");
 			Game game = gameFile.Object;
-			bool success = Game.Init(game);
+			bool success = game.Init();
 			if (!success)
             {
 				Console.WriteLine("Failed to initialize Game");
@@ -55,10 +55,6 @@ namespace NebulousConquestHelper
 			game.SaveGame();
 
 			// test code above, feel free to remove
-
-			Program program = new Program();
-			program.DiscordBot = new Bot(game);
-			program.RunBot();
         }
 
         private void RunBot()

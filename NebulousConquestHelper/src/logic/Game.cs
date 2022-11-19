@@ -92,20 +92,18 @@ namespace NebulousConquestHelper
 			}
 		}
 
-        public static bool Init(object loaded)
+        public bool Init()
         {
-            Game game = (Game)loaded;
+            this.SpawnFleets();
 
-            game.SpawnFleets();
-
-            game.TurnData.responseFleets = new List<string>();
-            game.TurnData.arrivingLater = new List<ConquestMovingFleet>();
-            game.TurnData.arrivingSoon = new List<List<string>>();
+            this.TurnData.responseFleets = new List<string>();
+            this.TurnData.arrivingLater = new List<ConquestMovingFleet>();
+            this.TurnData.arrivingSoon = new List<List<string>>();
             for (int i = 0; i < 7; i++)
             {
-                game.TurnData.arrivingSoon.Add(new List<string>());
+                this.TurnData.arrivingSoon.Add(new List<string>());
             }
-            if (game.TurnData.arrivingSoon.Count != 7) return false;
+            if (this.TurnData.arrivingSoon.Count != 7) return false;
 
             return true;
         }
