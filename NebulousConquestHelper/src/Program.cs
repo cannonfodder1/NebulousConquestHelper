@@ -19,13 +19,13 @@ namespace NebulousConquestHelper
 			game.SpawnFleets();
 			game.SpawnResources();
 
-			game.CreateNewFleet("Conquest - TF Oak", "Sph-L4", Game.ConquestTeam.GreenTeam);
+			Fleet oak = game.CreateNewFleet("Conquest - TF Oak", "Sph-L4", Game.ConquestTeam.GreenTeam);
 
-			Console.WriteLine("Fuel: " + game.Fleets[0].Fuel);
-			Console.WriteLine("Restores: " + game.Fleets[0].Restores);
+			Console.WriteLine("Fuel: " + oak.Fuel);
+			Console.WriteLine("Restores: " + oak.Restores);
 
-			game.Fleets[0].RestockFromLocation();
-			game.Fleets[0].IssueMoveOrder("Sat-L3");
+			oak.RestockFromLocation();
+			oak.IssueMoveOrder("Sat-L3");
 
 			Game.ConquestTurnError error;
 			for (int i = 0; i < 14; i++)
@@ -38,8 +38,8 @@ namespace NebulousConquestHelper
 				}
 			}
 
-			Console.WriteLine("Fuel: " + game.Fleets[0].Fuel);
-			Console.WriteLine("Restores: " + game.Fleets[0].Restores);
+			Console.WriteLine("Fuel: " + oak.Fuel);
+			Console.WriteLine("Restores: " + oak.Restores);
 			Console.WriteLine(game.System.FindLocationByName("Sph-L4").PrintResources());
 
 			Mapping.CreateSystemMap("SystemMap_Overview.png", game.System, game.DaysPassed, false, false);
