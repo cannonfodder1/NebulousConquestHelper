@@ -53,7 +53,7 @@
     <None Update="src\data\Conquest - TF Oak.fleet">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="src\data\TestGame.scenario">
+    <None Update="src\data\TestGame.conquest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

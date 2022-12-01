@@ -17,7 +17,7 @@
 			}
 			if (fileType == FileType.Game)
 			{
-				return ".scenario";
+				return ".conquest";
 			}
 			if (fileType == FileType.ComponentRegistry)
 			{
