@@ -3,7 +3,7 @@ using Utility;
 
 namespace NebulousConquestHelper
 {
-    class Program
+	class Program
 	{
 		private Bot DiscordBot { get; set; }
 
@@ -46,11 +46,11 @@ namespace NebulousConquestHelper
 			game.SaveGame();
 
 			// test code above, feel free to remove
-        }
+		}
 
-        private void RunBot()
-        {
+		private void RunBot()
+		{
 			DiscordBot.RunBotAsync().GetAwaiter().GetResult();
-        }
+		}
 	}
 }

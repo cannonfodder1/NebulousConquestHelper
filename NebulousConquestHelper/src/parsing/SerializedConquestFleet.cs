@@ -8,8 +8,8 @@ using System.Xml.Serialization;
 // extracted from Nebulous.dll with Unity logging removed
 namespace NebulousConquestHelper
 {
-    // Token: 0x02000219 RID: 537
-    [XmlType("Fleet")]
+	// Token: 0x02000219 RID: 537
+	[XmlType("Fleet")]
 	[Serializable]
 	public class SerializedConquestFleet
 	{

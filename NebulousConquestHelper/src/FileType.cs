@@ -11,7 +11,7 @@
 	{
 		public static string ToExtension(this FileType fileType)
 		{
-			if(fileType == FileType.Fleet)
+			if (fileType == FileType.Fleet)
 			{
 				return ".fleet";
 			}

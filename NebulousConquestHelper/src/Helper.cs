@@ -5,7 +5,7 @@ using Utility;
 
 namespace NebulousConquestHelper
 {
-    class Helper
+	class Helper
 	{
 		public const string DATA_FOLDER_PATH = "./src/data/";
 

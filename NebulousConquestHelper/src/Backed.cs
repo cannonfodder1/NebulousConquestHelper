@@ -12,7 +12,7 @@ namespace NebulousConquestHelper
 
 		public static BackingXmlFile<T> NewFile(string fileName)
 		{
-            return new BackingXmlFile<T>(fileName, FileType);
+			return new BackingXmlFile<T>(fileName, FileType);
 		}
 
 		[XmlIgnore]
@@ -42,26 +42,28 @@ namespace NebulousConquestHelper
 		public T _XML { get; set; }
 
 		[XmlIgnore]
-		public virtual BackingXmlFile<T> BackingFile {
+		public virtual BackingXmlFile<T> BackingFile
+		{
 			get
-            {			
+			{
 				return new BackingXmlFile<T>(this.FileName, FileType);
-            }
+			}
 			set
-            {
+			{
 				this.FileName = value.Name;
-            }
+			}
 		}
 		[XmlIgnore]
-		public virtual T XML {
+		public virtual T XML
+		{
 			get
-            {
+			{
 				if (this._XML == null)
-                {
+				{
 					this._XML = this.BackingFile.Object;
-                }
+				}
 				return this._XML;
-            }
+			}
 		}
 	}
 }

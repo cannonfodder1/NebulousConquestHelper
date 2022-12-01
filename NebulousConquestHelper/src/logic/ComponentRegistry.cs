@@ -4,10 +4,10 @@ using System.Xml.Serialization;
 
 namespace NebulousConquestHelper
 {
-    [XmlType("ComponentRegistry")]
-    [Serializable]
-    public class ComponentRegistry : Backed<ComponentRegistry>
-    {
-        public List<Component> Components;
-    }
+	[XmlType("ComponentRegistry")]
+	[Serializable]
+	public class ComponentRegistry : Backed<ComponentRegistry>
+	{
+		public List<Component> Components;
+	}
 }
