@@ -9,60 +9,60 @@ using System.Text;
 
 namespace NebulousConquestHelper
 {
-    public class BotHelpFormatter : BaseHelpFormatter
-    {
-        private StringBuilder MessageBuilder { get; }
+	public class BotHelpFormatter : BaseHelpFormatter
+	{
+		private StringBuilder MessageBuilder { get; }
 
-        public BotHelpFormatter(CommandContext ctx) : base(ctx)
-        {
-            this.MessageBuilder = new StringBuilder();
-        }
+		public BotHelpFormatter(CommandContext ctx) : base(ctx)
+		{
+			this.MessageBuilder = new StringBuilder();
+		}
 
-        public override BaseHelpFormatter WithCommand(Command command)
-        {
-            MessageBuilder.Append("Command: ")
-                .AppendLine(Formatter.Bold(command.Name))
-                .AppendLine();
+		public override BaseHelpFormatter WithCommand(Command command)
+		{
+			MessageBuilder.Append("Command: ")
+				.AppendLine(Formatter.Bold(command.Name))
+				.AppendLine();
 
-            MessageBuilder.Append("Description: ")
-                .AppendLine(command.Description)
-                .AppendLine();
+			MessageBuilder.Append("Description: ")
+				.AppendLine(command.Description)
+				.AppendLine();
 
-            if (command is CommandGroup)
-            {
-                MessageBuilder.AppendLine("This group has a standalone command.").AppendLine();
-            }
+			if (command is CommandGroup)
+			{
+				MessageBuilder.AppendLine("This group has a standalone command.").AppendLine();
+			}
 
-            MessageBuilder.Append("Aliases: ")
-                .AppendLine(string.Join(", ", command.Aliases))
-                .AppendLine();
+			MessageBuilder.Append("Aliases: ")
+				.AppendLine(string.Join(", ", command.Aliases))
+				.AppendLine();
 
-            foreach (CommandOverload overload in command.Overloads)
-            {
-                if (overload.Arguments.Count == 0)
-                {
-                    continue;
-                }
+			foreach (CommandOverload overload in command.Overloads)
+			{
+				if (overload.Arguments.Count == 0)
+				{
+					continue;
+				}
 
-                MessageBuilder.Append($"[Overload {overload.Priority}] Arguments: ")
-                    .AppendLine(string.Join(", ", overload.Arguments.Select(xarg => $"{xarg.Name} ({xarg.Type.Name})")))
-                    .AppendLine();
-            }
+				MessageBuilder.Append($"[Overload {overload.Priority}] Arguments: ")
+					.AppendLine(string.Join(", ", overload.Arguments.Select(xarg => $"{xarg.Name} ({xarg.Type.Name})")))
+					.AppendLine();
+			}
 
-            return this;
-        }
+			return this;
+		}
 
-        public override BaseHelpFormatter WithSubcommands(IEnumerable<Command> subcommands)
-        {
-            MessageBuilder.Append("Subcommands: ")
-                .AppendLine(String.Join(", ", subcommands.Select(xc => xc.Name)))
-                .AppendLine();
-            return this;
-        }
+		public override BaseHelpFormatter WithSubcommands(IEnumerable<Command> subcommands)
+		{
+			MessageBuilder.Append("Subcommands: ")
+				.AppendLine(String.Join(", ", subcommands.Select(xc => xc.Name)))
+				.AppendLine();
+			return this;
+		}
 
-        public override CommandHelpMessage Build()
-        {
-            return new CommandHelpMessage(MessageBuilder.ToString().Replace("\r\n", "\n"));
-        }
-    }
+		public override CommandHelpMessage Build()
+		{
+			return new CommandHelpMessage(MessageBuilder.ToString().Replace("\r\n", "\n"));
+		}
+	}
 }

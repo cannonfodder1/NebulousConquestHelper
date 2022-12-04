@@ -13,19 +13,19 @@ using Utility;
 
 namespace NebulousConquestHelper
 {
-    public class Bot
-    {
-        public readonly EventId BotEventId = new EventId(42, "Nebulous-QB");
+	public class Bot
+	{
+		public readonly EventId BotEventId = new EventId(42, "Nebulous-QB");
 
-        public DiscordClient Client { get; set; }
-        public CommandsNextExtension Commands { get; set; }
-		
-		public Game Game { get; set; }	
+		public DiscordClient Client { get; set; }
+		public CommandsNextExtension Commands { get; set; }
+
+		public Game Game { get; set; }
 
 		public Bot(Game game)
-        {
+		{
 			Game = game;
-        }
+		}
 
 		public async Task RunBotAsync()
 		{
@@ -50,10 +50,10 @@ namespace NebulousConquestHelper
 			{
 				Token = cfgjson.Token,
 				TokenType = TokenType.Bot,
-				Intents = DiscordIntents.AllUnprivileged 
-					| DiscordIntents.DirectMessages 
-					| DiscordIntents.DirectMessageTyping 
-					| DiscordIntents.GuildMessages 
+				Intents = DiscordIntents.AllUnprivileged
+					| DiscordIntents.DirectMessages
+					| DiscordIntents.DirectMessageTyping
+					| DiscordIntents.GuildMessages
 					| DiscordIntents.GuildMessageTyping,
 
 				AutoReconnect = true,
@@ -65,7 +65,7 @@ namespace NebulousConquestHelper
 			Client.Ready += Client_Ready;
 			Client.GuildAvailable += Client_GuildAvailable;
 			Client.ClientErrored += Client_ClientErrored;
-            Client.InteractionCreated += Client_InteractionCreated;
+			Client.InteractionCreated += Client_InteractionCreated;
 
 
 			var ccfg = new CommandsNextConfiguration
@@ -89,22 +89,22 @@ namespace NebulousConquestHelper
 			await Task.Delay(-1);
 		}
 
-        private async Task Client_InteractionCreated(DiscordClient sender, InteractionCreateEventArgs e)
-        {
+		private async Task Client_InteractionCreated(DiscordClient sender, InteractionCreateEventArgs e)
+		{
 			Client.Logger.LogInformation(BotEventId, $"{e.Interaction.User.Username} sent an interaction: {e.Interaction.Data.Name}");
 
-            try
-            {
+			try
+			{
 				await e.Interaction.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
 			}
-            catch (Exception ex)
-            {
+			catch (Exception ex)
+			{
 				Client.Logger.LogError(BotEventId, "Exception when responding to interaction");
-                throw ex;
-            }
+				throw ex;
+			}
 
-            try
-            {
+			try
+			{
 				if (e.Interaction.Data.Name == "map")
 				{
 					string fileName = "SystemMap.png";
@@ -117,16 +117,16 @@ namespace NebulousConquestHelper
 					}
 				}
 			}
-            catch (Exception ex)
-            {
-				await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, 
+			catch (Exception ex)
+			{
+				await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
 					new DiscordInteractionResponseBuilder()
 					.WithContent("Failed to retrieve map"));
 				throw ex;
-            }
-        }
+			}
+		}
 
-        private async Task Commands_CommandErrored(CommandsNextExtension sender, CommandErrorEventArgs e)
+		private async Task Commands_CommandErrored(CommandsNextExtension sender, CommandErrorEventArgs e)
 		{
 			// Log details
 			e.Context.Client.Logger.LogError(BotEventId, $"{e.Context.User.Username} tried executing '{e.Command?.QualifiedName ?? "<unknown command>"}' but it errored: {e.Exception.GetType()}: {e.Exception.Message ?? "<no message>"}", DateTime.Now);

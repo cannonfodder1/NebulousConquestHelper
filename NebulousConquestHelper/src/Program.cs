@@ -3,7 +3,7 @@ using Utility;
 
 namespace NebulousConquestHelper
 {
-    class Program
+	class Program
 	{
 		private Bot DiscordBot { get; set; }
 
@@ -11,25 +11,18 @@ namespace NebulousConquestHelper
 		{
 			// test code below, feel free to remove
 
-			Helper.Registry = (ComponentRegistry)Helper.ReadXMLFile(
-				typeof(ComponentRegistry),
-				new FilePath(Helper.DATA_FOLDER_PATH + "ComponentRegistry.xml")
-			);
-			Game game = (Game)Helper.ReadXMLFile(
-				typeof(Game),
-				new FilePath(Helper.DATA_FOLDER_PATH + "TestGame.scenario"),
-				Game.Init
-			);
+			Helper.Registry = ComponentRegistry.Load("ComponentRegistry");
+			Game game = Game.Load("TestGame");
+			game.SpawnFleets();
+			game.SpawnResources();
 
-			SetupSystemResources(game.System);
+			Fleet oak = game.CreateNewFleet("Conquest - TF Oak", "Sph-L4", Game.ConquestTeam.GreenTeam);
 
-			game.CreateNewFleet("Conquest - TF Oak.fleet", "Sph-L4", Game.ConquestTeam.GreenTeam);
+			Console.WriteLine("Fuel: " + oak.Fuel);
+			Console.WriteLine("Restores: " + oak.Restores);
 
-			Console.WriteLine("Fuel: " + game.Fleets[0].Fuel);
-			Console.WriteLine("Restores: " + game.Fleets[0].Restores);
-
-			game.Fleets[0].RestockFromLocation();
-			game.Fleets[0].IssueMoveOrder("Sat-L3");
+			oak.RestockFromLocation();
+			oak.IssueMoveOrder("Sat-L3");
 
 			Game.ConquestTurnError error;
 			for (int i = 0; i < 14; i++)
@@ -42,8 +35,8 @@ namespace NebulousConquestHelper
 				}
 			}
 
-			Console.WriteLine("Fuel: " + game.Fleets[0].Fuel);
-			Console.WriteLine("Restores: " + game.Fleets[0].Restores);
+			Console.WriteLine("Fuel: " + oak.Fuel);
+			Console.WriteLine("Restores: " + oak.Restores);
 			Console.WriteLine(game.System.FindLocationByName("Sph-L4").PrintResources());
 
 			Mapping.CreateSystemMap("SystemMap_Overview.png", game.System, game.DaysPassed, false, false);
@@ -53,61 +46,11 @@ namespace NebulousConquestHelper
 			game.SaveGame();
 
 			// test code above, feel free to remove
+		}
 
-			Program program = new Program();
-			program.DiscordBot = new Bot(game);
-			program.RunBot();
-        }
-
-        private void RunBot()
-        {
-			DiscordBot.RunBotAsync().GetAwaiter().GetResult();
-        }
-
-		private static void SetupSystemResources(System system)
+		private void RunBot()
 		{
-			foreach (Location loc in system.AllLocations)
-			{
-				switch (loc.SubType)
-				{
-					case Location.LocationSubType.PlanetHabitable:
-						loc.Resources.Add(new Resource(ResourceType.Polymers, 0, 300, 0));
-						loc.Resources.Add(new Resource(ResourceType.Fuel, 0, 100, 0));
-						loc.Resources.Add(new Resource(ResourceType.Metals, 0, 100, 0));
-						break;
-					case Location.LocationSubType.PlanetGaseous:
-						loc.Resources.Add(new Resource(ResourceType.Fuel, 0, 300, 0));
-						loc.Resources.Add(new Resource(ResourceType.Rares, 0, 100, 0));
-						loc.Resources.Add(new Resource(ResourceType.Metals, 0, 100, 0));
-						break;
-					case Location.LocationSubType.PlanetBarren:
-						loc.Resources.Add(new Resource(ResourceType.Rares, 0, 300, 0));
-						loc.Resources.Add(new Resource(ResourceType.Polymers, 0, 100, 0));
-						loc.Resources.Add(new Resource(ResourceType.Metals, 0, 100, 0));
-						break;
-					case Location.LocationSubType.StationMining:
-						loc.Resources.Add(new Resource(ResourceType.Metals, 0, 300, 0));
-						break;
-					case Location.LocationSubType.StationFactoryParts:
-						loc.Resources.Add(new Resource(ResourceType.Parts, 0, 200, 0));
-						loc.Resources.Add(new Resource(ResourceType.Metals, 0, 0, 300));
-						loc.Resources.Add(new Resource(ResourceType.Polymers, 0, 0, 100));
-						break;
-					case Location.LocationSubType.StationFactoryRestores:
-						loc.Resources.Add(new Resource(ResourceType.Restores, 0, 100, 0));
-						loc.Resources.Add(new Resource(ResourceType.Parts, 0, 0, 100));
-						loc.Resources.Add(new Resource(ResourceType.Rares, 0, 0, 200));
-						loc.Resources.Add(new Resource(ResourceType.Polymers, 0, 0, 100));
-						break;
-					case Location.LocationSubType.StationSupplyDepot:
-						loc.Resources.Add(new Resource(ResourceType.Fuel, 500, 0, 0));
-						loc.Resources.Add(new Resource(ResourceType.Metals, 400, 0, 0));
-						loc.Resources.Add(new Resource(ResourceType.Rares, 200, 0, 0));
-						loc.Resources.Add(new Resource(ResourceType.Parts, 100, 0, 0));
-						loc.Resources.Add(new Resource(ResourceType.Restores, 100, 0, 0));
-						break;
-				}
-			}
+			DiscordBot.RunBotAsync().GetAwaiter().GetResult();
 		}
 	}
 }

@@ -4,42 +4,38 @@ using System.Xml.Serialization;
 
 namespace NebulousConquestHelper
 {
-    [XmlType("System")]
-    [Serializable]
-    public class System
-    {
-        public string Name;
-        public List<Location> OrbitingLocations;
-        public List<Belt> SurroundingBelts;
-        [XmlIgnore] public List<Location> AllLocations;
+	[XmlType("System")]
+	[Serializable]
+	public class System
+	{
+		public string Name;
+		public List<Location> OrbitingLocations;
+		public List<Belt> SurroundingBelts;
+		private List<Location> _allLocations = null;
+		[XmlIgnore]
+		public List<Location> AllLocations
+		{
+			get
+			{
+				if (this._allLocations != null)
+				{
+					return this._allLocations;
+				}
 
-        public Location FindLocationByName(string name)
-        {
-            return AllLocations.Find(x => x.Name == name);
-        }
+				this._allLocations = new List<Location>(this.OrbitingLocations);
 
-        public void InitSystem()
-        {
-            void InitSystemInternal(Location loc)
-            {
-                AllLocations.Add(loc);
+				foreach (Location loc in this.OrbitingLocations)
+				{
+					this._allLocations.AddRange(loc.AllLocations);
+				}
 
-                foreach (Location subloc in loc.OrbitingLocations)
-                {
-                    InitSystemInternal(subloc);
-                }
-                foreach (Location subloc in loc.LagrangeLocations)
-                {
-                    InitSystemInternal(subloc);
-                }
-            }
+				return this._allLocations;
+			}
+		}
 
-            AllLocations = new List<Location>();
-
-            foreach (Location loc in OrbitingLocations)
-            {
-                InitSystemInternal(loc);
-            }
-        }
-    }
+		public Location FindLocationByName(string name)
+		{
+			return AllLocations.Find(x => x.Name == name);
+		}
+	}
 }
