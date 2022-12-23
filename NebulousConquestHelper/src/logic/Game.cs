@@ -11,6 +11,7 @@ namespace NebulousConquestHelper
 	{
 		private const double AU_PER_DAY = 0.2;
 		private const double AU_PER_DAY_THRU_BELT = 0.1;
+		private const double AEROBRAKE_FUEL_MULT = 0.5;
 		private const int WP_PLANET_TAKEN = 6;
 		private const int WP_STATION_TAKEN = 3;
 		private const int WP_PER_SHIP = 1;
@@ -247,15 +248,22 @@ namespace NebulousConquestHelper
 
 						double distance = depart.GetDistanceTo(arrive, DaysPassed);
 						double speed = AU_PER_DAY;
+						int fuel = fleet.GetFuelConsumption();
 
 						foreach (Belt belt in System.SurroundingBelts)
 						{
 							if (belt.TraversingAsteroidBelt(depart, arrive, DaysPassed))
 							{
 								speed = AU_PER_DAY_THRU_BELT;
+								fuel = (int)(fuel * (AU_PER_DAY_THRU_BELT / AU_PER_DAY));
 								break;
 							}
 						}
+
+						if (arrive.MainType == Location.LocationType.Planet && arrive.ControllingTeam == fleet.ControllingTeam)
+                        {
+							fuel = (int)(fuel * AEROBRAKE_FUEL_MULT);
+                        }
 
 						int travelTime = (int)(distance / speed);
 						if (distance % AU_PER_DAY != 0) travelTime++;
@@ -270,7 +278,7 @@ namespace NebulousConquestHelper
 						}
 
 						fleet.OrderType = Fleet.FleetOrderType.InTransit;
-						fleet.Fuel -= fleet.GetFuelConsumption();
+						fleet.Fuel -= fuel;
 					}
 				}
 
