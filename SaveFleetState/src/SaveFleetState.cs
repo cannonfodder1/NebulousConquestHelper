@@ -96,6 +96,7 @@ namespace SaveFleetState
         static bool Prefix(ref SkirmishGameManager __instance)
         {
             Debug.Log("SAVEFLEETSTATE :: Match over, saving fleet states");
+            DateTime timestamp = SystemClock.now;
 
             foreach (IPlayer player in __instance.Players)
             {
@@ -103,17 +104,19 @@ namespace SaveFleetState
                 {
                     SkirmishPlayer skirmishPlayer = (SkirmishPlayer)player;
                     //string mapName = __instance.LoadedMap.DisplayName;
-                    DateTime timestamp = SystemClock.now;
+
                     SaveFleetState.SaveFleetToFile(
                         skirmishPlayer.PlayerFleet.GetSerializable(true),
                         timestamp.ToString("yyyy-dd-M---HH-mm-ss"),
                         false
                         );
+                    Debug.Log("SAVEFLEETSTATE :: Done saving RAW variant of fleet " + skirmishPlayer.PlayerFleet.GetSerializable(true).Name);
                     SaveFleetState.SaveFleetToFile(
                         skirmishPlayer.PlayerFleet.GetSerializable(true),
                         timestamp.ToString("yyyy-dd-M---HH-mm-ss"),
                         true
                         );
+                    Debug.Log("SAVEFLEETSTATE :: Done saving READY variant of fleet " + skirmishPlayer.PlayerFleet.GetSerializable(true).Name);
                 }
             }
 
