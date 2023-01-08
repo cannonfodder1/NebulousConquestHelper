@@ -2,7 +2,7 @@
 
 namespace NebulousConquestHelper
 {
-	public enum ResourceType
+    public enum ResourceType
 	{
 		Fuel,
 		Rares,
@@ -18,6 +18,7 @@ namespace NebulousConquestHelper
 		public int Stockpile = 0;
 		public int Production = 0;
 		public int Consumption = 0;
+		public int Requested = 0;
 
 		public Resource() { }
 
@@ -32,12 +33,28 @@ namespace NebulousConquestHelper
 			Stockpile = s;
 		}
 
+		public Resource(ResourceType t, int s, int p)
+		{
+			Type = t;
+			Stockpile = s;
+			Production = p;
+		}
+
 		public Resource(ResourceType t, int s, int p, int c)
 		{
 			Type = t;
 			Stockpile = s;
 			Production = p;
 			Consumption = c;
+		}
+
+		public Resource(ResourceType t, int s, int p, int c, int r)
+		{
+			Type = t;
+			Stockpile = s;
+			Production = p;
+			Consumption = c;
+			Requested = r;
 		}
 
 		public void Produce(float percent = 1.0f)

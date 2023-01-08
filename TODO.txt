@@ -1,13 +1,10 @@
-- implement loc-to-loc transfer of resources
-	 - teams can set the amount of requested resources at each loc
-	 - the requested amount minus what's already there is the transport need
-	 - all locations' transport needs summed up must be lower than the team transport capacity
-	 - the transport needs of a specific resource must be lower than the available stock
-	 - to advance the turn, teams must set their locations' requested amounts to satisfy these conditions
 - implement fleet merging and split offs with the program generating new .fleet files
 - implement restocking of missiles/ammo at supply depots
 	 - no stockpiling of munitions, resources converted directly upon request
 - implement ship repairs at supply depots
+	 - infinite ships that can be docked
+	 - limited amount of work per ship per turn
+	 - no queue, all ships worked on at once
 - probably swap the whole thing over to a GM-run local program rather than a discord bot
 - implement different kinds of mapmodes for the map printer (fleets present, fuel present, resource satisfaction, etc)
 - autogenerate 'info packages' for each team at the conclusion of each turn (fleets, resources, war progress, etc)

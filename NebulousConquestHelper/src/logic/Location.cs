@@ -21,12 +21,22 @@ namespace NebulousConquestHelper
 			PlanetBarren,           // 2x, Rares+++ Polymers+ Metals+
 			PlanetGaseous,          // 2x, Fuel+++ Rares+ Metals+
 			StationMining,          // 4x, Metals+++
-			StationFactoryParts,    // 4x, Metals--- Polymers- Parts++
-			StationFactoryRestores, // 4x, Parts- Rares-- Polymers- Restores+
+									// Total: Metals+18, Rares+8, Polymers+8, Fuel+8
+			
+			StationFactoryParts,    // 4x, Metals- Rares-- Polymers-- Parts++
+			StationFactoryRestores, // 4x, Metals- Parts- Restores+
+									// Total: Metals-8, Rares-8, Polymers-8, Parts+4, Restores+4
+			
 			StationSupplyDepot      // 6x,
-									// Repairs:  Metals--- Restores-
-									// Missiles: Rares- Parts-
-									// Ammo:     Metals- Rares-
+									//	Repair Armour:		1 Metals per mass
+									//	Repair Component:	1 Restores to min HP, 1 Parts to max HP
+									//	Build Missile:		1 Metals and 1 Parts per point, 1 Fuel per missile
+									//	Build Ammo:			1 Metals per point
+
+
+
+			// Grand Total: Metals+10, Fuel+8, Parts+4, Restores+4
+			// Great Guess: one + or - here means 100 units
 		}
 
 		public string Name;
@@ -174,6 +184,21 @@ namespace NebulousConquestHelper
 		public void SpawnResource(Resource res)
 		{
 			this.Resources.Add(res);
+		}
+
+		public void SetupResourceProducer(ResourceType type, int amount)
+		{
+			this.SpawnResource(new Resource(type, amount, amount, 0, 0));
+		}
+
+		public void SetupResourceConsumer(ResourceType type, int amount)
+		{
+			this.SpawnResource(new Resource(type, 0, 0, amount, amount));
+		}
+
+		public void SetupResourceStockpiler(ResourceType type, int amount)
+		{
+			this.SpawnResource(new Resource(type, amount, 0, 0, amount));
 		}
 	}
 }

@@ -35,7 +35,9 @@ namespace NebulousConquestHelper
 			PHASE,
 			FLEET_NEEDS_ORDER,
 			FLEET_NEEDS_FUEL,
-			BATTLE
+			BATTLE,
+			LOGISTICS_SATISFACTION,
+			LOGISTICS_TRANSPORT,
 		}
 
 		public struct ConquestMovingFleet
@@ -97,40 +99,39 @@ namespace NebulousConquestHelper
 				switch (loc.SubType)
 				{
 					case Location.LocationSubType.PlanetHabitable:
-						loc.SpawnResource(new Resource(ResourceType.Polymers, 0, 300, 0));
-						loc.SpawnResource(new Resource(ResourceType.Fuel, 0, 100, 0));
-						loc.SpawnResource(new Resource(ResourceType.Metals, 0, 100, 0));
+						loc.SetupResourceProducer(ResourceType.Polymers, 300);
+						loc.SetupResourceProducer(ResourceType.Fuel, 100);
+						loc.SetupResourceProducer(ResourceType.Metals, 100);
 						break;
 					case Location.LocationSubType.PlanetGaseous:
-						loc.SpawnResource(new Resource(ResourceType.Fuel, 0, 300, 0));
-						loc.SpawnResource(new Resource(ResourceType.Rares, 0, 100, 0));
-						loc.SpawnResource(new Resource(ResourceType.Metals, 0, 100, 0));
+						loc.SetupResourceProducer(ResourceType.Fuel, 300);
+						loc.SetupResourceProducer(ResourceType.Rares, 100);
+						loc.SetupResourceProducer(ResourceType.Metals, 100);
 						break;
 					case Location.LocationSubType.PlanetBarren:
-						loc.SpawnResource(new Resource(ResourceType.Rares, 0, 300, 0));
-						loc.SpawnResource(new Resource(ResourceType.Polymers, 0, 100, 0));
-						loc.SpawnResource(new Resource(ResourceType.Metals, 0, 100, 0));
+						loc.SetupResourceProducer(ResourceType.Rares, 300);
+						loc.SetupResourceProducer(ResourceType.Polymers, 100);
+						loc.SetupResourceProducer(ResourceType.Metals, 100);
 						break;
 					case Location.LocationSubType.StationMining:
-						loc.SpawnResource(new Resource(ResourceType.Metals, 0, 300, 0));
+						loc.SetupResourceProducer(ResourceType.Metals, 300);
 						break;
 					case Location.LocationSubType.StationFactoryParts:
-						loc.SpawnResource(new Resource(ResourceType.Parts, 0, 200, 0));
-						loc.SpawnResource(new Resource(ResourceType.Metals, 0, 0, 300));
-						loc.SpawnResource(new Resource(ResourceType.Polymers, 0, 0, 100));
+						loc.SetupResourceProducer(ResourceType.Parts, 200);
+						loc.SetupResourceConsumer(ResourceType.Polymers, 200);
+						loc.SetupResourceConsumer(ResourceType.Rares, 200);
+						loc.SetupResourceConsumer(ResourceType.Metals, 100);
 						break;
 					case Location.LocationSubType.StationFactoryRestores:
-						loc.SpawnResource(new Resource(ResourceType.Restores, 0, 100, 0));
-						loc.SpawnResource(new Resource(ResourceType.Parts, 0, 0, 100));
-						loc.SpawnResource(new Resource(ResourceType.Rares, 0, 0, 200));
-						loc.SpawnResource(new Resource(ResourceType.Polymers, 0, 0, 100));
+						loc.SetupResourceProducer(ResourceType.Restores, 100);
+						loc.SetupResourceConsumer(ResourceType.Parts, 100);
+						loc.SetupResourceConsumer(ResourceType.Metals, 100);
 						break;
 					case Location.LocationSubType.StationSupplyDepot:
-						loc.SpawnResource(new Resource(ResourceType.Fuel, 500, 0, 0));
-						loc.SpawnResource(new Resource(ResourceType.Metals, 400, 0, 0));
-						loc.SpawnResource(new Resource(ResourceType.Rares, 200, 0, 0));
-						loc.SpawnResource(new Resource(ResourceType.Parts, 100, 0, 0));
-						loc.SpawnResource(new Resource(ResourceType.Restores, 100, 0, 0));
+						loc.SetupResourceStockpiler(ResourceType.Fuel, 400);
+						loc.SetupResourceStockpiler(ResourceType.Metals, 400);
+						loc.SetupResourceStockpiler(ResourceType.Parts, 100);
+						loc.SetupResourceStockpiler(ResourceType.Restores, 100);
 						break;
 				}
 			}
@@ -188,6 +189,21 @@ namespace NebulousConquestHelper
 			{
 				error = ConquestTurnError.BATTLE;
 				return false;
+			}
+
+			foreach (Team team in Teams)
+			{
+				if (!CanTeamSatisfyRequests(team))
+				{
+					error = ConquestTurnError.LOGISTICS_SATISFACTION;
+					return false;
+				}
+
+				if (!CanTeamTransportRequests(team))
+				{
+					error = ConquestTurnError.LOGISTICS_TRANSPORT;
+					return false;
+				}
 			}
 
 			foreach (Fleet fleet in Fleets)
@@ -283,6 +299,40 @@ namespace NebulousConquestHelper
 					}
 				}
 
+				foreach (Team team in Teams)
+				{
+					GetResourceLocations(team, out Dictionary<ResourceType, List<Location>> available, out Dictionary<ResourceType, List<Location>> requested);
+
+					foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
+					{
+						int index1 = 0;
+						int index2 = 0;
+
+						while (index1 < available[type].Count && index2 < requested[type].Count)
+						{
+							Resource provide_resource = available[type][index1].Resources.Find(x => x.Type == type);
+							Resource request_resource = requested[type][index2].Resources.Find(x => x.Type == type);
+
+							int provide_amount = provide_resource.Stockpile - provide_resource.Requested;
+							int request_amount = request_resource.Requested - request_resource.Stockpile;
+
+							int transfer_size = Math.Min(provide_amount, request_amount);
+
+							provide_resource.Stockpile -= transfer_size;
+							request_resource.Stockpile += transfer_size;
+
+							if (provide_resource.Stockpile == 0)
+							{
+								index1++;
+							}
+							if (request_resource.Stockpile == request_resource.Requested)
+                            {
+								index2++;
+                            }
+						}
+					}
+				}
+
 				foreach (Location loc in System.AllLocations)
 				{
 					loc.AdvanceTurn();
@@ -364,6 +414,97 @@ namespace NebulousConquestHelper
 
 			WarProgress = winner == ConquestTeam.GreenTeam ? WarProgress - reward : WarProgress + reward;
 			BattleLocations.Remove(location);
+		}
+
+		private bool CanTeamSatisfyRequests(Team team)
+		{
+			GetResourceSituation(team, out Dictionary<ResourceType, int> available, out Dictionary<ResourceType, int> requested);
+
+			foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
+			{
+				if (available[type] < requested[type])
+				{
+					Console.WriteLine(requested[type] + " " + type.ToString() + " requested but only " + available[type] + " available");
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		private bool CanTeamTransportRequests(Team team)
+		{
+			GetResourceSituation(team, out Dictionary<ResourceType, int> available, out Dictionary<ResourceType, int> requested);
+
+			int numToTransport = 0;
+
+			foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
+			{
+				numToTransport += requested[type];
+			}
+
+			Console.WriteLine(numToTransport + " < " + team.TransportCapacity);
+			return numToTransport <= team.TransportCapacity;
+		}
+
+		private void GetResourceSituation(Team team, out Dictionary<ResourceType, int> available, out Dictionary<ResourceType, int> requested)
+		{
+			available = new Dictionary<ResourceType, int>();
+			requested = new Dictionary<ResourceType, int>();
+
+			foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
+			{
+				available[type] = 0;
+				requested[type] = 0;
+			}
+
+			foreach (Location loc in this.System.AllLocations)
+			{
+				if (GetTeam(loc.ControllingTeam) == team)
+				{
+					foreach (Resource res in loc.Resources)
+					{
+						if (res.Stockpile > res.Requested)
+						{
+							available[res.Type] += res.Stockpile - res.Requested;
+						}
+						if (res.Stockpile < res.Requested)
+						{
+							requested[res.Type] += res.Requested - res.Stockpile;
+						}
+					}
+				}
+			}
+		}
+
+		private void GetResourceLocations(Team team, out Dictionary<ResourceType, List<Location>> available, out Dictionary<ResourceType, List<Location>> requested)
+		{
+			available = new Dictionary<ResourceType, List<Location>>();
+			requested = new Dictionary<ResourceType, List<Location>>();
+
+			foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
+			{
+				available[type] = new List<Location>();
+				requested[type] = new List<Location>();
+			}
+
+			foreach (Location loc in this.System.AllLocations)
+			{
+				if (GetTeam(loc.ControllingTeam) == team)
+				{
+					foreach (Resource res in loc.Resources)
+					{
+						if (res.Stockpile > res.Requested)
+						{
+							available[res.Type].Add(loc);
+						}
+						if (res.Stockpile < res.Requested)
+						{
+							requested[res.Type].Add(loc);
+						}
+					}
+				}
+			}
 		}
 	}
 }

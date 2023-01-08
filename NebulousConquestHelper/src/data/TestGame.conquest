@@ -5,12 +5,12 @@
     <Team>
       <ShortName>Alliance</ShortName>
       <LongName>Shelter Alliance</LongName>
-      <MaximumTransportCapacity>500</MaximumTransportCapacity>
+      <Freighters>25</Freighters>
     </Team>
     <Team>
       <ShortName>Federation</ShortName>
       <LongName>Graznovian Federation</LongName>
-      <MaximumTransportCapacity>500</MaximumTransportCapacity>
+      <Freighters>25</Freighters>
     </Team>
   </Teams>
   <System>
