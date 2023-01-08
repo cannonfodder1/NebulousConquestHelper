@@ -157,6 +157,7 @@ namespace NebulousConquestHelper
 				fleet.SaveFleet();
 			}
 
+			this.FileName = fileName;
 			this.BackingFile.Object = this;
 		}
 
