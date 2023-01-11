@@ -1,4 +1,5 @@
 ﻿using Game;
+using Game.Orders.Tasks;
 using HarmonyLib;
 using Modding;
 using Ships;
@@ -121,6 +122,23 @@ namespace SaveFleetState
             }
 
             return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(OrderTask), "SaveOrderInternal")]
+    class Patch_OrderTask_SaveOrderInternal
+    {
+        static bool Prefix(ref OrderTask __instance, ref OrderTask.SavedOrderTask saved)
+        {
+            if (saved == null)
+            {
+                Debug.Log("SAVEFLEETSTATE :: Order of type " + __instance.GetType().Name + " is null and will not be saved");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
