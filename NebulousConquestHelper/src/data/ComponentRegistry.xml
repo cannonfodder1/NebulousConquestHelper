@@ -24,7 +24,7 @@
     </Component>
     <Component>
       <Name>Stock/Auxiliary Steering</Name>
-      <MaxHP>150</MaxHP>
+      <MaxHP>300</MaxHP>
       <MinHP>10</MinHP>
       <Crew>5</Crew>
       <Restores>0</Restores>
@@ -66,14 +66,14 @@
     </Component>
     <Component>
       <Name>Stock/Damage Control Central</Name>
-      <MaxHP>125</MaxHP>
+      <MaxHP>200</MaxHP>
       <MinHP>15</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
     </Component>
     <Component>
       <Name>Stock/Small Workshop</Name>
-      <MaxHP>75</MaxHP>
+      <MaxHP>150</MaxHP>
       <MinHP>15</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
@@ -125,6 +125,160 @@
       <MaxHP>100</MaxHP>
       <MinHP>15</MinHP>
       <Crew>15</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Small Reactor Booster</Name>
+      <MaxHP>40</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Adaptive Radar Receiver</Name>
+      <MaxHP>40</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Track Correlator</Name>
+      <MaxHP>40</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Strobe Correlator</Name>
+      <MaxHP>40</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Mount Gyros</Name>
+      <MaxHP>40</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Supplementary Radio Amplifiers</Name>
+      <MaxHP>40</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Launcher Deluge System</Name>
+      <MaxHP>75</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Magazine Sprinklers</Name>
+      <MaxHP>75</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Redundant Reactor Failsafes</Name>
+      <MaxHP>75</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Reinforced Thruster Nozzles</Name>
+      <MaxHP>50</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Energy Regulator</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>15</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Small Energy Regulator</Name>
+      <MaxHP>75</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Focused Particle Accelerator</Name>
+      <MaxHP>150</MaxHP>
+      <MinHP>15</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Ammunition Elevators</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>15</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Rapid-Cycle Cradle</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>15</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Actively Cooled Amplifiers</Name>
+      <MaxHP>40</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Missile Programming Bus</Name>
+      <MaxHP>80</MaxHP>
+      <MinHP>15</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Missile Programming Bus Array</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>15</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Missile Parallel Interface</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>15</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/VLS-1-23 Launcher</Name>
+      <MaxHP>75</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/VLS-1-46 Launcher</Name>
+      <MaxHP>125</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/CR10 Antenna</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
       <Restores>0</Restores>
     </Component>
     <Component>
@@ -226,125 +380,6 @@
       <Restores>0</Restores>
     </Component>
     <Component>
-      <Name>Stock/Small Reactor Booster</Name>
-      <MaxHP>40</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Adaptive Radar Receiver</Name>
-      <MaxHP>40</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Track Correlator</Name>
-      <MaxHP>40</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Mount Gyros</Name>
-      <MaxHP>40</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Supplementary Radio Amplifiers</Name>
-      <MaxHP>40</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Launcher Deluge System</Name>
-      <MaxHP>75</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Magazine Sprinklers</Name>
-      <MaxHP>75</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Redundant Reactor Failsafes</Name>
-      <MaxHP>75</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Reinforced Thruster Nozzles</Name>
-      <MaxHP>50</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Energy Regulator</Name>
-      <MaxHP>100</MaxHP>
-      <MinHP>15</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Small Energy Regulator</Name>
-      <MaxHP>75</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Focused Particle Accelerator</Name>
-      <MaxHP>150</MaxHP>
-      <MinHP>15</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Ammunition Elevators</Name>
-      <MaxHP>100</MaxHP>
-      <MinHP>15</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Actively Cooled Amplifiers</Name>
-      <MaxHP>40</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Missile Programming Bus</Name>
-      <MaxHP>80</MaxHP>
-      <MinHP>15</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Missile Programming Bus Array</Name>
-      <MaxHP>100</MaxHP>
-      <MinHP>15</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Missile Parallel Interface</Name>
-      <MaxHP>100</MaxHP>
-      <MinHP>15</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
       <Name>Stock/RS35 'Frontline' Radar</Name>
       <MaxHP>200</MaxHP>
       <MinHP>30</MinHP>
@@ -362,20 +397,6 @@
       <Name>Stock/RM50 'Parallax' Radar</Name>
       <MaxHP>300</MaxHP>
       <MinHP>30</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/CR10 Antenna</Name>
-      <MaxHP>100</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/CR70 Antenna</Name>
-      <MaxHP>250</MaxHP>
-      <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
     </Component>
@@ -401,6 +422,13 @@
       <Restores>0</Restores>
     </Component>
     <Component>
+      <Name>Stock/Mk65 Cannon</Name>
+      <MaxHP>325</MaxHP>
+      <MinHP>30</MinHP>
+      <Crew>25</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
       <Name>Stock/Mk66 Cannon</Name>
       <MaxHP>350</MaxHP>
       <MinHP>30</MinHP>
@@ -419,13 +447,6 @@
       <MaxHP>300</MaxHP>
       <MinHP>30</MinHP>
       <Crew>15</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/Mk82 Railgun</Name>
-      <MaxHP>400</MaxHP>
-      <MinHP>30</MinHP>
-      <Crew>25</Crew>
       <Restores>0</Restores>
     </Component>
     <Component>
@@ -466,20 +487,6 @@
     <Component>
       <Name>Stock/CLS-3 Launcher</Name>
       <MaxHP>175</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/VLS-1-23 Launcher</Name>
-      <MaxHP>75</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/VLS-1-46 Launcher</Name>
-      <MaxHP>125</MaxHP>
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
@@ -587,6 +594,300 @@
       <MaxHP>50</MaxHP>
       <MinHP>10</MinHP>
       <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/CR70 Antenna</Name>
+      <MaxHP>250</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Civilian Reactor</Name>
+      <MaxHP>300</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Light Civilian Reactor</Name>
+      <MaxHP>200</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>5</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Boosted Reactor</Name>
+      <MaxHP>300</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Large DC Storage</Name>
+      <MaxHP>300</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>4</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/BW800 Drive</Name>
+      <MaxHP>250</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/BW800-R Drive</Name>
+      <MaxHP>400</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/BW1500 Drive</Name>
+      <MaxHP>700</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/BW1500-R Drive</Name>
+      <MaxHP>1400</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/BW2000 Drive</Name>
+      <MaxHP>700</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/CHI-777 Yard Drive</Name>
+      <MaxHP>250</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/CHI-7700 Drive</Name>
+      <MaxHP>700</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/CHI-9100 Long Haul Drive</Name>
+      <MaxHP>700</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Sundrive Racing Pro</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>50</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Ithaca Bridgemaster</Name>
+      <MaxHP>200</MaxHP>
+      <MinHP>30</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Bulwark Huntress</Name>
+      <MaxHP>200</MaxHP>
+      <MinHP>30</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/R550 Early Warning Radar</Name>
+      <MaxHP>150</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/R400 Radar</Name>
+      <MaxHP>200</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/RF44 'Pinpoint' Radar</Name>
+      <MaxHP>70</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/T20 Cannon</Name>
+      <MaxHP>150</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>4</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/T30 Cannon</Name>
+      <MaxHP>200</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/T81 Plasma Cannon</Name>
+      <MaxHP>300</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>15</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/C30 Cannon</Name>
+      <MaxHP>350</MaxHP>
+      <MinHP>15</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/C53 Cannon</Name>
+      <MaxHP>350</MaxHP>
+      <MinHP>15</MinHP>
+      <Crew>15</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/C60 Cannon</Name>
+      <MaxHP>350</MaxHP>
+      <MinHP>30</MinHP>
+      <Crew>25</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/C65 Cannon</Name>
+      <MaxHP>500</MaxHP>
+      <MinHP>20</MinHP>
+      <Crew>25</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/C81 Plasma Cannon</Name>
+      <MaxHP>750</MaxHP>
+      <MinHP>30</MinHP>
+      <Crew>25</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/TE45 Mass Driver</Name>
+      <MaxHP>450</MaxHP>
+      <MinHP>20</MinHP>
+      <Crew>15</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/P11 PDT</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>3</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/P20 Flak PDT</Name>
+      <MaxHP>150</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>5</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/P60 Laser PDT</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/L50 Laser Dazzler</Name>
+      <MaxHP>75</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/J15 Jammer</Name>
+      <MaxHP>150</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/J360 Jammer</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/E20 'Lighthouse' Illuminator</Name>
+      <MaxHP>75</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/RL18 Launcher</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/RL36 Launcher</Name>
+      <MaxHP>175</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Container Bank Launcher</Name>
+      <MaxHP>500</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/Container Stack Launcher</Name>
+      <MaxHP>200</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/MLS-2 Launcher</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>10</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/MLS-3 Launcher</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>12</Crew>
+      <Restores>0</Restores>
+    </Component>
+    <Component>
+      <Name>Stock/ML-9 Mine Launcher</Name>
+      <MaxHP>100</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>10</Crew>
       <Restores>0</Restores>
     </Component>
   </Components>

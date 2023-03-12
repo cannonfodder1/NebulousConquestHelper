@@ -115,7 +115,7 @@ namespace NebulousConquestHelper
 
 		private static void InitializeDriveComponents()
 		{
-			if (MAIN_DRIVE_COMPONENTS.Count < 11)
+			if (MAIN_DRIVE_COMPONENTS.Count < 20)
 			{
 				string prefix = "Stock/";
 				MAIN_DRIVE_COMPONENTS.Clear();
@@ -130,12 +130,21 @@ namespace NebulousConquestHelper
 				MAIN_DRIVE_COMPONENTS.Add(prefix + "FM580 'Raider' Drive");
 				MAIN_DRIVE_COMPONENTS.Add(prefix + "FM530 'Whiplash' Drive");
 				MAIN_DRIVE_COMPONENTS.Add(prefix + "FM540 'Dragonfly' Drive");
+				MAIN_DRIVE_COMPONENTS.Add(prefix + "BW800 Drive");
+				MAIN_DRIVE_COMPONENTS.Add(prefix + "BW800-R Drive");
+				MAIN_DRIVE_COMPONENTS.Add(prefix + "BW1500 Drive");
+				MAIN_DRIVE_COMPONENTS.Add(prefix + "BW1500-R Drive");
+				MAIN_DRIVE_COMPONENTS.Add(prefix + "BW2000 Drive");
+				MAIN_DRIVE_COMPONENTS.Add(prefix + "CHI-777 Yard Drive");
+				MAIN_DRIVE_COMPONENTS.Add(prefix + "CHI-7700 Drive");
+				MAIN_DRIVE_COMPONENTS.Add(prefix + "CHI-9100 Long Haul Drive");
+				MAIN_DRIVE_COMPONENTS.Add(prefix + "Sundrive Racing Pro");
 			}
 		}
 
 		private static void InitializeDamconComponents()
 		{
-			if (DC_LOCKER_COMPONENTS.Count < 4)
+			if (DC_LOCKER_COMPONENTS.Count < 5)
 			{
 				string prefix = "Stock/";
 				DC_LOCKER_COMPONENTS.Clear();
@@ -143,6 +152,7 @@ namespace NebulousConquestHelper
 				DC_LOCKER_COMPONENTS.Add(prefix + "Small DC Locker");
 				DC_LOCKER_COMPONENTS.Add(prefix + "Large DC Locker");
 				DC_LOCKER_COMPONENTS.Add(prefix + "Reinforced DC Locker");
+				DC_LOCKER_COMPONENTS.Add(prefix + "Large DC Storage");
 			}
 		}
 
@@ -168,6 +178,10 @@ namespace NebulousConquestHelper
 				LAUNCHER_COMPONENTS.Add(prefix + "VLS-2 Launcher");
 				LAUNCHER_COMPONENTS.Add(prefix + "VLS-3 Launcher");
 				LAUNCHER_COMPONENTS.Add(prefix + "CLS-3 Launcher");
+				LAUNCHER_COMPONENTS.Add(prefix + "RL18 Launcher");
+				LAUNCHER_COMPONENTS.Add(prefix + "RL36 Launcher");
+				LAUNCHER_COMPONENTS.Add(prefix + "Container Stack Launcher");
+				LAUNCHER_COMPONENTS.Add(prefix + "Container Bank Launcher");
 			}
 		}
 
@@ -292,6 +306,24 @@ namespace NebulousConquestHelper
 						break;
 					case "Stock/Solomon Battleship":
 						mass += 21;
+						break;
+					case "Stock/Shuttle Clipper":
+						mass += 1;
+						break;
+					case "Stock/Tug Clipper":
+						mass += 3;
+						break;
+					case "Stock/Bulk Clipper":
+						mass += 5;
+						break;
+					case "Stock/Ocello Cruiser":
+						mass += 12;
+						break;
+					case "Stock/Bulker Line Ship":
+						mass += 15;
+						break;
+					case "Stock/Container Line Ship":
+						mass += 15;
 						break;
 					default:
 						Console.WriteLine("ERROR! Unknown Hull Type: " + ship.HullType);

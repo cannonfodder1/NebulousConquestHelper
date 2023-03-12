@@ -2,21 +2,6 @@
 <MunitionRegistry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Munitions>
     <Munition>
-      <Name>Stock/120mm HE Shell</Name>
-      <PointCost>1</PointCost>
-      <PointDivision>100</PointDivision>
-    </Munition>
-    <Munition>
-      <Name>Stock/120mm AP Shell</Name>
-      <PointCost>1</PointCost>
-      <PointDivision>100</PointDivision>
-    </Munition>
-    <Munition>
-      <Name>Stock/120mm HE-RPF Shell</Name>
-      <PointCost>1</PointCost>
-      <PointDivision>100</PointDivision>
-    </Munition>
-    <Munition>
       <Name>Stock/250mm HE Shell</Name>
       <PointCost>1</PointCost>
       <PointDivision>50</PointDivision>
@@ -44,22 +29,37 @@
     <Munition>
       <Name>Stock/20mm Slug</Name>
       <PointCost>1</PointCost>
-      <PointDivision>500</PointDivision>
-    </Munition>
-    <Munition>
-      <Name>Stock/15mm Sandshot</Name>
-      <PointCost>1</PointCost>
-      <PointDivision>25</PointDivision>
-    </Munition>
-    <Munition>
-      <Name>Stock/300mm AP Rail Sabot</Name>
-      <PointCost>1</PointCost>
-      <PointDivision>25</PointDivision>
+      <PointDivision>2000</PointDivision>
     </Munition>
     <Munition>
       <Name>Stock/Flak Round</Name>
       <PointCost>1</PointCost>
       <PointDivision>75</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/120mm HE Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>100</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/120mm AP Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>100</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/120mm HE-RPF Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>100</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/15mm Sandshot</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>50</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/300mm AP Rail Sabot</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>25</PointDivision>
     </Munition>
     <Munition>
       <Name>Stock/EA12 Chaff Decoy</Name>
@@ -74,6 +74,76 @@
     <Munition>
       <Name>Stock/EA99 Active Decoy</Name>
       <PointCost>4</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/100mm HE Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>100</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/100mm HE-HC Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>100</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/100mm AP Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>100</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/100mm Grapeshot</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>100</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/400mm Plasma Ampoule</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>25</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/500mm Fracturing Block</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>25</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/S1 Rocket</Name>
+      <PointCost>3</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/S3 Mine</Name>
+      <PointCost>6</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/S3 Net Mine</Name>
+      <PointCost>6</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/S3 Sprint Mine</Name>
+      <PointCost>10</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/Mine Container</Name>
+      <PointCost>15</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/Rocket Container</Name>
+      <PointCost>10</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/Decoy Container (Clipper)</Name>
+      <PointCost>4</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/Decoy Container (Line Ship)</Name>
+      <PointCost>6</PointCost>
       <PointDivision>1</PointDivision>
     </Munition>
   </Munitions>
