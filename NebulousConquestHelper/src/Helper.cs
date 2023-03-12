@@ -9,6 +9,7 @@ namespace NebulousConquestHelper
 	{
 		public const string DATA_FOLDER_PATH = "./src/data/";
 
-		public static ComponentRegistry Registry;
+		public static ComponentRegistry cRegistry;
+		public static MunitionRegistry mRegistry;
 	}
 }

@@ -32,6 +32,10 @@ namespace NebulousConquestHelper
 				{
 					return FileType.ComponentRegistry;
 				}
+				if (typeof(T) == typeof(MunitionRegistry))
+				{
+					return FileType.MunitionRegistry;
+				}
 				throw new Exception("Unknown File Type");
 			}
 		}

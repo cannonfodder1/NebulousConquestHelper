@@ -15,8 +15,10 @@ namespace NebulousConquestHelper
 		}
 
 		static void IntegrationTest()
-        {
-			Helper.Registry = ComponentRegistry.Load("ComponentRegistry");
+		{
+			Helper.mRegistry = MunitionRegistry.Load("MunitionRegistry");
+			Helper.cRegistry = ComponentRegistry.Load("ComponentRegistry");
+
 			Game game = Game.Load("TestGame");
 			game.SpawnFleets();
 			game.SpawnResources();
@@ -48,6 +50,10 @@ namespace NebulousConquestHelper
 
 			Console.WriteLine(game.System.FindLocationByName("Sph-L4").PrintResources());
 			Console.WriteLine(game.System.FindLocationByName("Hui Xing").PrintResources());
+
+			Fleet ash = game.CreateNewFleet("Conquest - TF Ash", "Sat-L3", Game.ConquestTeam.OrangeTeam);
+			ash.RestockFromLocation(false);
+			Console.WriteLine(game.System.FindLocationByName("Sat-L3").PrintResources());
 
 			Mapping.CreateSystemMap("SystemMap_Overview.png", game.System, game.DaysPassed, false, false);
 			Mapping.CreateSystemMap("SystemMap_Situation.png", game.System, game.DaysPassed, true, false);

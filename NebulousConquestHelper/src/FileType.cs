@@ -4,7 +4,8 @@
 	{
 		Fleet,
 		Game,
-		ComponentRegistry
+		ComponentRegistry,
+		MunitionRegistry,
 	}
 
 	public static class FileTypeExtensions
@@ -19,7 +20,7 @@
 			{
 				return ".conquest";
 			}
-			if (fileType == FileType.ComponentRegistry)
+			if (fileType == FileType.ComponentRegistry || fileType == FileType.MunitionRegistry)
 			{
 				return ".xml";
 			}

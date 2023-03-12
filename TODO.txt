@@ -1,6 +1,4 @@
 - implement fleet merging and split offs with the program generating new .fleet files
-- implement restocking of missiles/ammo at supply depots
-	 - no stockpiling of munitions, resources converted directly upon request
 - implement ship repairs at supply depots
 	 - infinite ships that can be docked
 	 - limited amount of work per ship per turn

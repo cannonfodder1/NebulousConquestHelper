@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<MunitionRegistry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Munitions>
+    <Munition>
+      <Name>Stock/120mm HE Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>100</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/120mm AP Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>100</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/120mm HE-RPF Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>100</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/250mm HE Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>50</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/250mm AP Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>50</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/250mm HE-RPF Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>50</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/450mm HE Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>25</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/450mm AP Shell</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>25</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/20mm Slug</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>500</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/15mm Sandshot</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>25</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/300mm AP Rail Sabot</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>25</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/Flak Round</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>75</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/EA12 Chaff Decoy</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/EA20 Flare Decoy</Name>
+      <PointCost>1</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+    <Munition>
+      <Name>Stock/EA99 Active Decoy</Name>
+      <PointCost>4</PointCost>
+      <PointDivision>1</PointDivision>
+    </Munition>
+  </Munitions>
+</MunitionRegistry>
