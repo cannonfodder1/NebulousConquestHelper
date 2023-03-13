@@ -1,15 +1,213 @@
-﻿using System;
-using System.IO;
-using System.Xml.Serialization;
-using Utility;
+﻿using static Munitions.Magazine;
+using Munitions.ModularMissiles;
+using Ships;
+using Ships.Serialization;
+using System;
+using System.Collections.Generic;
 
 namespace NebulousConquestHelper
 {
-	class Helper
+    class Helper
 	{
 		public const string DATA_FOLDER_PATH = "./src/data/";
 
 		public static ComponentRegistry cRegistry;
 		public static MunitionRegistry mRegistry;
+
+		public static int RestockDCLocker(SerializedHullSocket socket, int availableRestores)
+		{
+			int totalRestores = cRegistry.Components.Find(x => x.Name == socket.ComponentName).Restores;
+			if (socket.ComponentState != null && socket.ComponentState is DCLockerComponent.DCLockerState)
+			{
+				DCLockerComponent.DCLockerState locker = (DCLockerComponent.DCLockerState)socket.ComponentState;
+				int restocked = Math.Min(availableRestores, (int)locker.RestoresConsumed);
+				locker.RestoresConsumed -= (uint)restocked;
+				availableRestores -= restocked;
+			}
+
+			return availableRestores;
+		}
+
+		public static int RestockMagazineAmmo(SerializedHullSocket socket, int availableMetals)
+		{
+			BulkMagazineComponent.BulkMagazineData magazineData = (BulkMagazineComponent.BulkMagazineData)socket.ComponentData;
+			BulkMagazineComponent.BulkMagazineState magazineState = (BulkMagazineComponent.BulkMagazineState)socket.ComponentState;
+
+			if (magazineData != null && magazineState != null)
+			{
+				foreach (MagSaveData munitionLoad in magazineData.Load)
+				{
+					if (munitionLoad.MunitionKey.StartsWith("$MODMIS$"))
+					{
+						continue;
+					}
+
+					Munition munitionEntry = mRegistry.Munitions.Find(x => x.Name == munitionLoad.MunitionKey);
+
+					for (int index = 0; index < magazineState.Mags.Count; index++)
+					{
+						MagStateData munitionState = magazineState.Mags[index];
+
+						if (munitionState.MagazineKey == munitionLoad.MagazineKey)
+						{
+							double expended = munitionState.Expended;
+
+							if (expended > 0)
+							{
+								int neededBatches = (int)Math.Ceiling(expended / munitionEntry.PointDivision);
+								int totalPrice = neededBatches * munitionEntry.PointCost;
+								int paidPrice = Math.Min(availableMetals, totalPrice);
+								int totalBatches = (int)Math.Floor((double)paidPrice / munitionEntry.PointCost);
+								int totalRestock = totalBatches * munitionEntry.PointDivision;
+								int finalRestock = (int)Math.Min(expended, totalRestock);
+
+								munitionState.Expended -= (uint)finalRestock;
+								magazineState.Mags[index] = munitionState;
+								availableMetals -= paidPrice;
+							}
+
+							break;
+						}
+					}
+
+					if (availableMetals == 0)
+					{
+						break;
+					}
+				}
+			}
+
+			return availableMetals;
+		}
+
+		public static int RestockMagazineMissiles(SerializedHullSocket socket, List<SerializedMissileTemplate> missileTypes, int availableResources)
+		{
+			BulkMagazineComponent.BulkMagazineData magazineData = (BulkMagazineComponent.BulkMagazineData)socket.ComponentData;
+			BulkMagazineComponent.BulkMagazineState magazineState = (BulkMagazineComponent.BulkMagazineState)socket.ComponentState;
+
+			if (magazineData != null && magazineState != null)
+			{
+				foreach (MagSaveData munitionLoad in magazineData.Load)
+				{
+					if (!munitionLoad.MunitionKey.StartsWith("$MODMIS$"))
+					{
+						continue;
+					}
+
+					SerializedMissileTemplate missileType = missileTypes.Find(x => munitionLoad.MunitionKey.Equals("$MODMIS$/" + x.Designation + " " + x.Nickname));
+
+					if (availableResources < missileType.Cost)
+					{
+						break;
+					}
+
+					for (int index = 0; index < magazineState.Mags.Count; index++)
+					{
+						MagStateData munitionState = magazineState.Mags[index];
+
+						if (munitionState.MagazineKey == munitionLoad.MagazineKey)
+						{
+							int expended = (int)munitionState.Expended;
+
+							if (expended > 0)
+							{
+								int costToRestock = expended * missileType.Cost;
+								int restockPrice = Math.Min(availableResources, costToRestock);
+								restockPrice -= restockPrice % missileType.Cost;
+								int numRestocked = restockPrice / missileType.Cost;
+
+								munitionState.Expended -= (uint)numRestocked;
+								magazineState.Mags[index] = munitionState;
+								availableResources -= restockPrice;
+							}
+
+							break;
+						}
+					}
+				}
+			}
+
+			return availableResources;
+		}
+
+		public static int RestockLauncher(SerializedHullSocket socket, List<SerializedMissileTemplate> missileTypes, int availableResources)
+		{
+			BaseCellLauncherComponent.CellLauncherData launcherData = (BaseCellLauncherComponent.CellLauncherData)socket.ComponentData;
+			BaseCellLauncherComponent.CellLauncherState launcherState = (BaseCellLauncherComponent.CellLauncherState)socket.ComponentState;
+
+			if (launcherData != null && launcherState != null)
+			{
+				foreach (MagSaveData missileLoad in launcherData.MissileLoad)
+				{
+					if (missileLoad.MunitionKey.StartsWith("$MODMIS$"))
+					{
+						SerializedMissileTemplate missileType = missileTypes.Find(x => missileLoad.MunitionKey.Equals("$MODMIS$/" + x.Designation + " " + x.Nickname));
+
+						if (availableResources < missileType.Cost)
+						{
+							continue;
+						}
+
+						for (int index = 0; index < launcherState.Missiles.Count; index++)
+						{
+							MagStateData missileState = launcherState.Missiles[index];
+
+							if (missileState.MagazineKey == missileLoad.MagazineKey)
+							{
+								int expended = (int)missileState.Expended;
+
+								if (expended > 0)
+								{
+									int costToRestock = expended * missileType.Cost;
+									int restockPrice = Math.Min(availableResources, costToRestock);
+									restockPrice -= restockPrice % missileType.Cost;
+									int numRestocked = restockPrice / missileType.Cost;
+
+									missileState.Expended -= (uint)numRestocked;
+									launcherState.Missiles[index] = missileState;
+									availableResources -= restockPrice;
+								}
+
+								break;
+							}
+						}
+					}
+					else
+					{
+						Munition munitionEntry = mRegistry.Munitions.Find(x => x.Name == missileLoad.MunitionKey);
+
+						if (availableResources < munitionEntry.PointCost)
+						{
+							continue;
+						}
+
+						for (int index = 0; index < launcherState.Missiles.Count; index++)
+						{
+							MagStateData missileState = launcherState.Missiles[index];
+
+							if (missileState.MagazineKey == missileLoad.MagazineKey)
+							{
+								double expended = missileState.Expended;
+
+								if (expended > 0)
+								{
+									int divisions = (int)Math.Ceiling(expended / munitionEntry.PointDivision);
+									int costToRestock = divisions * munitionEntry.PointCost;
+									int restocked = Math.Min(availableResources, costToRestock);
+
+									missileState.Expended -= (uint)restocked;
+									launcherState.Missiles[index] = missileState;
+									availableResources -= restocked;
+								}
+
+								break;
+							}
+						}
+					}
+				}
+			}
+
+			return availableResources;
+		}
 	}
 }
