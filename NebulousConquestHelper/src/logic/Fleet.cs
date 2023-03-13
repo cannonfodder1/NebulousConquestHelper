@@ -367,7 +367,7 @@ namespace NebulousConquestHelper
 						if (availableRestores == 0) break;
 						if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
                         {
-                            availableRestores = Helper.RestockDCLocker(socket, availableRestores);
+                            availableRestores = Helper.RestockDCLockerRestores(socket, availableRestores);
                         }
                     }
 				}
@@ -408,29 +408,32 @@ namespace NebulousConquestHelper
 				Resource resourceParts = Location.Resources.Find(x => (x.Type == ResourceType.Parts) && (x.Stockpile > 0));
 				Resource resourceFuel = Location.Resources.Find(x => (x.Type == ResourceType.Fuel) && (x.Stockpile > 0));
 
-				int availableResources = Math.Min(resourceFuel.Stockpile, Math.Min(resourceParts.Stockpile, resourceMetals.Stockpile));
+				int availableResources = Math.Min(resourceParts.Stockpile, resourceMetals.Stockpile);
 				int futureResources = availableResources;
+
+				int availableFuel = resourceFuel.Stockpile;
 
 				InitializeMagazineComponents();
 				InitializeLauncherComponents();
 
 				foreach (SerializedConquestShip ship in XML.Ships)
 				{
-					if (futureResources == 0) break;
+					if (futureResources == 0 || availableFuel == 0) break;
+
 					foreach (SerializedHullSocket socket in ship.SocketMap)
 					{
-						if (futureResources == 0) break;
+						if (futureResources == 0 || availableFuel == 0) break;
 
 						if (MAGAZINE_COMPONENTS.Contains(socket.ComponentName))
 						{
-							futureResources = Helper.RestockMagazineMissiles(socket, XML.MissileTypes, futureResources);
+							Helper.RestockMagazineMissiles(socket, XML.MissileTypes, ref futureResources, ref availableFuel);
 						}
 
 						if (Location.SubType == Location.LocationSubType.StationSupplyDepot)
 						{
 							if (LAUNCHER_COMPONENTS.Contains(socket.ComponentName))
 							{
-								futureResources = Helper.RestockLauncher(socket, XML.MissileTypes, futureResources);
+								Helper.RestockLauncherMissiles(socket, XML.MissileTypes, ref futureResources, ref availableFuel);
 							}
 						}
 					}
@@ -440,7 +443,8 @@ namespace NebulousConquestHelper
 
 				resourceMetals.Stockpile -= spentResources;
 				resourceParts.Stockpile -= spentResources;
-				resourceFuel.Stockpile -= spentResources;
+
+				resourceFuel.Stockpile = availableFuel;
 			}
 		}
 

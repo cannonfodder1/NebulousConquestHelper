@@ -14,7 +14,7 @@ namespace NebulousConquestHelper
 		public static ComponentRegistry cRegistry;
 		public static MunitionRegistry mRegistry;
 
-		public static int RestockDCLocker(SerializedHullSocket socket, int availableRestores)
+		public static int RestockDCLockerRestores(SerializedHullSocket socket, int availableRestores)
 		{
 			int totalRestores = cRegistry.Components.Find(x => x.Name == socket.ComponentName).Restores;
 			if (socket.ComponentState != null && socket.ComponentState is DCLockerComponent.DCLockerState)
@@ -80,7 +80,7 @@ namespace NebulousConquestHelper
 			return availableMetals;
 		}
 
-		public static int RestockMagazineMissiles(SerializedHullSocket socket, List<SerializedMissileTemplate> missileTypes, int availableResources)
+		public static int RestockMagazineMissiles(SerializedHullSocket socket, List<SerializedMissileTemplate> missileTypes, ref int availableResources, ref int availableFuel)
 		{
 			BulkMagazineComponent.BulkMagazineData magazineData = (BulkMagazineComponent.BulkMagazineData)socket.ComponentData;
 			BulkMagazineComponent.BulkMagazineState magazineState = (BulkMagazineComponent.BulkMagazineState)socket.ComponentState;
@@ -114,11 +114,12 @@ namespace NebulousConquestHelper
 								int costToRestock = expended * missileType.Cost;
 								int restockPrice = Math.Min(availableResources, costToRestock);
 								restockPrice -= restockPrice % missileType.Cost;
-								int numRestocked = restockPrice / missileType.Cost;
+								int numRestocked = Math.Min(restockPrice / missileType.Cost, availableFuel);
 
 								munitionState.Expended -= (uint)numRestocked;
 								magazineState.Mags[index] = munitionState;
-								availableResources -= restockPrice;
+								availableResources -= numRestocked * missileType.Cost;
+								availableFuel -= numRestocked;
 							}
 
 							break;
@@ -130,7 +131,7 @@ namespace NebulousConquestHelper
 			return availableResources;
 		}
 
-		public static int RestockLauncher(SerializedHullSocket socket, List<SerializedMissileTemplate> missileTypes, int availableResources)
+		public static int RestockLauncherMissiles(SerializedHullSocket socket, List<SerializedMissileTemplate> missileTypes, ref int availableResources, ref int availableFuel)
 		{
 			BaseCellLauncherComponent.CellLauncherData launcherData = (BaseCellLauncherComponent.CellLauncherData)socket.ComponentData;
 			BaseCellLauncherComponent.CellLauncherState launcherState = (BaseCellLauncherComponent.CellLauncherState)socket.ComponentState;
@@ -161,11 +162,12 @@ namespace NebulousConquestHelper
 									int costToRestock = expended * missileType.Cost;
 									int restockPrice = Math.Min(availableResources, costToRestock);
 									restockPrice -= restockPrice % missileType.Cost;
-									int numRestocked = restockPrice / missileType.Cost;
+									int numRestocked = Math.Min(restockPrice / missileType.Cost, availableFuel);
 
 									missileState.Expended -= (uint)numRestocked;
 									launcherState.Missiles[index] = missileState;
-									availableResources -= restockPrice;
+									availableResources -= numRestocked * missileType.Cost;
+									availableFuel -= numRestocked;
 								}
 
 								break;
