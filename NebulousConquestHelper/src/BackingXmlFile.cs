@@ -41,6 +41,10 @@ namespace NebulousConquestHelper
 					XmlSerializer serializer = new XmlSerializer(typeof(T));
 					T loaded = (T)serializer.Deserialize(stream);
 					stream.Close();
+					if (loaded is Backed<T> backed)
+					{
+						backed.BackingFile = this;
+					}
 					return loaded;
 				}
 			}
