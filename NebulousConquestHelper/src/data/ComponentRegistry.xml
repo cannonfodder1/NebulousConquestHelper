@@ -7,6 +7,7 @@
       <MinHP>10</MinHP>
       <Crew>20</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/Reinforced CIC</Name>
@@ -14,6 +15,7 @@
       <MinHP>10</MinHP>
       <Crew>20</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/Citadel CIC</Name>
@@ -21,6 +23,7 @@
       <MinHP>20</MinHP>
       <Crew>40</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/Auxiliary Steering</Name>
@@ -28,6 +31,7 @@
       <MinHP>10</MinHP>
       <Crew>5</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Berthing</Name>
@@ -35,6 +39,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Small DC Locker</Name>
@@ -42,6 +47,7 @@
       <MinHP>10</MinHP>
       <Crew>10</Crew>
       <Restores>1</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Reinforced DC Locker</Name>
@@ -49,6 +55,7 @@
       <MinHP>20</MinHP>
       <Crew>10</Crew>
       <Restores>1</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Large DC Locker</Name>
@@ -56,6 +63,7 @@
       <MinHP>10</MinHP>
       <Crew>15</Crew>
       <Restores>2</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Rapid DC Locker</Name>
@@ -63,6 +71,7 @@
       <MinHP>10</MinHP>
       <Crew>5</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Damage Control Central</Name>
@@ -70,6 +79,7 @@
       <MinHP>15</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Small Workshop</Name>
@@ -77,6 +87,7 @@
       <MinHP>15</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Bulk Magazine</Name>
@@ -84,6 +95,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Reinforced Magazine</Name>
@@ -91,6 +103,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Gun Plotting Center</Name>
@@ -98,6 +111,7 @@
       <MinHP>15</MinHP>
       <Crew>30</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Battle Dressing Station</Name>
@@ -105,6 +119,7 @@
       <MinHP>15</MinHP>
       <Crew>8</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Analysis Annex</Name>
@@ -112,6 +127,7 @@
       <MinHP>15</MinHP>
       <Crew>20</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Intelligence Center</Name>
@@ -119,6 +135,7 @@
       <MinHP>15</MinHP>
       <Crew>45</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Plant Control Center</Name>
@@ -126,6 +143,7 @@
       <MinHP>15</MinHP>
       <Crew>15</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Small Reactor Booster</Name>
@@ -133,6 +151,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Adaptive Radar Receiver</Name>
@@ -140,6 +159,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Track Correlator</Name>
@@ -147,6 +167,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Strobe Correlator</Name>
@@ -154,6 +175,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Mount Gyros</Name>
@@ -161,6 +183,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Supplementary Radio Amplifiers</Name>
@@ -168,6 +191,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Launcher Deluge System</Name>
@@ -175,6 +199,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Magazine Sprinklers</Name>
@@ -182,6 +207,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Redundant Reactor Failsafes</Name>
@@ -189,6 +215,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Reinforced Thruster Nozzles</Name>
@@ -196,6 +223,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Energy Regulator</Name>
@@ -203,6 +231,7 @@
       <MinHP>15</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Small Energy Regulator</Name>
@@ -210,6 +239,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Focused Particle Accelerator</Name>
@@ -217,6 +247,7 @@
       <MinHP>15</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Ammunition Elevators</Name>
@@ -224,6 +255,7 @@
       <MinHP>15</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Rapid-Cycle Cradle</Name>
@@ -231,6 +263,7 @@
       <MinHP>15</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Actively Cooled Amplifiers</Name>
@@ -238,6 +271,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Missile Programming Bus</Name>
@@ -245,6 +279,7 @@
       <MinHP>15</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Missile Programming Bus Array</Name>
@@ -252,6 +287,7 @@
       <MinHP>15</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Missile Parallel Interface</Name>
@@ -259,20 +295,7 @@
       <MinHP>15</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/VLS-1-23 Launcher</Name>
-      <MaxHP>75</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
-    </Component>
-    <Component>
-      <Name>Stock/VLS-1-46 Launcher</Name>
-      <MaxHP>125</MaxHP>
-      <MinHP>10</MinHP>
-      <Crew>0</Crew>
-      <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/CR10 Antenna</Name>
@@ -280,6 +303,23 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
+    </Component>
+    <Component>
+      <Name>Stock/VLS-1-23 Launcher</Name>
+      <MaxHP>75</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+      <Priority>Medium</Priority>
+    </Component>
+    <Component>
+      <Name>Stock/VLS-1-46 Launcher</Name>
+      <MaxHP>125</MaxHP>
+      <MinHP>10</MinHP>
+      <Crew>0</Crew>
+      <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Strike Planning Center</Name>
@@ -287,6 +327,7 @@
       <MinHP>15</MinHP>
       <Crew>20</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/FM200 Drive</Name>
@@ -294,6 +335,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FM200R Drive</Name>
@@ -301,6 +343,7 @@
       <MinHP>25</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FM230 'Whiplash' Drive</Name>
@@ -308,6 +351,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FM240 'Dragonfly' Drive</Name>
@@ -315,6 +359,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FM280 'Raider' Drive</Name>
@@ -322,6 +367,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FM30X 'Prowler' Drive</Name>
@@ -329,6 +375,7 @@
       <MinHP>30</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FM500 Drive</Name>
@@ -336,6 +383,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FM500R Drive</Name>
@@ -343,6 +391,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FM530 'Whiplash' Drive</Name>
@@ -350,6 +399,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FM540 'Dragonfly' Drive</Name>
@@ -357,6 +407,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FM580 'Raider' Drive</Name>
@@ -364,6 +415,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FR3300 Micro Reactor</Name>
@@ -371,6 +423,7 @@
       <MinHP>50</MinHP>
       <Crew>5</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/FR4800 Reactor</Name>
@@ -378,6 +431,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/RS35 'Frontline' Radar</Name>
@@ -385,6 +439,7 @@
       <MinHP>30</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/RS41 'Spyglass' Radar</Name>
@@ -392,6 +447,7 @@
       <MinHP>30</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/RM50 'Parallax' Radar</Name>
@@ -399,6 +455,7 @@
       <MinHP>30</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk61 Cannon</Name>
@@ -406,6 +463,7 @@
       <MinHP>10</MinHP>
       <Crew>4</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk62 Cannon</Name>
@@ -413,6 +471,7 @@
       <MinHP>10</MinHP>
       <Crew>8</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk64 Cannon</Name>
@@ -420,6 +479,7 @@
       <MinHP>15</MinHP>
       <Crew>15</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk65 Cannon</Name>
@@ -427,6 +487,7 @@
       <MinHP>30</MinHP>
       <Crew>25</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk66 Cannon</Name>
@@ -434,6 +495,7 @@
       <MinHP>30</MinHP>
       <Crew>25</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk68 Cannon</Name>
@@ -441,6 +503,7 @@
       <MinHP>30</MinHP>
       <Crew>40</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk81 Railgun</Name>
@@ -448,6 +511,7 @@
       <MinHP>30</MinHP>
       <Crew>15</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk550 Mass Driver</Name>
@@ -455,6 +519,7 @@
       <MinHP>20</MinHP>
       <Crew>15</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk600 Beam Cannon</Name>
@@ -462,6 +527,7 @@
       <MinHP>20</MinHP>
       <Crew>15</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk610 Beam Turret</Name>
@@ -469,6 +535,7 @@
       <MinHP>30</MinHP>
       <Crew>20</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/VLS-2 Launcher</Name>
@@ -476,6 +543,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/VLS-3 Launcher</Name>
@@ -483,6 +551,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/CLS-3 Launcher</Name>
@@ -490,6 +559,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk20 'Defender' PDT</Name>
@@ -497,6 +567,7 @@
       <MinHP>10</MinHP>
       <Crew>3</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk25 'Rebound' PDT</Name>
@@ -504,6 +575,7 @@
       <MinHP>10</MinHP>
       <Crew>3</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk29 'Stonewall' PDT</Name>
@@ -511,6 +583,7 @@
       <MinHP>10</MinHP>
       <Crew>5</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk90 'Aurora' PDT</Name>
@@ -518,6 +591,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Mk95 'Sarissa' PDT</Name>
@@ -525,6 +599,7 @@
       <MinHP>10</MinHP>
       <Crew>4</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/ES22 'Pinard' Electronic Support Module</Name>
@@ -532,6 +607,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/ES32 'Scryer' Missile ID System</Name>
@@ -539,6 +615,7 @@
       <MinHP>15</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/E55 'Spotlight' Illuminator</Name>
@@ -546,6 +623,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/E57 'Floodlight' Illuminator</Name>
@@ -553,6 +631,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/E71 'Hangup' Jammer</Name>
@@ -560,6 +639,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/E70 'Interruption' Jammer</Name>
@@ -567,6 +647,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/E90 'Blanket' Jammer</Name>
@@ -574,6 +655,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/RF101 'Bullseye' Radar</Name>
@@ -581,6 +663,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/E15 'Masquerade' Signature Booster</Name>
@@ -588,6 +671,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/Signature Scrambler</Name>
@@ -595,6 +679,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/CR70 Antenna</Name>
@@ -602,6 +687,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Civilian Reactor</Name>
@@ -609,6 +695,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/Light Civilian Reactor</Name>
@@ -616,6 +703,7 @@
       <MinHP>50</MinHP>
       <Crew>5</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/Boosted Reactor</Name>
@@ -623,6 +711,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/Large DC Storage</Name>
@@ -630,6 +719,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>4</Restores>
+      <Priority>Low</Priority>
     </Component>
     <Component>
       <Name>Stock/BW800 Drive</Name>
@@ -637,6 +727,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/BW800-R Drive</Name>
@@ -644,6 +735,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/BW1500 Drive</Name>
@@ -651,6 +743,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/BW1500-R Drive</Name>
@@ -658,6 +751,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/BW2000 Drive</Name>
@@ -665,6 +759,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/CHI-777 Yard Drive</Name>
@@ -672,6 +767,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/CHI-7700 Drive</Name>
@@ -679,6 +775,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/CHI-9100 Long Haul Drive</Name>
@@ -686,6 +783,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/Sundrive Racing Pro</Name>
@@ -693,6 +791,7 @@
       <MinHP>50</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Critical</Priority>
     </Component>
     <Component>
       <Name>Stock/Ithaca Bridgemaster</Name>
@@ -700,6 +799,7 @@
       <MinHP>30</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/Bulwark Huntress</Name>
@@ -707,6 +807,7 @@
       <MinHP>30</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/R550 Early Warning Radar</Name>
@@ -714,6 +815,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/R400 Radar</Name>
@@ -721,6 +823,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/RF44 'Pinpoint' Radar</Name>
@@ -728,6 +831,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/T20 Cannon</Name>
@@ -735,6 +839,7 @@
       <MinHP>10</MinHP>
       <Crew>4</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/T30 Cannon</Name>
@@ -742,6 +847,7 @@
       <MinHP>10</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/T81 Plasma Cannon</Name>
@@ -749,6 +855,7 @@
       <MinHP>10</MinHP>
       <Crew>15</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/C30 Cannon</Name>
@@ -756,6 +863,7 @@
       <MinHP>15</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/C53 Cannon</Name>
@@ -763,6 +871,7 @@
       <MinHP>15</MinHP>
       <Crew>15</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/C60 Cannon</Name>
@@ -770,6 +879,7 @@
       <MinHP>30</MinHP>
       <Crew>25</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/C65 Cannon</Name>
@@ -777,6 +887,7 @@
       <MinHP>20</MinHP>
       <Crew>25</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/C81 Plasma Cannon</Name>
@@ -784,6 +895,7 @@
       <MinHP>30</MinHP>
       <Crew>25</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/TE45 Mass Driver</Name>
@@ -791,6 +903,7 @@
       <MinHP>20</MinHP>
       <Crew>15</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/P11 PDT</Name>
@@ -798,6 +911,7 @@
       <MinHP>10</MinHP>
       <Crew>3</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/P20 Flak PDT</Name>
@@ -805,6 +919,7 @@
       <MinHP>10</MinHP>
       <Crew>5</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/P60 Laser PDT</Name>
@@ -812,6 +927,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/L50 Laser Dazzler</Name>
@@ -819,6 +935,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/J15 Jammer</Name>
@@ -826,6 +943,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/J360 Jammer</Name>
@@ -833,6 +951,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/E20 'Lighthouse' Illuminator</Name>
@@ -840,6 +959,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/RL18 Launcher</Name>
@@ -847,6 +967,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/RL36 Launcher</Name>
@@ -854,6 +975,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/Container Bank Launcher</Name>
@@ -861,6 +983,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
     <Component>
       <Name>Stock/Container Stack Launcher</Name>
@@ -868,6 +991,7 @@
       <MinHP>10</MinHP>
       <Crew>0</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/MLS-2 Launcher</Name>
@@ -875,6 +999,7 @@
       <MinHP>10</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/MLS-3 Launcher</Name>
@@ -882,6 +1007,7 @@
       <MinHP>10</MinHP>
       <Crew>12</Crew>
       <Restores>0</Restores>
+      <Priority>Medium</Priority>
     </Component>
     <Component>
       <Name>Stock/ML-9 Mine Launcher</Name>
@@ -889,6 +1015,7 @@
       <MinHP>10</MinHP>
       <Crew>10</Crew>
       <Restores>0</Restores>
+      <Priority>High</Priority>
     </Component>
   </Components>
 </ComponentRegistry>

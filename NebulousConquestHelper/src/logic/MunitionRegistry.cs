@@ -9,5 +9,10 @@ namespace NebulousConquestHelper
 	public class MunitionRegistry : Backed<MunitionRegistry>
 	{
 		public List<Munition> Munitions;
+
+		public Munition Get(string name)
+		{
+			return Munitions.Find(x => x.Name == name);
+		}
 	}
 }

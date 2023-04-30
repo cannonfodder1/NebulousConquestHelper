@@ -14,9 +14,14 @@ namespace NebulousConquestHelper
 		public static ComponentRegistry cRegistry;
 		public static MunitionRegistry mRegistry;
 
+		public static void Init()
+		{
+			mRegistry = MunitionRegistry.Load("MunitionRegistry");
+			cRegistry = ComponentRegistry.Load("ComponentRegistry");
+		}
+
 		public static int RestockDCLockerRestores(SerializedHullSocket socket, int availableRestores)
 		{
-			int totalRestores = cRegistry.Components.Find(x => x.Name == socket.ComponentName).Restores;
 			if (socket.ComponentState != null && socket.ComponentState is DCLockerComponent.DCLockerState)
 			{
 				DCLockerComponent.DCLockerState locker = (DCLockerComponent.DCLockerState)socket.ComponentState;
@@ -42,7 +47,7 @@ namespace NebulousConquestHelper
 						continue;
 					}
 
-					Munition munitionEntry = mRegistry.Munitions.Find(x => x.Name == munitionLoad.MunitionKey);
+					Munition munitionEntry = mRegistry.Get(munitionLoad.MunitionKey);
 
 					for (int index = 0; index < magazineState.Mags.Count; index++)
 					{
@@ -176,7 +181,7 @@ namespace NebulousConquestHelper
 					}
 					else
 					{
-						Munition munitionEntry = mRegistry.Munitions.Find(x => x.Name == missileLoad.MunitionKey);
+						Munition munitionEntry = mRegistry.Get(missileLoad.MunitionKey);
 
 						if (availableResources < munitionEntry.PointCost)
 						{
@@ -211,5 +216,66 @@ namespace NebulousConquestHelper
 
 			return availableResources;
 		}
-	}
+
+        public static int UseDCLockerRestores(SerializedHullSocket socket, int restoresToUse)
+		{
+			int restoreCapacity = cRegistry.Get(socket.ComponentName).Restores;
+
+			if (socket.ComponentState != null && socket.ComponentState is DCLockerComponent.DCLockerState)
+			{
+				DCLockerComponent.DCLockerState locker = (DCLockerComponent.DCLockerState)socket.ComponentState;
+				int restoresTaken = Math.Min(restoresToUse, restoreCapacity - (int)locker.RestoresConsumed);
+				locker.RestoresConsumed += (uint)restoresTaken;
+				restoresToUse -= restoresTaken;
+			}
+
+			return restoresToUse;
+		}
+
+		public static int GetShipMass(SerializedConquestShip ship)
+        {
+			switch (ship.HullType)
+			{
+				case "Stock/Sprinter Corvette":
+					return 3;
+
+				case "Stock/Raines Frigate":
+					return 5;
+
+				case "Stock/Keystone Destroyer":
+					return 8;
+
+				case "Stock/Vauxhall Light Cruiser":
+					return 10;
+
+				case "Stock/Axford Heavy Cruiser":
+					return 13;
+
+				case "Stock/Solomon Battleship":
+					return 21;
+
+				case "Stock/Shuttle Clipper":
+					return 1;
+
+				case "Stock/Tug Clipper":
+					return 3;
+
+				case "Stock/Bulk Clipper":
+					return 5;
+
+				case "Stock/Ocello Cruiser":
+					return 12;
+
+				case "Stock/Bulker Line Ship":
+					return 15;
+
+				case "Stock/Container Line Ship":
+					return 15;
+
+				default:
+					Console.WriteLine("ERROR! Unknown Hull Type: " + ship.HullType);
+					return ship.Cost / 100;
+			}
+		}
+    }
 }

@@ -39,6 +39,18 @@ namespace NebulousConquestHelper
 			// Great Guess: one + or - here means 100 units
 		}
 
+		public struct RepairWorkOrder
+        {
+			public string FleetName;
+			public string ShipName;
+
+			public RepairWorkOrder(string FleetName, string ShipName)
+            {
+				this.FleetName = FleetName;
+				this.ShipName = ShipName;
+            }
+        }
+
 		public string Name;
 		public string Code;
 		public float OrbitalDistanceAU;
@@ -50,6 +62,9 @@ namespace NebulousConquestHelper
 		public List<Location> OrbitingLocations;
 		public List<Location> LagrangeLocations;
 		public List<Belt> SurroundingBelts;
+		public List<RepairWorkOrder> RepairsUnderway;
+		public SerializableQueue<RepairWorkOrder> RepairQueue;
+
 		[XmlIgnore] public List<Fleet> PresentFleets = new List<Fleet>();
 
 		[XmlIgnore]
@@ -69,6 +84,35 @@ namespace NebulousConquestHelper
 
 				ret.InsertRange(0, topLocations);
 				return ret;
+			}
+		}
+
+		[XmlIgnore]
+		public int RepairBerths
+		{
+			get
+			{
+				if (SubType == LocationSubType.StationSupplyDepot)
+				{
+					return 5;
+				}
+				else if (MainType == LocationType.Planet)
+				{
+					return 1;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+		}
+
+		[XmlIgnore]
+		public int RepairWork
+		{
+			get
+			{
+				return SubType == LocationSubType.StationSupplyDepot ? 25 : 15;
 			}
 		}
 
@@ -141,33 +185,136 @@ namespace NebulousConquestHelper
 
 		public void AdvanceTurn()
 		{
+			if (RepairBerths > 0)
+			{
+				ValidateRepairBerths();
+
+				if (RepairsUnderway.Count > 0)
+				{
+					int metalCost = GetRepairMetalCost();
+					int partsCost = GetRepairPartsCost();
+
+					Resource metal = Resources.Find(x => (x.Type == ResourceType.Metals) && (x.Stockpile >= metalCost));
+					Resource parts = Resources.Find(x => (x.Type == ResourceType.Parts) && (x.Stockpile >= partsCost));
+
+					if (metal != null && parts != null)
+					{
+						metal.Stockpile -= metalCost;
+						parts.Stockpile -= partsCost;
+
+						Console.WriteLine("Repairs at " + Name + " will use " + metalCost + " metal and " + partsCost + " parts this turn");
+					}
+					else
+					{
+						Console.WriteLine("ERROR! Stockpile does not match projected repair costs at " + Name);
+					}
+				}
+
+				for (int i = 0; i < RepairsUnderway.Count; i++)
+				{
+					RepairWorkOrder order = RepairsUnderway[i];
+					Fleet fleet = PresentFleets.Find(x => x.FileName == order.FleetName);
+
+					fleet.RepairShip(order.ShipName, RepairWork);
+					fleet.UnshredShip(order.ShipName);
+				}
+
+				ValidateRepairBerths();
+			}
+
 			float satisfaction = 1.0f;
 
 			foreach (Resource res in Resources)
+            {
+                if (res.GetSatisfaction() < satisfaction)
+                {
+                    satisfaction = res.GetSatisfaction();
+                }
+            }
+
+            foreach (Resource res in Resources)
+            {
+                res.Consume(satisfaction);
+                res.Produce(satisfaction);
+            }
+        }
+
+		public void RefreshRepairBerths()
+		{
+			while (RepairsUnderway.Count < RepairBerths && RepairQueue.Count > 0)
 			{
-				if (res.GetSatisfaction() < satisfaction)
+				RepairsUnderway.Add(RepairQueue.Dequeue());
+			}
+		}
+		
+		public void ValidateRepairBerths()
+		{
+			RefreshRepairBerths();
+
+			for (int i = 0; i < RepairsUnderway.Count; i++)
+			{
+				RepairWorkOrder order = RepairsUnderway[i];
+				Fleet fleet = PresentFleets.Find(x => x.FileName == order.FleetName);
+
+				if (fleet == null || fleet.OrderType != Fleet.FleetOrderType.Repairing)
 				{
-					satisfaction = res.GetSatisfaction();
+					RepairsUnderway.RemoveAt(i);
+					RefreshRepairBerths();
+					i--;
+				}
+				else if (!fleet.CanShipBeRepaired(fleet.GetShip(order.ShipName)))
+				{
+					RepairsUnderway.RemoveAt(i);
+					RefreshRepairBerths();
+					i--;
 				}
 			}
+		}
 
-			foreach (Resource res in Resources)
+		public int GetRepairMetalCost()
+		{
+			ValidateRepairBerths();
+
+			int metal = 0;
+
+			for (int i = 0; i < RepairsUnderway.Count; i++)
 			{
-				res.Consume(satisfaction);
-				res.Produce(satisfaction);
+				RepairWorkOrder order = RepairsUnderway[i];
+				Fleet fleet = PresentFleets.Find(x => x.FileName == order.FleetName);
+
+				metal += Helper.GetShipMass(fleet.GetShip(order.ShipName));
 			}
+
+			return metal;
+		}
+
+		public int GetRepairPartsCost()
+		{
+			ValidateRepairBerths();
+
+			int parts = 0;
+
+			for (int i = 0; i < RepairsUnderway.Count; i++)
+			{
+				RepairWorkOrder order = RepairsUnderway[i];
+				Fleet fleet = PresentFleets.Find(x => x.FileName == order.FleetName);
+
+				parts += fleet.GetShipRepairCost(fleet.GetShip(order.ShipName), RepairWork);
+			}
+
+			return parts;
 		}
 
 		public string PrintResources()
 		{
-			string print = Name + " Resource Report" + "\n";
+			string print = Name + " Resource Report:" + "\n";
 
 			foreach (Resource resource in Resources)
 			{
-				print += "  " + resource.Type.ToString() + ":\n";
-				print += "    Pile = " + resource.Stockpile + "\n";
-				if (resource.Production > 0) print += "    Prod = " + resource.Production + "\n";
-				if (resource.Consumption > 0) print += "    Cons = " + resource.Consumption + "\n";
+				print += "    " + resource.Type.ToString() + ":\n";
+				print += "        Pile = " + resource.Stockpile + "\n";
+				if (resource.Production > 0) print += "        Prod = " + resource.Production + "\n";
+				if (resource.Consumption > 0) print += "        Cons = " + resource.Consumption + "\n";
 			}
 
 			print = print.Substring(0, print.Length - 1);
@@ -199,6 +346,12 @@ namespace NebulousConquestHelper
 		public void SetupResourceStockpiler(ResourceType type, int amount)
 		{
 			this.SpawnResource(new Resource(type, amount, 0, 0, amount));
+		}
+
+		public void ScheduleRepair(string fleet, string ship)
+		{
+			RepairWorkOrder order = new RepairWorkOrder(fleet, ship);
+			RepairQueue.Enqueue(order);
 		}
 	}
 }

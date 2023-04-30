@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ships;
+using System;
 using System.Xml.Serialization;
 
 namespace NebulousConquestHelper
@@ -12,5 +13,6 @@ namespace NebulousConquestHelper
 		public float MinHP;
 		public int Crew;
 		public int Restores;
+		public Priority Priority;
 	}
 }

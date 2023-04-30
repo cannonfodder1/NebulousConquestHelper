@@ -83,7 +83,7 @@ namespace NebulousConquestHelper
 			this.BackingFile = backingFile;
 		}
 
-		public void SpawnFleets()
+		public void LoadAllFleets()
 		{
 			foreach (Fleet fleet in this.Fleets)
 			{
@@ -92,7 +92,7 @@ namespace NebulousConquestHelper
 			}
 		}
 
-		public void SpawnResources()
+		public void SetupResources()
 		{
 			foreach (Location loc in this.System.AllLocations)
 			{
@@ -151,7 +151,7 @@ namespace NebulousConquestHelper
 			return newFleet;
 		}
 
-		public void SaveGame(string fileName = "TestGame")
+		public void SaveGame(string fileName)
 		{
 			foreach (Fleet fleet in Fleets)
 			{
@@ -258,6 +258,19 @@ namespace NebulousConquestHelper
 					{
 						TurnData.responseFleets.Add(fleet.XML.Name);
 					}
+					else if (fleet.OrderType == Fleet.FleetOrderType.Repair)
+					{
+						Console.WriteLine(fleet.FileName + " Ordered to Repair at " + fleet.Location.Name);
+
+						foreach (SerializedConquestShip ship in fleet.GetAllRepairableShips())
+						{
+							fleet.Location.ScheduleRepair(fleet.FileName, ship.Name);
+							fleet.OrderType = Fleet.FleetOrderType.Repairing;
+
+							int queuePosition = fleet.Location.RepairQueue.Count + fleet.Location.RepairsUnderway.Count;
+							Console.WriteLine("    Queue Position " + queuePosition + " - " + ship.Name);
+						}
+					}
 					else if (fleet.OrderType == Fleet.FleetOrderType.Move)
 					{
 						Location depart = System.FindLocationByName(fleet.LocationName);
@@ -290,11 +303,13 @@ namespace NebulousConquestHelper
 						}
 						else
 						{
-							Console.WriteLine("Fleet Ordered to Move - Arriving In " + travelTime + " Days");
+							Console.WriteLine(fleet.FileName + " Ordered to Move - Arriving In " + travelTime + " Days");
 							TurnData.arrivingLater.Add(new ConquestMovingFleet(fleet.XML.Name, travelTime));
 						}
 
-						fleet.OrderType = Fleet.FleetOrderType.InTransit;
+						fleet.OrderType = Fleet.FleetOrderType.Moving;
+						// TODO prevent issuing new orders while fleet is moving
+						// TODO prevent fleets accessing their current location while moving
 						fleet.Fuel -= fuel;
 					}
 				}
@@ -353,23 +368,30 @@ namespace NebulousConquestHelper
 			DaysPassed += 1;
 			int daysSinceTasking = DaysPassed % 7;
 			if (daysSinceTasking == 0) daysSinceTasking = 7;
+
 			Console.WriteLine("Advancing Day: " + daysSinceTasking);
+
 			foreach (string fleetName in TurnData.arrivingSoon[daysSinceTasking - 1])
 			{
 				Fleet fleet = Fleets.Find(x => x.XML.Name == fleetName);
+
 				Console.WriteLine(" - Fleet Arriving: " + fleetName);
+
 				fleet.LocationName = fleet.OrderData.MoveToLocation;
 				fleet.Location.PresentFleets.Remove(fleet);
 				fleet.Location = System.FindLocationByName(fleet.LocationName);
 				fleet.Location.PresentFleets.Add(fleet);
 				fleet.OrderType = Fleet.FleetOrderType.None;
 				fleet.OrderData = null;
+
 				if (fleet.Location.PresentFleets.FindIndex(x => x.ControllingTeam != fleet.ControllingTeam) != -1 && !BattleLocations.Contains(fleet.LocationName))
 				{
 					BattleLocations.Add(fleet.LocationName);
 				}
 			}
+
 			TurnData.arrivingSoon[daysSinceTasking - 1].Clear();
+
 			return true;
 		}
 
@@ -443,7 +465,7 @@ namespace NebulousConquestHelper
 				numToTransport += requested[type];
 			}
 
-			Console.WriteLine(numToTransport + " < " + team.TransportCapacity);
+			Console.WriteLine("Team " + team.ShortName + " Transport Need/Ability: " + numToTransport + " < " + team.TransportCapacity);
 			return numToTransport <= team.TransportCapacity;
 		}
 
@@ -464,13 +486,24 @@ namespace NebulousConquestHelper
 				{
 					foreach (Resource res in loc.Resources)
 					{
-						if (res.Stockpile > res.Requested)
+						int Required = res.Requested;
+
+						if (res.Type == ResourceType.Metals)
+                        {
+							Required += loc.GetRepairMetalCost();
+                        }
+						if (res.Type == ResourceType.Parts)
+                        {
+							Required += loc.GetRepairPartsCost();
+                        }
+
+						if (res.Stockpile > Required)
 						{
-							available[res.Type] += res.Stockpile - res.Requested;
+							available[res.Type] += res.Stockpile - Required;
 						}
-						if (res.Stockpile < res.Requested)
+						if (res.Stockpile < Required)
 						{
-							requested[res.Type] += res.Requested - res.Stockpile;
+							requested[res.Type] += Required - res.Stockpile;
 						}
 					}
 				}
@@ -494,11 +527,22 @@ namespace NebulousConquestHelper
 				{
 					foreach (Resource res in loc.Resources)
 					{
-						if (res.Stockpile > res.Requested)
+						int Required = res.Requested;
+
+						if (res.Type == ResourceType.Metals)
+						{
+							Required += loc.GetRepairMetalCost();
+						}
+						if (res.Type == ResourceType.Parts)
+						{
+							Required += loc.GetRepairPartsCost();
+						}
+
+						if (res.Stockpile > Required)
 						{
 							available[res.Type].Add(loc);
 						}
-						if (res.Stockpile < res.Requested)
+						if (res.Stockpile < Required)
 						{
 							requested[res.Type].Add(loc);
 						}

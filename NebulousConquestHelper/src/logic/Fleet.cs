@@ -16,9 +16,11 @@ namespace NebulousConquestHelper
 		public enum FleetOrderType
 		{
 			[XmlEnum] None,
-			[XmlEnum] Move,
 			[XmlEnum] Idle,
-			[XmlEnum] InTransit
+			[XmlEnum] Repair,
+			[XmlEnum] Repairing,
+			[XmlEnum] Move,
+			[XmlEnum] Moving
 		}
 
 		public class FleetOrderData
@@ -206,7 +208,7 @@ namespace NebulousConquestHelper
 				{
 					if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
 					{
-						totalRestores += Helper.cRegistry.Components.Find(x => x.Name == socket.ComponentName).Restores;
+						totalRestores += Helper.cRegistry.Get(socket.ComponentName).Restores;
 					}
 				}
 			}
@@ -228,7 +230,7 @@ namespace NebulousConquestHelper
 					{
 						if (part.Key == socket.Key)
 						{
-							Component component = Helper.cRegistry.Components.Find(x => x.Name == socket.ComponentName);
+							Component component = Helper.cRegistry.Get(socket.ComponentName);
 							if (!part.Destroyed && part.HP >= component.MinHP)
 							{
 								return true;
@@ -252,7 +254,7 @@ namespace NebulousConquestHelper
 			{
 				if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
 				{
-					initialRestores += Helper.cRegistry.Components.Find(x => x.Name == socket.ComponentName).Restores;
+					initialRestores += Helper.cRegistry.Get(socket.ComponentName).Restores;
 					//Console.WriteLine("ADDING RESTORES: " + initialRestores);
 					if (socket.ComponentState != null && socket.ComponentState is DCLockerComponent.DCLockerState)
 					{
@@ -268,14 +270,66 @@ namespace NebulousConquestHelper
 
 		public void IssueMoveOrder(string destination)
 		{
+			if (OrderType == FleetOrderType.Repairing)
+			{
+				foreach (SerializedConquestShip ship in XML.Ships)
+				{
+					if (CanShipBeRepaired(ship) && Location.RepairsUnderway.Exists(x => x.ShipName == ship.Name))
+					{
+						Console.WriteLine("    " + ship.Name + " will be removed from " + Location.Name + " repair berth on turn execution");
+					}
+				}
+			}
+
 			OrderType = FleetOrderType.Move;
 			OrderData = new FleetOrderData(destination);
 		}
 
-		public void IssueIdleOrder(bool defend)
+		public void IssueIdleOrder(bool defend = false)
 		{
+			if (OrderType == FleetOrderType.Repairing)
+			{
+				foreach (SerializedConquestShip ship in XML.Ships)
+				{
+					if (CanShipBeRepaired(ship) && Location.RepairsUnderway.Exists(x => x.ShipName == ship.Name))
+					{
+						Console.WriteLine("    " + ship.Name + " will be removed from " + Location.Name + " repair berth on turn execution");
+					}
+				}
+			}
+
 			OrderType = FleetOrderType.Idle;
 			OrderData = new FleetOrderData(defend);
+		}
+
+		public void IssueRepairOrder(bool autosplit = false)
+		{
+			if (Location.ControllingTeam != ControllingTeam)
+			{
+				Console.WriteLine("ERROR! Fleet attempting to repair at location of opposite team: " + Location.Name);
+				return;
+			}
+
+			if (Location.SubType != Location.LocationSubType.StationSupplyDepot)
+			{
+				Console.WriteLine("ERROR! Fleet attempting to repair at location that is not supply depot: " + Location.Name);
+				return;
+			}
+
+			foreach (SerializedConquestShip ship in XML.Ships)
+			{
+				if (!CanShipBeRepaired(ship) && CanShipBeRestored(ship))
+				{
+					Console.WriteLine("    " + ship.Name + " has no partially damaged components and will not be repaired");
+				}
+				else if (CanShipBeRestored(ship))
+				{
+					Console.WriteLine("    " + ship.Name + " has destroyed components that will not be repaired");
+				}
+			}
+
+			OrderType = FleetOrderType.Repair;
+			OrderData = new FleetOrderData();
 		}
 
 		public int GetFuelConsumption()
@@ -284,49 +338,7 @@ namespace NebulousConquestHelper
 
 			foreach (SerializedConquestShip ship in XML.Ships)
 			{
-				switch (ship.HullType)
-				{
-					case "Stock/Sprinter Corvette":
-						mass += 3;
-						break;
-					case "Stock/Raines Frigate":
-						mass += 5;
-						break;
-					case "Stock/Keystone Destroyer":
-						mass += 8;
-						break;
-					case "Stock/Vauxhall Light Cruiser":
-						mass += 10;
-						break;
-					case "Stock/Axford Heavy Cruiser":
-						mass += 13;
-						break;
-					case "Stock/Solomon Battleship":
-						mass += 21;
-						break;
-					case "Stock/Shuttle Clipper":
-						mass += 1;
-						break;
-					case "Stock/Tug Clipper":
-						mass += 3;
-						break;
-					case "Stock/Bulk Clipper":
-						mass += 5;
-						break;
-					case "Stock/Ocello Cruiser":
-						mass += 12;
-						break;
-					case "Stock/Bulker Line Ship":
-						mass += 15;
-						break;
-					case "Stock/Container Line Ship":
-						mass += 15;
-						break;
-					default:
-						Console.WriteLine("ERROR! Unknown Hull Type: " + ship.HullType);
-						mass += ship.Cost / 100;
-						break;
-				}
+				mass += Helper.GetShipMass(ship);
 			}
 
 			return mass * FUEL_BURNED_PER_MASS;
@@ -335,6 +347,26 @@ namespace NebulousConquestHelper
 		public int GetFuelCapacity()
 		{
 			return GetFuelConsumption() * MAXIMUM_BURNS_OF_FUEL;
+		}
+
+		public void UseOnboardRestores(int restoresToUse)
+        {
+			InitializeDamconComponents();
+
+			foreach (SerializedConquestShip ship in XML.Ships)
+			{
+				if (restoresToUse == 0) break;
+				foreach (SerializedHullSocket socket in ship.SocketMap)
+				{
+					if (restoresToUse == 0) break;
+					if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
+					{
+						restoresToUse = Helper.UseDCLockerRestores(socket, restoresToUse);
+					}
+				}
+			}
+
+			UpdateRestoreCount();
 		}
 
 		public void RestockFromLocation(bool restockFuel = true, bool restockRestores = true, bool restockAmmo = true, bool restockMissiles = true)
@@ -398,6 +430,8 @@ namespace NebulousConquestHelper
 				resource.Stockpile = availableMetals;
 			}
 
+			// TODO figure out if non-modular missiles like chaff and container decoys should be ammo or missile prices
+
 			if (restockMissiles
 				&& Location.Resources.Exists(x => (x.Type == ResourceType.Metals) && (x.Stockpile > 0))
 				&& Location.Resources.Exists(x => (x.Type == ResourceType.Parts) && (x.Stockpile > 0))
@@ -448,9 +482,260 @@ namespace NebulousConquestHelper
 			}
 		}
 
+		public SerializedConquestShip GetShip(string name)
+        {
+			return XML.Ships.Find(x => x.Name == name);
+        }
+
+		public int GetShipRepairCost(SerializedConquestShip ship, int maxRepairs = -1)
+		{
+			int parts = 0;
+
+			OrganizedShipData shipState = new OrganizedShipData(ref ship);
+
+			foreach (OrganizedComponentData component in shipState.components)
+			{
+				if (!component.state.Destroyed && component.state.HP < component.entry.MaxHP)
+				{
+					parts++;
+
+					if (maxRepairs > 0 && parts >= maxRepairs) return maxRepairs;
+				}
+			}
+
+			return parts;
+		}
+
+		public List<SerializedConquestShip> GetAllRepairableShips()
+        {
+			return XML.Ships.FindAll(x => CanShipBeRepaired(x));
+		}
+
+		public bool CanShipBeRepaired(SerializedConquestShip ship)
+		{
+			OrganizedShipData shipState = new OrganizedShipData(ref ship);
+
+			foreach (OrganizedComponentData component in shipState.components)
+			{
+				if (!component.state.Destroyed && component.state.HP < component.entry.MaxHP)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public bool CanShipBeRestored(SerializedConquestShip ship)
+		{
+			OrganizedShipData shipState = new OrganizedShipData(ref ship);
+
+			foreach (OrganizedComponentData component in shipState.components)
+			{
+				if (component.state.Destroyed)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public void PrintDamageReport()
+		{
+			Console.WriteLine(XML.Name + " Damage Report");
+
+			for (int i = 0; i < XML.Ships.Count; i++)
+			{
+				int intact = 0;
+				int damaged = 0;
+				int destroyed = 0;
+
+				SerializedConquestShip ship = XML.Ships[i];
+				OrganizedShipData shipState = new OrganizedShipData(ref ship);
+
+				foreach (OrganizedComponentData component in shipState.components)
+				{
+					if (component.state.Destroyed)
+					{
+						destroyed++;
+					}
+					else
+					{
+						if (component.state.HP < component.entry.MaxHP)
+						{
+							damaged++;
+						}
+						else
+						{
+							intact++;
+						}
+					}
+				}
+
+				string formatted = string.Format("{0:00}/{1:00}/{2:00}", intact, damaged, destroyed);
+				Console.WriteLine("    " + formatted + " - " + ship.Name);
+			}
+
+			UpdateRestoreCount();
+			Console.WriteLine("    " + "Restores Onboard Fleet: " + Restores);
+
+			if (Location.Resources.Exists(x => (x.Type == ResourceType.Restores) && (x.Stockpile > 0)))
+			{
+				Resource resource = Location.Resources.Find(x => (x.Type == ResourceType.Restores) && (x.Stockpile > 0));
+				Console.WriteLine("    " + "Restores At Location: " + resource.Stockpile);
+			}
+		}
+
+		public void PatchAllShips()
+		{
+			foreach (SerializedConquestShip ship in XML.Ships)
+			{
+				PatchShip(ship.Name);
+			}
+		}
+
+		public void PatchShip(string name)
+		{
+			SerializedConquestShip ship = GetShip(name);
+
+			OrganizedShipData shipState = new OrganizedShipData(ref ship);
+
+			int patched = 0;
+
+			for (int i = 0; i < shipState.components.Count; i++)
+			{
+				OrganizedComponentData component = shipState.components[i];
+
+				if (component.state.Destroyed) continue;
+
+				float patchworkRepairedHP = component.entry.MinHP + (component.entry.MaxHP * 0.1f);
+
+				if (component.state.HP < patchworkRepairedHP)
+				{
+					component.state.HP = patchworkRepairedHP;
+
+					patched++;
+				}
+			}
+
+			if (patched > 0)
+            {
+				// players don't need to know this, since it happens automatically and is free
+				//Console.WriteLine(ship.Name + ": patched up " + patched + " components");
+            }
+		}
+
+		public void RestoreAllShips(bool bLog = true)
+		{
+			foreach (SerializedConquestShip ship in XML.Ships)
+			{
+				RestoreShip(ship.Name, bLog);
+			}
+		}
+
+		public void RestoreShip(string name, bool bLog = true)
+		{
+			// TODO parameter for priority, below which components won't be restored
+
+			UpdateRestoreCount();
+			int onboardRestores = Restores;
+			int onstationRestores = 0;
+
+			if (Location.Resources.Exists(x => (x.Type == ResourceType.Restores) && (x.Stockpile > 0)))
+			{
+				Resource resource = Location.Resources.Find(x => (x.Type == ResourceType.Restores) && (x.Stockpile > 0));
+				onstationRestores += resource.Stockpile;
+			}
+
+			SerializedConquestShip ship = GetShip(name);
+
+			OrganizedShipData shipState = new OrganizedShipData(ref ship);
+			shipState.SortComponents();
+
+			int locRestored = 0;
+			int selfRestored = 0;
+
+			if (bLog) Console.WriteLine(ship.Name + ":");
+
+			for (int i = 0; i < shipState.components.Count; i++)
+			{
+				if (onboardRestores + onstationRestores == 0) break;
+
+				OrganizedComponentData component = shipState.components[i];
+
+				if (!component.state.Destroyed) continue;
+
+				float patchworkRepairedHP = component.entry.MinHP + (component.entry.MaxHP * 0.1f);
+				component.state.HP = patchworkRepairedHP;
+				component.state.Destroyed = false;
+
+				if (bLog) Console.WriteLine("    restored " + component.entry.Name);
+
+				if (onstationRestores > 0)
+                {
+					locRestored++;
+					onstationRestores--;
+                }
+				else
+				{
+					selfRestored++;
+					onboardRestores--;
+                }
+			}
+
+			if (locRestored + selfRestored > 0)
+			{
+				if (bLog) Console.WriteLine("    used " + locRestored + " on-station restores, leaving " + onstationRestores + " remaining");
+				if (bLog) Console.WriteLine("    used " + selfRestored + " onboard restores, leaving " + onboardRestores + " remaining");
+			}
+
+			if (selfRestored > 0)
+            {
+				UseOnboardRestores(Restores - onboardRestores);
+            }
+
+			if (locRestored > 0)
+			{
+				Location.Resources.Find(x => (x.Type == ResourceType.Restores) && (x.Stockpile > 0)).Stockpile = onstationRestores;
+			}
+		}
+
+		public void RepairShip(string name, int maxRepairs, bool bLog = true)
+		{
+			SerializedConquestShip ship = GetShip(name);
+
+			OrganizedShipData shipState = new OrganizedShipData(ref ship);
+			shipState.SortComponents();
+
+			if (bLog) Console.WriteLine(ship.Name + ": ");
+
+			for (int i = 0; i < shipState.components.Count; i++)
+			{
+				if (maxRepairs == 0) break;
+
+				OrganizedComponentData component = shipState.components[i];
+
+				if (component.state.Destroyed || component.state.HP >= component.entry.MaxHP) continue;
+
+				component.state.HP = component.entry.MaxHP;
+
+				if (bLog) Console.WriteLine("    repaired " + component.entry.Name);
+
+				maxRepairs--;
+			}
+		}
+
+		public void UnshredShip(string name, bool bLog = true)
+		{
+			SerializedConquestShip ship = GetShip(name);
+
+			ship.SavedState.Damage.Armor = null;
+		}
+
 		public void SpawnAtLocation(Location loc)
 		{
 			this.Location = loc;
 		}
-	}
+    }
 }

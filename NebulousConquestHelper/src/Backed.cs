@@ -42,6 +42,7 @@ namespace NebulousConquestHelper
 
 		[XmlIgnore]
 		public string FileName { get; set; }
+
 		[XmlIgnore]
 		public T _XML { get; set; }
 

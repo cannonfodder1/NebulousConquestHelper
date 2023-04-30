@@ -1,8 +1,4 @@
 - implement fleet merging and split offs with the program generating new .fleet files
-- implement ship repairs at supply depots
-	 - infinite ships that can be docked
-	 - limited amount of work per ship per turn
-	 - no queue, all ships worked on at once
 - probably swap the whole thing over to a GM-run local program rather than a discord bot
 - implement different kinds of mapmodes for the map printer (fleets present, fuel present, resource satisfaction, etc)
 - autogenerate 'info packages' for each team at the conclusion of each turn (fleets, resources, war progress, etc)
