@@ -6,12 +6,12 @@ using System.Xml.Serialization;
 
 namespace NebulousConquestHelper
 {
-    [XmlType("Fleet")]
+	[XmlType("Fleet")]
 	[Serializable]
 	public class Fleet : Backed<SerializedConquestFleet>
 	{
 		private const int FUEL_BURNED_PER_MASS = 4;
-		private const int MAXIMUM_BURNS_OF_FUEL = 20;
+		private const int MAXIMUM_BURNS_OF_FUEL = 3;
 
 		public enum FleetOrderType
 		{
@@ -350,7 +350,7 @@ namespace NebulousConquestHelper
 		}
 
 		public void UseOnboardRestores(int restoresToUse)
-        {
+		{
 			InitializeDamconComponents();
 
 			foreach (SerializedConquestShip ship in XML.Ships)
@@ -398,10 +398,11 @@ namespace NebulousConquestHelper
 					{
 						if (availableRestores == 0) break;
 						if (DC_LOCKER_COMPONENTS.Contains(socket.ComponentName))
-                        {
-                            availableRestores = Helper.RestockDCLockerRestores(socket, availableRestores);
-                        }
-                    }
+						{
+							// TODO prevent restock if locker is destroyed
+							availableRestores = Helper.RestockDCLockerRestores(socket, availableRestores);
+						}
+					}
 				}
 
 				resource.Stockpile = availableRestores;
@@ -483,9 +484,9 @@ namespace NebulousConquestHelper
 		}
 
 		public SerializedConquestShip GetShip(string name)
-        {
+		{
 			return XML.Ships.Find(x => x.Name == name);
-        }
+		}
 
 		public int GetShipRepairCost(SerializedConquestShip ship, int maxRepairs = -1)
 		{
@@ -507,7 +508,7 @@ namespace NebulousConquestHelper
 		}
 
 		public List<SerializedConquestShip> GetAllRepairableShips()
-        {
+		{
 			return XML.Ships.FindAll(x => CanShipBeRepaired(x));
 		}
 
@@ -574,7 +575,7 @@ namespace NebulousConquestHelper
 				}
 
 				string formatted = string.Format("{0:00}/{1:00}/{2:00}", intact, damaged, destroyed);
-				Console.WriteLine("    " + formatted + " - " + ship.Name);
+				Console.WriteLine("	" + formatted + " - " + ship.Name);
 			}
 
 			UpdateRestoreCount();
@@ -620,10 +621,10 @@ namespace NebulousConquestHelper
 			}
 
 			if (patched > 0)
-            {
+			{
 				// players don't need to know this, since it happens automatically and is free
 				//Console.WriteLine(ship.Name + ": patched up " + patched + " components");
-            }
+			}
 		}
 
 		public void RestoreAllShips(bool bLog = true)
@@ -673,15 +674,15 @@ namespace NebulousConquestHelper
 				if (bLog) Console.WriteLine("    restored " + component.entry.Name);
 
 				if (onstationRestores > 0)
-                {
+				{
 					locRestored++;
 					onstationRestores--;
-                }
+				}
 				else
 				{
 					selfRestored++;
 					onboardRestores--;
-                }
+				}
 			}
 
 			if (locRestored + selfRestored > 0)
@@ -691,9 +692,9 @@ namespace NebulousConquestHelper
 			}
 
 			if (selfRestored > 0)
-            {
+			{
 				UseOnboardRestores(Restores - onboardRestores);
-            }
+			}
 
 			if (locRestored > 0)
 			{
@@ -737,5 +738,5 @@ namespace NebulousConquestHelper
 		{
 			this.Location = loc;
 		}
-    }
+	}
 }

@@ -7,8 +7,9 @@ using System.Collections.Generic;
 
 namespace NebulousConquestHelper
 {
-    class Helper
+	class Helper
 	{
+		// TODO work out a save system with this path being different for each save
 		public const string DATA_FOLDER_PATH = "./src/data/";
 
 		public static ComponentRegistry cRegistry;
@@ -217,7 +218,7 @@ namespace NebulousConquestHelper
 			return availableResources;
 		}
 
-        public static int UseDCLockerRestores(SerializedHullSocket socket, int restoresToUse)
+		public static int UseDCLockerRestores(SerializedHullSocket socket, int restoresToUse)
 		{
 			int restoreCapacity = cRegistry.Get(socket.ComponentName).Restores;
 
@@ -233,7 +234,7 @@ namespace NebulousConquestHelper
 		}
 
 		public static int GetShipMass(SerializedConquestShip ship)
-        {
+		{
 			switch (ship.HullType)
 			{
 				case "Stock/Sprinter Corvette":
@@ -277,5 +278,5 @@ namespace NebulousConquestHelper
 					return ship.Cost / 100;
 			}
 		}
-    }
+	}
 }

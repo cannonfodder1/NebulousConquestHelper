@@ -27,8 +27,7 @@ namespace NebulousConquestHelper
 			Console.WriteLine("Restores: " + oak.Restores);
 
 			oak.RestockFromLocation();
-			//oak.IssueMoveOrder("Sat-L3");
-			oak.IssueIdleOrder();
+			oak.IssueMoveOrder("Sat-L3");
 
 			Console.WriteLine(game.System.FindLocationByName("Sph-L4").PrintResources());
 			Console.WriteLine(game.System.FindLocationByName("Hui Xing").PrintResources());
@@ -51,7 +50,7 @@ namespace NebulousConquestHelper
 			Console.WriteLine(game.System.FindLocationByName("Sph-L4").PrintResources());
 			Console.WriteLine(game.System.FindLocationByName("Hui Xing").PrintResources());
 
-			Fleet ash = game.CreateNewFleet("Conquest - TF Ash", "Sat-L3", Game.ConquestTeam.OrangeTeam);
+			Fleet ash = game.CreateNewFleet("Conquest - TF Ash", "Sat-L3", Game.ConquestTeam.GreenTeam);
 			ash.RestockFromLocation(false);
 			Console.WriteLine(game.System.FindLocationByName("Sat-L3").PrintResources());
 
@@ -87,6 +86,31 @@ namespace NebulousConquestHelper
 
 			ash.PrintDamageReport();
 			Console.WriteLine(game.System.FindLocationByName("Sat-L3").PrintResources());
+
+			ash.IssueIdleOrder();
+			oak.IssueIdleOrder();
+
+			Console.WriteLine("Pre Fuel: " + oak.Fuel + "/" + oak.GetFuelCapacity());
+			Console.WriteLine("Pre Rest: " + oak.Restores + "/" + oak.GetRestoreCapacity());
+			Console.WriteLine("Pre Fuel: " + ash.Fuel + "/" + ash.GetFuelCapacity());
+			Console.WriteLine("Pre Rest: " + ash.Restores + "/" + ash.GetRestoreCapacity());
+
+			Fleet contorta = game.MergeIntoFleet(ash, oak, "Conquest - TF Contorta");
+
+			Console.WriteLine("Mid Fuel: " + contorta.Fuel + "/" + contorta.GetFuelCapacity());
+			Console.WriteLine("Mid Rest: " + contorta.Restores + "/" + contorta.GetRestoreCapacity());
+
+			File.Delete(contorta.BackingFile.Path.Directory + "\\" + "Conquest - TF Pinus.fleet");
+
+			List<string> shipsToSplit = new List<string>();
+			shipsToSplit.Add("Moral Failing");
+			shipsToSplit.Add("Apply Damage");
+			Fleet pinus = game.SplitFromFleet(contorta, shipsToSplit, "Conquest - TF Pinus");
+
+			Console.WriteLine("Aft Fuel: " + contorta.Fuel + "/" + contorta.GetFuelCapacity());
+			Console.WriteLine("Aft Rest: " + contorta.Restores + "/" + contorta.GetRestoreCapacity());
+			Console.WriteLine("Aft Fuel: " + pinus.Fuel + "/" + pinus.GetFuelCapacity());
+			Console.WriteLine("Aft Rest: " + pinus.Restores + "/" + pinus.GetRestoreCapacity());
 
 			Mapping.CreateSystemMap("SystemMap_Overview.png", game.System, game.DaysPassed, false, false);
 			Mapping.CreateSystemMap("SystemMap_Situation.png", game.System, game.DaysPassed, true, false);

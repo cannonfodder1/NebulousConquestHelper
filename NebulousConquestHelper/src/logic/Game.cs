@@ -1,7 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using Utility;
+using Munitions.ModularMissiles;
 
 namespace NebulousConquestHelper
 {
@@ -291,9 +292,9 @@ namespace NebulousConquestHelper
 						}
 
 						if (arrive.MainType == Location.LocationType.Planet && arrive.ControllingTeam == fleet.ControllingTeam)
-                        {
+						{
 							fuel = (int)(fuel * AEROBRAKE_FUEL_MULT);
-                        }
+						}
 
 						int travelTime = (int)(distance / speed);
 						if (distance % AU_PER_DAY != 0) travelTime++;
@@ -341,9 +342,9 @@ namespace NebulousConquestHelper
 								index1++;
 							}
 							if (request_resource.Stockpile == request_resource.Requested)
-                            {
+							{
 								index2++;
-                            }
+							}
 						}
 					}
 				}
@@ -489,13 +490,13 @@ namespace NebulousConquestHelper
 						int Required = res.Requested;
 
 						if (res.Type == ResourceType.Metals)
-                        {
+						{
 							Required += loc.GetRepairMetalCost();
-                        }
+						}
 						if (res.Type == ResourceType.Parts)
-                        {
+						{
 							Required += loc.GetRepairPartsCost();
-                        }
+						}
 
 						if (res.Stockpile > Required)
 						{
@@ -549,6 +550,96 @@ namespace NebulousConquestHelper
 					}
 				}
 			}
+		}
+
+		public Fleet MergeIntoFleet(Fleet mergingFleet, Fleet acceptingFleet, string newFleetName = null)
+		{
+			if (mergingFleet.ControllingTeam != acceptingFleet.ControllingTeam)
+			{
+				Console.WriteLine("ERROR! Fleets cannot be merged because they are not on the same team");
+				return null;
+			}
+
+			if (mergingFleet.Location != acceptingFleet.Location)
+			{
+				Console.WriteLine("ERROR! Fleets cannot be merged because they are not in the same location");
+				return null;
+			}
+
+			if (mergingFleet.OrderType != acceptingFleet.OrderType)
+			{
+				Console.WriteLine("ERROR! Fleets cannot be merged because they do not have the same orders");
+				return null;
+			}
+
+			if (mergingFleet.OrderType == Fleet.FleetOrderType.Moving || acceptingFleet.OrderType == Fleet.FleetOrderType.Moving)
+			{
+				Console.WriteLine("ERROR! Fleets cannot be merged because they are in transit between locations");
+				return null;
+			}
+
+			acceptingFleet.Restores = acceptingFleet.Restores + mergingFleet.Restores;
+			acceptingFleet.Fuel = acceptingFleet.Fuel + mergingFleet.Fuel;
+
+			acceptingFleet.XML.Ships.AddRange(mergingFleet.XML.Ships);
+
+			HashSet<SerializedMissileTemplate> uniqueMissileTypes = new HashSet<SerializedMissileTemplate>();
+			uniqueMissileTypes.UnionWith(acceptingFleet.XML.MissileTypes);
+			uniqueMissileTypes.UnionWith(mergingFleet.XML.MissileTypes);
+
+			acceptingFleet.XML.MissileTypes.Clear();
+			acceptingFleet.XML.MissileTypes.AddRange(uniqueMissileTypes);
+
+			Fleets.Remove(mergingFleet);
+
+			File.Delete(mergingFleet.BackingFile.Path.RelativePath);
+
+			if (newFleetName != null)
+			{
+				File.Delete(acceptingFleet.BackingFile.Path.RelativePath);
+				acceptingFleet.FileName = newFleetName;
+				acceptingFleet.XML.Name = newFleetName;
+				acceptingFleet.SaveFleet();
+			}
+
+			return acceptingFleet;
+		}
+
+		public Fleet SplitFromFleet(Fleet originalFleet, List<string> shipsToSplit, string newFleetName)
+		{
+			if (originalFleet.OrderType == Fleet.FleetOrderType.Moving || originalFleet.OrderType == Fleet.FleetOrderType.Repairing)
+			{
+				Console.WriteLine("ERROR! Fleet cannot be split because it is moving or repairing");
+				return null;
+			}
+
+			string copyFilePath = originalFleet.BackingFile.Path.Directory + "\\" + newFleetName + ".fleet";
+
+			if (File.Exists(copyFilePath))
+			{
+				Console.WriteLine("ERROR! Fleet cannot be split because a fleet already exists with the split-off name");
+				return null;
+			}
+
+			File.Copy(originalFleet.BackingFile.Path.RelativePath, copyFilePath);
+			Fleet splitFleet = CreateNewFleet(newFleetName, originalFleet.Location.Name, originalFleet.ControllingTeam);
+			splitFleet.XML.Name = newFleetName;
+
+			originalFleet.XML.Ships.RemoveAll(x => shipsToSplit.Contains(x.Name));
+			splitFleet.XML.Ships.RemoveAll(x => !shipsToSplit.Contains(x.Name));
+
+			// TODO maybe need to handle missiles, maybe not
+
+			originalFleet.UpdateRestoreCount();
+			splitFleet.UpdateRestoreCount();
+
+			int fuelImbalance = originalFleet.GetFuelCapacity() - originalFleet.Fuel;
+			if (fuelImbalance < 0)
+			{
+				splitFleet.Fuel = fuelImbalance * -1;
+			}
+
+			return splitFleet;
 		}
 	}
 }
