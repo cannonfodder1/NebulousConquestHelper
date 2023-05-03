@@ -578,6 +578,12 @@ namespace NebulousConquestHelper
 				return null;
 			}
 
+			if (File.Exists(acceptingFleet.BackingFile.Path.Directory + "\\" + newFleetName + ".fleet"))
+			{
+				Console.WriteLine("ERROR! Fleets cannot be merged because a fleet already exists with the merger name");
+				return null;
+			}
+
 			acceptingFleet.Restores = acceptingFleet.Restores + mergingFleet.Restores;
 			acceptingFleet.Fuel = acceptingFleet.Fuel + mergingFleet.Fuel;
 
