@@ -160,7 +160,7 @@ namespace NebulousConquestHelper
 			int ashFuelCapPre = ash.GetFuelCapacity();
 			int ashRestoresCapPre = ash.GetRestoreCapacity();
 
-			File.Delete(oak.BackingFile.Path.Directory + "\\" + "Conquest - TF Contorta.fleet");
+			File.Delete(oak.GenerateFileReference().Path.Directory + "\\" + "Conquest - TF Contorta.fleet");
 
 			Fleet contorta = game.MergeIntoFleet(ash, oak, "Conquest - TF Contorta");
 
@@ -174,7 +174,7 @@ namespace NebulousConquestHelper
 			Debug.Assert(contortaFuelCapPre == oakFuelCapPre + ashFuelCapPre);
 			Debug.Assert(contortaRestoresCapPre == oakRestoresCapPre + ashRestoresCapPre);
 
-			File.Delete(contorta.BackingFile.Path.Directory + "\\" + "Conquest - TF Pinus.fleet");
+			File.Delete(contorta.GenerateFileReference().Path.Directory + "\\" + "Conquest - TF Pinus.fleet");
 
 			List<string> shipsToSplit = new List<string>();
 			shipsToSplit.Add("Moral Failing");

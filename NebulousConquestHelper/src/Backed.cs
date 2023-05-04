@@ -7,10 +7,10 @@ namespace NebulousConquestHelper
 	{
 		public static T Load(string fileName)
 		{
-			return NewFile(fileName).Object;
+			return NewFileReference(fileName).LoadObject();
 		}
 
-		public static BackingXmlFile<T> NewFile(string fileName)
+		public static BackingXmlFile<T> NewFileReference(string fileName)
 		{
 			return new BackingXmlFile<T>(fileName, FileType);
 		}
@@ -44,31 +44,26 @@ namespace NebulousConquestHelper
 		public string FileName { get; set; }
 
 		[XmlIgnore]
-		public T _XML { get; set; }
+		private T XML { get; set; }
 
-		[XmlIgnore]
-		public virtual BackingXmlFile<T> BackingFile
-		{
-			get
-			{
-				return new BackingXmlFile<T>(this.FileName, FileType);
-			}
-			set
-			{
-				this.FileName = value.Name;
-			}
+		public virtual BackingXmlFile<T> GenerateFileReference()
+        {
+			return new BackingXmlFile<T>(this.FileName, FileType);
 		}
-		[XmlIgnore]
-		public virtual T XML
+		
+		public virtual void SetFileReference(BackingXmlFile<T> BackingFile)
+        {
+			this.FileName = BackingFile.Name;
+		}
+
+		public virtual T GetXML()
 		{
-			get
+			if (this.XML == null)
 			{
-				if (this._XML == null)
-				{
-					this._XML = this.BackingFile.Object;
-				}
-				return this._XML;
+				this.XML = this.GenerateFileReference().LoadObject();
 			}
+
+			return this.XML;
 		}
 	}
 }

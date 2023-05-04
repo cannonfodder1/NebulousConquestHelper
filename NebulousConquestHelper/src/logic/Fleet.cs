@@ -61,21 +61,21 @@ namespace NebulousConquestHelper
 		{
 			LocationName = locationName;
 			ControllingTeam = team;
-			this.BackingFile = backingFile;
+			this.SetFileReference(backingFile);
 
 			UpdateRestoreCount();
 		}
 
 		public void SaveFleet()
 		{
-			BackingFile.Object = XML;
+			this.GenerateFileReference().SaveObject(GetXML());
 		}
 
 		public void ProcessBattleResults(bool losingTeam = false)
 		{
 			List<SerializedConquestShip> removeShips = new List<SerializedConquestShip>();
 
-			foreach (SerializedConquestShip ship in XML.Ships)
+			foreach (SerializedConquestShip ship in GetXML().Ships)
 			{
 				if (losingTeam)
 				{
@@ -106,7 +106,7 @@ namespace NebulousConquestHelper
 
 			foreach (var deadShip in removeShips)
 			{
-				XML.Ships.Remove(deadShip);
+				GetXML().Ships.Remove(deadShip);
 			}
 
 			UpdateRestoreCount();
@@ -188,7 +188,7 @@ namespace NebulousConquestHelper
 		{
 			int totalRestores = 0;
 
-			foreach (SerializedConquestShip ship in XML.Ships)
+			foreach (SerializedConquestShip ship in GetXML().Ships)
 			{
 				totalRestores += GetShipRestores(ship);
 			}
@@ -202,7 +202,7 @@ namespace NebulousConquestHelper
 
 			int totalRestores = 0;
 
-			foreach (SerializedConquestShip ship in XML.Ships)
+			foreach (SerializedConquestShip ship in GetXML().Ships)
 			{
 				foreach (SerializedHullSocket socket in ship.SocketMap)
 				{
@@ -272,7 +272,7 @@ namespace NebulousConquestHelper
 		{
 			if (OrderType == FleetOrderType.Repairing)
 			{
-				foreach (SerializedConquestShip ship in XML.Ships)
+				foreach (SerializedConquestShip ship in GetXML().Ships)
 				{
 					if (CanShipBeRepaired(ship) && Location.RepairsUnderway.Exists(x => x.ShipName == ship.Name))
 					{
@@ -289,7 +289,7 @@ namespace NebulousConquestHelper
 		{
 			if (OrderType == FleetOrderType.Repairing)
 			{
-				foreach (SerializedConquestShip ship in XML.Ships)
+				foreach (SerializedConquestShip ship in GetXML().Ships)
 				{
 					if (CanShipBeRepaired(ship) && Location.RepairsUnderway.Exists(x => x.ShipName == ship.Name))
 					{
@@ -316,7 +316,7 @@ namespace NebulousConquestHelper
 				return;
 			}
 
-			foreach (SerializedConquestShip ship in XML.Ships)
+			foreach (SerializedConquestShip ship in GetXML().Ships)
 			{
 				if (!CanShipBeRepaired(ship) && CanShipBeRestored(ship))
 				{
@@ -336,7 +336,7 @@ namespace NebulousConquestHelper
 		{
 			int mass = 0;
 
-			foreach (SerializedConquestShip ship in XML.Ships)
+			foreach (SerializedConquestShip ship in GetXML().Ships)
 			{
 				mass += Helper.GetShipMass(ship);
 			}
@@ -353,7 +353,7 @@ namespace NebulousConquestHelper
 		{
 			InitializeDamconComponents();
 
-			foreach (SerializedConquestShip ship in XML.Ships)
+			foreach (SerializedConquestShip ship in GetXML().Ships)
 			{
 				if (restoresToUse == 0) break;
 				foreach (SerializedHullSocket socket in ship.SocketMap)
@@ -391,7 +391,7 @@ namespace NebulousConquestHelper
 				int availableRestores = resource.Stockpile;
 				InitializeDamconComponents();
 
-				foreach (SerializedConquestShip ship in XML.Ships)
+				foreach (SerializedConquestShip ship in GetXML().Ships)
 				{
 					if (availableRestores == 0) break;
 					foreach (SerializedHullSocket socket in ship.SocketMap)
@@ -415,7 +415,7 @@ namespace NebulousConquestHelper
 				int availableMetals = resource.Stockpile;
 				InitializeMagazineComponents();
 
-				foreach (SerializedConquestShip ship in XML.Ships)
+				foreach (SerializedConquestShip ship in GetXML().Ships)
 				{
 					if (availableMetals == 0) break;
 					foreach (SerializedHullSocket socket in ship.SocketMap)
@@ -451,7 +451,7 @@ namespace NebulousConquestHelper
 				InitializeMagazineComponents();
 				InitializeLauncherComponents();
 
-				foreach (SerializedConquestShip ship in XML.Ships)
+				foreach (SerializedConquestShip ship in GetXML().Ships)
 				{
 					if (futureResources == 0 || availableFuel == 0) break;
 
@@ -461,14 +461,14 @@ namespace NebulousConquestHelper
 
 						if (MAGAZINE_COMPONENTS.Contains(socket.ComponentName))
 						{
-							Helper.RestockMagazineMissiles(socket, XML.MissileTypes, ref futureResources, ref availableFuel);
+							Helper.RestockMagazineMissiles(socket, GetXML().MissileTypes, ref futureResources, ref availableFuel);
 						}
 
 						if (Location.SubType == Location.LocationSubType.StationSupplyDepot)
 						{
 							if (LAUNCHER_COMPONENTS.Contains(socket.ComponentName))
 							{
-								Helper.RestockLauncherMissiles(socket, XML.MissileTypes, ref futureResources, ref availableFuel);
+								Helper.RestockLauncherMissiles(socket, GetXML().MissileTypes, ref futureResources, ref availableFuel);
 							}
 						}
 					}
@@ -485,7 +485,7 @@ namespace NebulousConquestHelper
 
 		public SerializedConquestShip GetShip(string name)
 		{
-			return XML.Ships.Find(x => x.Name == name);
+			return GetXML().Ships.Find(x => x.Name == name);
 		}
 
 		public int GetShipRepairCost(SerializedConquestShip ship, int maxRepairs = -1)
@@ -509,7 +509,7 @@ namespace NebulousConquestHelper
 
 		public List<SerializedConquestShip> GetAllRepairableShips()
 		{
-			return XML.Ships.FindAll(x => CanShipBeRepaired(x));
+			return GetXML().Ships.FindAll(x => CanShipBeRepaired(x));
 		}
 
 		public bool CanShipBeRepaired(SerializedConquestShip ship)
@@ -544,15 +544,15 @@ namespace NebulousConquestHelper
 
 		public void PrintDamageReport()
 		{
-			Console.WriteLine(XML.Name + " Damage Report");
+			Console.WriteLine(GetXML().Name + " Damage Report");
 
-			for (int i = 0; i < XML.Ships.Count; i++)
+			for (int i = 0; i < GetXML().Ships.Count; i++)
 			{
 				int intact = 0;
 				int damaged = 0;
 				int destroyed = 0;
 
-				SerializedConquestShip ship = XML.Ships[i];
+				SerializedConquestShip ship = GetXML().Ships[i];
 				OrganizedShipData shipState = new OrganizedShipData(ref ship);
 
 				foreach (OrganizedComponentData component in shipState.components)
@@ -593,9 +593,9 @@ namespace NebulousConquestHelper
 			damaged = 0;
 			destroyed = 0;
 
-			for (int i = 0; i < XML.Ships.Count; i++)
+			for (int i = 0; i < GetXML().Ships.Count; i++)
 			{
-				SerializedConquestShip ship = XML.Ships[i];
+				SerializedConquestShip ship = GetXML().Ships[i];
 				OrganizedShipData shipState = new OrganizedShipData(ref ship);
 
 				foreach (OrganizedComponentData component in shipState.components)
@@ -617,7 +617,7 @@ namespace NebulousConquestHelper
 
 		public void PatchAllShips()
 		{
-			foreach (SerializedConquestShip ship in XML.Ships)
+			foreach (SerializedConquestShip ship in GetXML().Ships)
 			{
 				PatchShip(ship.Name);
 			}
@@ -656,7 +656,7 @@ namespace NebulousConquestHelper
 
 		public void RestoreAllShips(bool bLog = true)
 		{
-			foreach (SerializedConquestShip ship in XML.Ships)
+			foreach (SerializedConquestShip ship in GetXML().Ships)
 			{
 				RestoreShip(ship.Name, bLog);
 			}

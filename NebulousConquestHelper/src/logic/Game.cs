@@ -82,7 +82,7 @@ namespace NebulousConquestHelper
 
 		public Game(BackingXmlFile<Game> backingFile)
 		{
-			this.BackingFile = backingFile;
+			this.SetFileReference(backingFile);
 		}
 
 		public void LoadAllFleets()
@@ -141,7 +141,7 @@ namespace NebulousConquestHelper
 
 		public Fleet CreateNewFleet(string fleetFileName, string locationName, ConquestTeam team)
 		{
-			BackingXmlFile<SerializedConquestFleet> backingFile = Fleet.NewFile(fleetFileName);
+			BackingXmlFile<SerializedConquestFleet> backingFile = Fleet.NewFileReference(fleetFileName);
 
 			Fleet newFleet = new Fleet(backingFile, locationName, team);
 
@@ -161,7 +161,7 @@ namespace NebulousConquestHelper
 			}
 
 			this.FileName = fileName;
-			this.BackingFile.Object = this;
+			this.GenerateFileReference().SaveObject(this);
 		}
 
 		public Team GetTeam(ConquestTeam team)
@@ -258,7 +258,7 @@ namespace NebulousConquestHelper
 				{
 					if (fleet.OrderType == Fleet.FleetOrderType.Idle && fleet.OrderData.DefendNearby)
 					{
-						TurnData.responseFleets.Add(fleet.XML.Name);
+						TurnData.responseFleets.Add(fleet.GetXML().Name);
 					}
 					else if (fleet.OrderType == Fleet.FleetOrderType.Repair)
 					{
@@ -301,12 +301,12 @@ namespace NebulousConquestHelper
 						if (distance % AU_PER_DAY != 0) travelTime++;
 						if (travelTime <= 7)
 						{
-							TurnData.arrivingSoon[travelTime - 1].Add(fleet.XML.Name);
+							TurnData.arrivingSoon[travelTime - 1].Add(fleet.GetXML().Name);
 						}
 						else
 						{
 							Console.WriteLine(fleet.FileName + " Ordered to Move - Arriving In " + travelTime + " Days");
-							TurnData.arrivingLater.Add(new ConquestMovingFleet(fleet.XML.Name, travelTime));
+							TurnData.arrivingLater.Add(new ConquestMovingFleet(fleet.GetXML().Name, travelTime));
 						}
 
 						fleet.OrderType = Fleet.FleetOrderType.Moving;
@@ -375,7 +375,7 @@ namespace NebulousConquestHelper
 
 			foreach (string fleetName in TurnData.arrivingSoon[daysSinceTasking - 1])
 			{
-				Fleet fleet = Fleets.Find(x => x.XML.Name == fleetName);
+				Fleet fleet = Fleets.Find(x => x.GetXML().Name == fleetName);
 
 				Console.WriteLine(" - Fleet Arriving: " + fleetName);
 
@@ -416,15 +416,15 @@ namespace NebulousConquestHelper
 			{
 				if (fleet.ControllingTeam == winner)
 				{
-					winnerShipsBefore += fleet.XML.Ships.Count;
+					winnerShipsBefore += fleet.GetXML().Ships.Count;
 					fleet.ProcessBattleResults(false);
-					winnerShipsAfter += fleet.XML.Ships.Count;
+					winnerShipsAfter += fleet.GetXML().Ships.Count;
 				}
 				else
 				{
-					loserShipsBefore += fleet.XML.Ships.Count;
+					loserShipsBefore += fleet.GetXML().Ships.Count;
 					fleet.ProcessBattleResults(true);
-					loserShipsAfter += fleet.XML.Ships.Count;
+					loserShipsAfter += fleet.GetXML().Ships.Count;
 				}
 			}
 
@@ -579,7 +579,7 @@ namespace NebulousConquestHelper
 				return null;
 			}
 
-			if (File.Exists(acceptingFleet.BackingFile.Path.Directory + "\\" + newFleetName + ".fleet"))
+			if (File.Exists(acceptingFleet.GenerateFileReference().Path.Directory + "\\" + newFleetName + ".fleet"))
 			{
 				Console.WriteLine("ERROR! Fleets cannot be merged because a fleet already exists with the merger name");
 				return null;
@@ -588,24 +588,24 @@ namespace NebulousConquestHelper
 			acceptingFleet.Restores = acceptingFleet.Restores + mergingFleet.Restores;
 			acceptingFleet.Fuel = acceptingFleet.Fuel + mergingFleet.Fuel;
 
-			acceptingFleet.XML.Ships.AddRange(mergingFleet.XML.Ships);
+			acceptingFleet.GetXML().Ships.AddRange(mergingFleet.GetXML().Ships);
 
 			HashSet<SerializedMissileTemplate> uniqueMissileTypes = new HashSet<SerializedMissileTemplate>();
-			uniqueMissileTypes.UnionWith(acceptingFleet.XML.MissileTypes);
-			uniqueMissileTypes.UnionWith(mergingFleet.XML.MissileTypes);
+			uniqueMissileTypes.UnionWith(acceptingFleet.GetXML().MissileTypes);
+			uniqueMissileTypes.UnionWith(mergingFleet.GetXML().MissileTypes);
 
-			acceptingFleet.XML.MissileTypes.Clear();
-			acceptingFleet.XML.MissileTypes.AddRange(uniqueMissileTypes);
+			acceptingFleet.GetXML().MissileTypes.Clear();
+			acceptingFleet.GetXML().MissileTypes.AddRange(uniqueMissileTypes);
 
 			Fleets.Remove(mergingFleet);
 
-			File.Delete(mergingFleet.BackingFile.Path.RelativePath);
+			File.Delete(mergingFleet.GenerateFileReference().Path.RelativePath);
 
 			if (newFleetName != null)
 			{
-				File.Delete(acceptingFleet.BackingFile.Path.RelativePath);
+				File.Delete(acceptingFleet.GenerateFileReference().Path.RelativePath);
 				acceptingFleet.FileName = newFleetName;
-				acceptingFleet.XML.Name = newFleetName;
+				acceptingFleet.GetXML().Name = newFleetName;
 				acceptingFleet.SaveFleet();
 			}
 
@@ -620,7 +620,7 @@ namespace NebulousConquestHelper
 				return null;
 			}
 
-			string copyFilePath = originalFleet.BackingFile.Path.Directory + "\\" + newFleetName + ".fleet";
+			string copyFilePath = originalFleet.GenerateFileReference().Path.Directory + "\\" + newFleetName + ".fleet";
 
 			if (File.Exists(copyFilePath))
 			{
@@ -628,12 +628,12 @@ namespace NebulousConquestHelper
 				return null;
 			}
 
-			File.Copy(originalFleet.BackingFile.Path.RelativePath, copyFilePath);
+			File.Copy(originalFleet.GenerateFileReference().Path.RelativePath, copyFilePath);
 			Fleet splitFleet = CreateNewFleet(newFleetName, originalFleet.Location.Name, originalFleet.ControllingTeam);
-			splitFleet.XML.Name = newFleetName;
+			splitFleet.GetXML().Name = newFleetName;
 
-			originalFleet.XML.Ships.RemoveAll(x => shipsToSplit.Contains(x.Name));
-			splitFleet.XML.Ships.RemoveAll(x => !shipsToSplit.Contains(x.Name));
+			originalFleet.GetXML().Ships.RemoveAll(x => shipsToSplit.Contains(x.Name));
+			splitFleet.GetXML().Ships.RemoveAll(x => !shipsToSplit.Contains(x.Name));
 
 			// TODO maybe need to handle missiles, maybe not
 

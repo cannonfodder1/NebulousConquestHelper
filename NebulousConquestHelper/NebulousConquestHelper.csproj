@@ -33,35 +33,10 @@
       <HintPath>lib\UnityEngine.SharedInternalsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
-
+  
   <ItemGroup>
-    <None Update="src\data\canvas.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="src\data\ComponentRegistry.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="src\data\config.example.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="src\config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="src\data\config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="src\data\Conquest - TF Ash.fleet">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="src\data\Conquest - TF Oak.fleet">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="src\data\MunitionRegistry.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="src\data\TestGame.conquest">
+    <None Include="src\data\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
 </Project>

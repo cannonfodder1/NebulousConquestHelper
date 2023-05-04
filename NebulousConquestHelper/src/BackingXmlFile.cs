@@ -32,34 +32,35 @@ namespace NebulousConquestHelper
 			}
 		}
 
-		public T Object
+		public T LoadObject()
 		{
-			get
+			using (FileStream stream = new FileStream(this.Path.RelativePath, FileMode.Open, FileAccess.Read))
 			{
-				using (FileStream stream = new FileStream(this.Path.RelativePath, FileMode.Open, FileAccess.Read))
+				XmlSerializer serializer = new XmlSerializer(typeof(T));
+				T loaded = (T)serializer.Deserialize(stream);
+				stream.Close();
+
+				if (loaded is Backed<T> backed)
 				{
-					XmlSerializer serializer = new XmlSerializer(typeof(T));
-					T loaded = (T)serializer.Deserialize(stream);
-					stream.Close();
-					if (loaded is Backed<T> backed)
-					{
-						backed.BackingFile = this;
-					}
-					return loaded;
+					backed.SetFileReference(this);
 				}
+
+				return loaded;
 			}
-			set
+		}
+
+		public void SaveObject(T obj)
+		{
+			if (!Directory.Exists(this.Path.Directory))
 			{
-				if (!Directory.Exists(this.Path.Directory))
-				{
-					Directory.CreateDirectory(this.Path.Directory);
-				}
-				using (FileStream stream = new FileStream(this.Path.RelativePath, FileMode.Create))
-				{
-					XmlSerializer serializer = new XmlSerializer(typeof(T));
-					serializer.Serialize(stream, value);
-					stream.Close();
-				}
+				Directory.CreateDirectory(this.Path.Directory);
+			}
+
+			using (FileStream stream = new FileStream(this.Path.RelativePath, FileMode.Create))
+			{
+				XmlSerializer serializer = new XmlSerializer(typeof(T));
+				serializer.Serialize(stream, obj);
+				stream.Close();
 			}
 		}
 	}
