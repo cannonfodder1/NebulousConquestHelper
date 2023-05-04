@@ -353,5 +353,10 @@ namespace NebulousConquestHelper
 			RepairWorkOrder order = new RepairWorkOrder(fleet, ship);
 			RepairQueue.Enqueue(order);
 		}
+
+		public int GetResourceStockpile(ResourceType type)
+        {
+			return Resources.Find(x => x.Type == type).Stockpile;
+		}
 	}
 }

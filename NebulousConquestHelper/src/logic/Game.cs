@@ -10,9 +10,10 @@ namespace NebulousConquestHelper
 	[Serializable]
 	public class Game : Backed<Game>
 	{
-		private const double AU_PER_DAY = 0.2;
-		private const double AU_PER_DAY_THRU_BELT = 0.1;
-		private const double AEROBRAKE_FUEL_MULT = 0.5;
+		public const double AU_PER_DAY = 0.2;
+		public const double AU_PER_DAY_THRU_BELT = 0.1;
+		public const double THRU_BELT_FUEL_MULT = AU_PER_DAY_THRU_BELT / AU_PER_DAY;
+		public const double AEROBRAKE_FUEL_MULT = 0.5;
 		private const int WP_PLANET_TAKEN = 6;
 		private const int WP_STATION_TAKEN = 3;
 		private const int WP_PER_SHIP = 1;
@@ -639,10 +640,11 @@ namespace NebulousConquestHelper
 			originalFleet.UpdateRestoreCount();
 			splitFleet.UpdateRestoreCount();
 
-			int fuelImbalance = originalFleet.GetFuelCapacity() - originalFleet.Fuel;
-			if (fuelImbalance < 0)
+			int fuelImbalance = originalFleet.Fuel - originalFleet.GetFuelCapacity();
+			if (fuelImbalance > 0)
 			{
-				splitFleet.Fuel = fuelImbalance * -1;
+				splitFleet.Fuel = fuelImbalance;
+				originalFleet.Fuel -= fuelImbalance;
 			}
 
 			return splitFleet;

@@ -588,6 +588,33 @@ namespace NebulousConquestHelper
 			}
 		}
 
+		public void GetDamageReport(out int damaged, out int destroyed)
+		{
+			damaged = 0;
+			destroyed = 0;
+
+			for (int i = 0; i < XML.Ships.Count; i++)
+			{
+				SerializedConquestShip ship = XML.Ships[i];
+				OrganizedShipData shipState = new OrganizedShipData(ref ship);
+
+				foreach (OrganizedComponentData component in shipState.components)
+				{
+					if (component.state.Destroyed)
+					{
+						destroyed++;
+					}
+					else
+					{
+						if (component.state.HP < component.entry.MaxHP)
+						{
+							damaged++;
+						}
+					}
+				}
+			}
+		}
+
 		public void PatchAllShips()
 		{
 			foreach (SerializedConquestShip ship in XML.Ships)
