@@ -7,20 +7,28 @@ namespace NebulousConquestHelper
 {
 	public partial class BackingXmlFile<T>
 	{
-		private readonly String fileName;
+		private readonly String filePath;
 		private readonly FileType fileType;
 
-		public BackingXmlFile(String fileName, FileType fileType)
+		public BackingXmlFile(String filePath, FileType fileType)
 		{
-			this.fileName = fileName;
+			this.filePath = filePath;
 			this.fileType = fileType;
+		}
+
+		public string Folder
+		{
+			get
+			{
+				return this.filePath.Substring(0, this.filePath.Length - Name.Length);
+			}
 		}
 
 		public string Name
 		{
 			get
 			{
-				return this.fileName;
+				return Path.NameWithoutExtension;
 			}
 		}
 
@@ -28,7 +36,7 @@ namespace NebulousConquestHelper
 		{
 			get
 			{
-				return new FilePath(Helper.DATA_FOLDER_PATH + this.fileName + this.fileType.ToExtension());
+				return new FilePath(Helper.DATA_FOLDER_PATH + this.filePath + this.fileType.ToExtension());
 			}
 		}
 

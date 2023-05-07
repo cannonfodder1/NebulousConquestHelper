@@ -5,14 +5,14 @@ namespace NebulousConquestHelper
 {
 	public abstract class Backed<T>
 	{
-		public static T Load(string fileName)
+		public static T Load(string filePath)
 		{
-			return NewFileReference(fileName).LoadObject();
+			return NewFileReference(filePath).LoadObject();
 		}
 
-		public static BackingXmlFile<T> NewFileReference(string fileName)
+		public static BackingXmlFile<T> NewFileReference(string filePath)
 		{
-			return new BackingXmlFile<T>(fileName, FileType);
+			return new BackingXmlFile<T>(filePath, FileType);
 		}
 
 		[XmlIgnore]
@@ -42,17 +42,21 @@ namespace NebulousConquestHelper
 
 		[XmlIgnore]
 		public string FileName { get; set; }
+		
+		[XmlIgnore]
+		public string FilePath { get; set; }
 
 		[XmlIgnore]
 		private T XML { get; set; }
 
 		public virtual BackingXmlFile<T> GenerateFileReference()
         {
-			return new BackingXmlFile<T>(this.FileName, FileType);
+			return new BackingXmlFile<T>(this.FilePath, FileType);
 		}
 		
 		public virtual void SetFileReference(BackingXmlFile<T> BackingFile)
         {
+			this.FilePath = BackingFile.Folder + BackingFile.Name;
 			this.FileName = BackingFile.Name;
 		}
 

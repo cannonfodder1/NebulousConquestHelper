@@ -78,20 +78,14 @@ namespace NebulousConquestHelper
 		public ConquestTurnData TurnData = new ConquestTurnData();
 		public List<string> BattleLocations = new List<string>();
 
+		[XmlIgnore]
+		public string LoadedGame;
+
 		private Game() { }
 
 		public Game(BackingXmlFile<Game> backingFile)
 		{
 			this.SetFileReference(backingFile);
-		}
-
-		public void LoadAllFleets()
-		{
-			foreach (Fleet fleet in this.Fleets)
-			{
-				Location loc = this.System.FindLocationByName(fleet.LocationName);
-				loc.SpawnFleet(fleet);
-			}
 		}
 
 		public void SetupResources()
@@ -141,7 +135,12 @@ namespace NebulousConquestHelper
 
 		public Fleet CreateNewFleet(string fleetFileName, string locationName, ConquestTeam team)
 		{
-			BackingXmlFile<SerializedConquestFleet> backingFile = Fleet.NewFileReference(fleetFileName);
+			BackingXmlFile<SerializedConquestFleet> backingFile = Fleet.NewFileReference(this.FileName + "/" + fleetFileName);
+
+			if (!File.Exists(backingFile.Path.RelativePath))
+			{
+				File.Copy(Helper.DATA_FOLDER_PATH + LoadedGame + "/" + fleetFileName + ".fleet", backingFile.Path.RelativePath, true);
+			}
 
 			Fleet newFleet = new Fleet(backingFile, locationName, team);
 
@@ -153,15 +152,50 @@ namespace NebulousConquestHelper
 			return newFleet;
 		}
 
-		public void SaveGame(string fileName)
+		public static Game LoadGame(string gameName)
+        {
+			Game game = Load(gameName + "/" + gameName);
+
+			foreach (Fleet fleet in game.Fleets)
+			{
+				BackingXmlFile<SerializedConquestFleet> savedFileRef = Fleet.NewFileReference(game.FileName + "/" + fleet.SerializedFile);
+				fleet.SetFileReference(savedFileRef);
+				Location loc = game.System.FindLocationByName(fleet.LocationName);
+				loc.SpawnFleet(fleet);
+			}
+
+			game.SaveGame(gameName);
+
+			return game;
+		}
+
+		public void SaveGame(string gameName)
 		{
 			foreach (Fleet fleet in Fleets)
 			{
-				fleet.SaveFleet();
+				fleet.SaveFleet(gameName);
 			}
 
-			this.FileName = fileName;
-			this.GenerateFileReference().SaveObject(this);
+			BackingXmlFile<Game> sFileRef = NewFileReference(gameName + "/" + gameName);
+			this.SetFileReference(sFileRef);
+			sFileRef.SaveObject(this);
+
+			LoadedGame = gameName;
+			string workingDirectory = "_LoadedGame";
+
+			foreach (Fleet fleet in Fleets)
+			{
+				fleet.SaveFleet(workingDirectory);
+			}
+
+			BackingXmlFile<Game> wFileRef = NewFileReference(workingDirectory + "/" + workingDirectory);
+			this.SetFileReference(wFileRef);
+			wFileRef.SaveObject(this);
+		}
+
+		public Fleet GetFleet(string fleetName)
+		{
+			return Fleets.Find(x => x.FileName == fleetName);
 		}
 
 		public Team GetTeam(ConquestTeam team)
@@ -606,8 +640,9 @@ namespace NebulousConquestHelper
 				File.Delete(acceptingFleet.GenerateFileReference().Path.RelativePath);
 				acceptingFleet.FileName = newFleetName;
 				acceptingFleet.GetXML().Name = newFleetName;
-				acceptingFleet.SaveFleet();
 			}
+
+			acceptingFleet.SaveFleet(this.FileName);
 
 			return acceptingFleet;
 		}
@@ -646,6 +681,9 @@ namespace NebulousConquestHelper
 				splitFleet.Fuel = fuelImbalance;
 				originalFleet.Fuel -= fuelImbalance;
 			}
+
+			originalFleet.SaveFleet(this.FileName);
+			splitFleet.SaveFleet(this.FileName);
 
 			return splitFleet;
 		}

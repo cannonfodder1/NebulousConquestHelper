@@ -9,7 +9,6 @@ namespace NebulousConquestHelper
 {
 	class Helper
 	{
-		// TODO work out a save system with this path being different for each save
 		public const string DATA_FOLDER_PATH = "./src/data/";
 
 		public static ComponentRegistry cRegistry;

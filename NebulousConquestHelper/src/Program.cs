@@ -17,8 +17,7 @@ namespace NebulousConquestHelper
 		// TODO make the text output of the program more organized and readable
 		private static void IntegrationTest()
 		{
-			Game game = Game.Load("TestGame");
-			game.LoadAllFleets();
+			Game game = Game.LoadGame("TestGame");
 			game.SetupResources();
 
 			// resupply and movement tests
@@ -135,6 +134,8 @@ namespace NebulousConquestHelper
 
 			ash.IssueIdleOrder();
 
+			game.SaveGame("TestGame1");
+
 			// fleet merging and splitting tests
 
 			for (int i = 0; i < 6; i++)
@@ -202,7 +203,27 @@ namespace NebulousConquestHelper
 			Mapping.CreateSystemMap("SystemMap_Situation.png", game.System, game.DaysPassed, true, false);
 			Mapping.CreateSystemMap("SystemMap_Logistics.png", game.System, game.DaysPassed, true, true);
 
-			game.SaveGame("TestGame");
+			// test saving and loading
+
+			int SatanazeRaresPre = game.System.FindLocationByName("Satanaze").GetResourceStockpile(ResourceType.Rares);
+			int badnarikPolymersPre = game.System.FindLocationByName("Badnarik").GetResourceStockpile(ResourceType.Polymers);
+
+			game.SaveGame("TestGame2");
+
+			game = Game.LoadGame("TestGame2");
+
+			int SatanazeRaresAft = game.System.FindLocationByName("Satanaze").GetResourceStockpile(ResourceType.Rares);
+			int badnarikPolymersAft = game.System.FindLocationByName("Badnarik").GetResourceStockpile(ResourceType.Polymers);
+
+			Debug.Assert(SatanazeRaresPre == SatanazeRaresAft);
+			Debug.Assert(badnarikPolymersPre == badnarikPolymersAft);
+
+			contorta = game.GetFleet("Conquest - TF Contorta");
+
+			Debug.Assert(contortaFuelAft == contorta.Fuel);
+			Debug.Assert(contortaRestoresAft == contorta.Restores);
+			Debug.Assert(contortaFuelCapAft == contorta.GetFuelCapacity());
+			Debug.Assert(contortaRestoresCapAft == contorta.GetRestoreCapacity());
 		}
 	}
 }

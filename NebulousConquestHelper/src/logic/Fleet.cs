@@ -46,6 +46,7 @@ namespace NebulousConquestHelper
 		private static List<string> MAGAZINE_COMPONENTS = new List<string>();
 		private static List<string> LAUNCHER_COMPONENTS = new List<string>();
 
+		public string SerializedFile;
 		public string LocationName;
 		public int Restores;
 		public int Fuel;
@@ -66,9 +67,12 @@ namespace NebulousConquestHelper
 			UpdateRestoreCount();
 		}
 
-		public void SaveFleet()
+		public void SaveFleet(string gameName)
 		{
-			this.GenerateFileReference().SaveObject(GetXML());
+			SerializedFile = FileName;
+			BackingXmlFile<SerializedConquestFleet> fileRef = NewFileReference(gameName + "/" + FileName);
+			this.SetFileReference(fileRef);
+			fileRef.SaveObject(GetXML());
 		}
 
 		public void ProcessBattleResults(bool losingTeam = false)
