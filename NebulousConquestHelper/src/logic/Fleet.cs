@@ -427,15 +427,13 @@ namespace NebulousConquestHelper
 						if (availableMetals == 0) break;
 						if (MAGAZINE_COMPONENTS.Contains(socket.ComponentName))
 						{
-							availableMetals = Helper.RestockMagazineAmmo(socket, availableMetals);
+							Helper.RestockMagazineAmmo(socket, ref availableMetals);
 						}
 					}
 				}
 
 				resource.Stockpile = availableMetals;
 			}
-
-			// TODO figure out if non-modular missiles like chaff and container decoys should be ammo or missile prices
 
 			if (restockMissiles
 				&& Location.Resources.Exists(x => (x.Type == ResourceType.Metals) && (x.Stockpile > 0))
@@ -447,9 +445,8 @@ namespace NebulousConquestHelper
 				Resource resourceParts = Location.Resources.Find(x => (x.Type == ResourceType.Parts) && (x.Stockpile > 0));
 				Resource resourceFuel = Location.Resources.Find(x => (x.Type == ResourceType.Fuel) && (x.Stockpile > 0));
 
-				int availableResources = Math.Min(resourceParts.Stockpile, resourceMetals.Stockpile);
-				int futureResources = availableResources;
-
+				int availableMetals = resourceMetals.Stockpile;
+				int availableParts = resourceParts.Stockpile;
 				int availableFuel = resourceFuel.Stockpile;
 
 				InitializeMagazineComponents();
@@ -457,32 +454,29 @@ namespace NebulousConquestHelper
 
 				foreach (SerializedConquestShip ship in GetXML().Ships)
 				{
-					if (futureResources == 0 || availableFuel == 0) break;
+					if (availableMetals == 0 || availableParts == 0 || availableFuel == 0) break;
 
 					foreach (SerializedHullSocket socket in ship.SocketMap)
 					{
-						if (futureResources == 0 || availableFuel == 0) break;
+						if (availableMetals == 0 || availableParts == 0 || availableFuel == 0) break;
 
 						if (MAGAZINE_COMPONENTS.Contains(socket.ComponentName))
 						{
-							Helper.RestockMagazineMissiles(socket, GetXML().MissileTypes, ref futureResources, ref availableFuel);
+							Helper.RestockMagazineMissiles(socket, GetXML().MissileTypes, ref availableMetals, ref availableParts, ref availableFuel);
 						}
 
 						if (Location.SubType == Location.LocationSubType.StationSupplyDepot)
 						{
 							if (LAUNCHER_COMPONENTS.Contains(socket.ComponentName))
 							{
-								Helper.RestockLauncherMissiles(socket, GetXML().MissileTypes, ref futureResources, ref availableFuel);
+								Helper.RestockLauncherMissiles(socket, GetXML().MissileTypes, ref availableMetals, ref availableParts, ref availableFuel);
 							}
 						}
 					}
 				}
 
-				int spentResources = availableResources - futureResources;
-
-				resourceMetals.Stockpile -= spentResources;
-				resourceParts.Stockpile -= spentResources;
-
+				resourceMetals.Stockpile -= availableMetals;
+				resourceParts.Stockpile -= availableParts;
 				resourceFuel.Stockpile = availableFuel;
 			}
 		}

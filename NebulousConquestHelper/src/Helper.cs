@@ -20,6 +20,8 @@ namespace NebulousConquestHelper
 			cRegistry = ComponentRegistry.Load("ComponentRegistry");
 		}
 
+		public const int METAL_PER_AMMO_POINT = 4;
+
 		public static int RestockDCLockerRestores(SerializedHullSocket socket, int availableRestores)
 		{
 			if (socket.ComponentState != null && socket.ComponentState is DCLockerComponent.DCLockerState)
@@ -33,7 +35,7 @@ namespace NebulousConquestHelper
 			return availableRestores;
 		}
 
-		public static int RestockMagazineAmmo(SerializedHullSocket socket, int availableMetals)
+		public static void RestockMagazineAmmo(SerializedHullSocket socket, ref int availableMetals)
 		{
 			BulkMagazineComponent.BulkMagazineData magazineData = (BulkMagazineComponent.BulkMagazineData)socket.ComponentData;
 			BulkMagazineComponent.BulkMagazineState magazineState = (BulkMagazineComponent.BulkMagazineState)socket.ComponentState;
@@ -42,7 +44,7 @@ namespace NebulousConquestHelper
 			{
 				foreach (MagSaveData munitionLoad in magazineData.Load)
 				{
-					if (munitionLoad.MunitionKey.StartsWith("$MODMIS$"))
+					if (IsMissile(munitionLoad.MunitionKey))
 					{
 						continue;
 					}
@@ -60,9 +62,9 @@ namespace NebulousConquestHelper
 							if (expended > 0)
 							{
 								int neededBatches = (int)Math.Ceiling(expended / munitionEntry.PointDivision);
-								int totalPrice = neededBatches * munitionEntry.PointCost;
+								int totalPrice = neededBatches * munitionEntry.PointCost * METAL_PER_AMMO_POINT;
 								int paidPrice = Math.Min(availableMetals, totalPrice);
-								int totalBatches = (int)Math.Floor((double)paidPrice / munitionEntry.PointCost);
+								int totalBatches = (int)Math.Floor((double)paidPrice / (munitionEntry.PointCost * METAL_PER_AMMO_POINT));
 								int totalRestock = totalBatches * munitionEntry.PointDivision;
 								int finalRestock = (int)Math.Min(expended, totalRestock);
 
@@ -81,11 +83,9 @@ namespace NebulousConquestHelper
 					}
 				}
 			}
-
-			return availableMetals;
 		}
 
-		public static int RestockMagazineMissiles(SerializedHullSocket socket, List<SerializedMissileTemplate> missileTypes, ref int availableResources, ref int availableFuel)
+		public static void RestockMagazineMissiles(SerializedHullSocket socket, List<SerializedMissileTemplate> missileTypes, ref int availableMetals, ref int availableParts, ref int availableFuel)
 		{
 			BulkMagazineComponent.BulkMagazineData magazineData = (BulkMagazineComponent.BulkMagazineData)socket.ComponentData;
 			BulkMagazineComponent.BulkMagazineState magazineState = (BulkMagazineComponent.BulkMagazineState)socket.ComponentState;
@@ -94,49 +94,85 @@ namespace NebulousConquestHelper
 			{
 				foreach (MagSaveData munitionLoad in magazineData.Load)
 				{
-					if (!munitionLoad.MunitionKey.StartsWith("$MODMIS$"))
+					if (!IsMissile(munitionLoad.MunitionKey))
 					{
 						continue;
 					}
 
-					SerializedMissileTemplate missileType = missileTypes.Find(x => munitionLoad.MunitionKey.Equals("$MODMIS$/" + x.Designation + " " + x.Nickname));
-
-					if (availableResources < missileType.Cost)
+					if (IsModularMissile(munitionLoad.MunitionKey))
 					{
-						break;
-					}
+						SerializedMissileTemplate missileType = missileTypes.Find(x => munitionLoad.MunitionKey.Equals("$MODMIS$/" + x.Designation + " " + x.Nickname));
 
-					for (int index = 0; index < magazineState.Mags.Count; index++)
-					{
-						MagStateData munitionState = magazineState.Mags[index];
-
-						if (munitionState.MagazineKey == munitionLoad.MagazineKey)
+						if (Math.Min(availableMetals, availableParts) < missileType.Cost)
 						{
-							int expended = (int)munitionState.Expended;
-
-							if (expended > 0)
-							{
-								int costToRestock = expended * missileType.Cost;
-								int restockPrice = Math.Min(availableResources, costToRestock);
-								restockPrice -= restockPrice % missileType.Cost;
-								int numRestocked = Math.Min(restockPrice / missileType.Cost, availableFuel);
-
-								munitionState.Expended -= (uint)numRestocked;
-								magazineState.Mags[index] = munitionState;
-								availableResources -= numRestocked * missileType.Cost;
-								availableFuel -= numRestocked;
-							}
-
 							break;
+						}
+
+						for (int index = 0; index < magazineState.Mags.Count; index++)
+						{
+							MagStateData munitionState = magazineState.Mags[index];
+
+							if (munitionState.MagazineKey == munitionLoad.MagazineKey)
+							{
+								int expended = (int)munitionState.Expended;
+
+								if (expended > 0)
+								{
+									int costToRestock = expended * missileType.Cost;
+									int restockPrice = Math.Min(Math.Min(availableMetals, availableParts), costToRestock);
+									restockPrice -= restockPrice % missileType.Cost;
+									int numRestocked = Math.Min(restockPrice / missileType.Cost, availableFuel / GetMissileFuel(munitionLoad.MunitionKey));
+
+									munitionState.Expended -= (uint)numRestocked;
+									magazineState.Mags[index] = munitionState;
+									availableMetals -= numRestocked * missileType.Cost;
+									availableParts -= numRestocked * missileType.Cost;
+									availableFuel -= numRestocked * GetMissileFuel(munitionLoad.MunitionKey);
+								}
+
+								break;
+							}
+						}
+					}
+                    else
+					{
+						// munition is a Mine or Mine Container or Rocket Container, refill using basic ammo cost
+
+						Munition munitionEntry = mRegistry.Get(munitionLoad.MunitionKey);
+
+						if (availableMetals < munitionEntry.PointCost)
+						{
+							continue;
+						}
+
+						for (int index = 0; index < magazineState.Mags.Count; index++)
+						{
+							MagStateData munitionState = magazineState.Mags[index];
+
+							if (munitionState.MagazineKey == munitionLoad.MagazineKey)
+							{
+								double expended = munitionState.Expended;
+
+								if (expended > 0)
+								{
+									int divisions = (int)Math.Ceiling(expended / munitionEntry.PointDivision);
+									int costToRestock = divisions * munitionEntry.PointCost * METAL_PER_AMMO_POINT;
+									int restocked = Math.Min(availableMetals, costToRestock);
+
+									munitionState.Expended -= (uint)restocked;
+									magazineState.Mags[index] = munitionState;
+									availableMetals -= restocked;
+								}
+
+								break;
+							}
 						}
 					}
 				}
 			}
-
-			return availableResources;
 		}
 
-		public static int RestockLauncherMissiles(SerializedHullSocket socket, List<SerializedMissileTemplate> missileTypes, ref int availableResources, ref int availableFuel)
+		public static void RestockLauncherMissiles(SerializedHullSocket socket, List<SerializedMissileTemplate> missileTypes, ref int availableMetals, ref int availableParts, ref int availableFuel)
 		{
 			BaseCellLauncherComponent.CellLauncherData launcherData = (BaseCellLauncherComponent.CellLauncherData)socket.ComponentData;
 			BaseCellLauncherComponent.CellLauncherState launcherState = (BaseCellLauncherComponent.CellLauncherState)socket.ComponentState;
@@ -145,11 +181,11 @@ namespace NebulousConquestHelper
 			{
 				foreach (MagSaveData missileLoad in launcherData.MissileLoad)
 				{
-					if (missileLoad.MunitionKey.StartsWith("$MODMIS$"))
+					if (IsModularMissile(missileLoad.MunitionKey))
 					{
 						SerializedMissileTemplate missileType = missileTypes.Find(x => missileLoad.MunitionKey.Equals("$MODMIS$/" + x.Designation + " " + x.Nickname));
 
-						if (availableResources < missileType.Cost)
+						if (Math.Min(availableMetals, availableParts) < missileType.Cost)
 						{
 							continue;
 						}
@@ -165,14 +201,15 @@ namespace NebulousConquestHelper
 								if (expended > 0)
 								{
 									int costToRestock = expended * missileType.Cost;
-									int restockPrice = Math.Min(availableResources, costToRestock);
+									int restockPrice = Math.Min(Math.Min(availableMetals, availableParts), costToRestock);
 									restockPrice -= restockPrice % missileType.Cost;
-									int numRestocked = Math.Min(restockPrice / missileType.Cost, availableFuel);
+									int numRestocked = Math.Min(restockPrice / missileType.Cost, availableFuel / GetMissileFuel(missileLoad.MunitionKey));
 
 									missileState.Expended -= (uint)numRestocked;
 									launcherState.Missiles[index] = missileState;
-									availableResources -= numRestocked * missileType.Cost;
-									availableFuel -= numRestocked;
+									availableMetals -= numRestocked * missileType.Cost;
+									availableParts -= numRestocked * missileType.Cost;
+									availableFuel -= numRestocked * GetMissileFuel(missileLoad.MunitionKey);
 								}
 
 								break;
@@ -183,7 +220,7 @@ namespace NebulousConquestHelper
 					{
 						Munition munitionEntry = mRegistry.Get(missileLoad.MunitionKey);
 
-						if (availableResources < munitionEntry.PointCost)
+						if (availableMetals < munitionEntry.PointCost)
 						{
 							continue;
 						}
@@ -199,12 +236,12 @@ namespace NebulousConquestHelper
 								if (expended > 0)
 								{
 									int divisions = (int)Math.Ceiling(expended / munitionEntry.PointDivision);
-									int costToRestock = divisions * munitionEntry.PointCost;
-									int restocked = Math.Min(availableResources, costToRestock);
+									int costToRestock = divisions * munitionEntry.PointCost * METAL_PER_AMMO_POINT;
+									int restocked = Math.Min(availableMetals, costToRestock);
 
 									missileState.Expended -= (uint)restocked;
 									launcherState.Missiles[index] = missileState;
-									availableResources -= restocked;
+									availableMetals -= restocked;
 								}
 
 								break;
@@ -213,8 +250,6 @@ namespace NebulousConquestHelper
 					}
 				}
 			}
-
-			return availableResources;
 		}
 
 		public static int UseDCLockerRestores(SerializedHullSocket socket, int restoresToUse)
@@ -276,6 +311,51 @@ namespace NebulousConquestHelper
 					Console.WriteLine("ERROR! Unknown Hull Type: " + ship.HullType);
 					return ship.Cost / 100;
 			}
+		}
+
+		public static bool IsModularMissile(string munitionKey)
+		{
+			return munitionKey.StartsWith("$MODMIS$");
+		}
+		
+		public static bool IsMissile(string munitionKey)
+		{
+			if (munitionKey.StartsWith("$MODMIS$"))
+            {
+				return true;
+            }
+			if (munitionKey.Contains("Mine"))
+			{
+				return true;
+			}
+			if (munitionKey.Contains("Rocket Container"))
+			{
+				return true;
+			}
+
+			return false;
+		}
+		
+		public static int GetMissileFuel(string munitionKey)
+		{
+			if (munitionKey.StartsWith("$MODMIS$/SGM-H-3"))
+			{
+				return 2;
+			}
+			if (munitionKey.StartsWith("$MODMIS$/SGM-1"))
+			{
+				return 0;
+			}
+			if (munitionKey.Contains("Mine") && !munitionKey.Contains("Container"))
+			{
+				return 0;
+			}
+			if (munitionKey.Contains("S1 Rocket"))
+			{
+				return 0;
+			}
+
+			return 1;
 		}
 	}
 }

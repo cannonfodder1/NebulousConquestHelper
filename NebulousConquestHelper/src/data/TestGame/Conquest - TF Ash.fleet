@@ -539,7 +539,7 @@
               </MagStateData>
               <MagStateData>
                 <MagazineKey>U__yY1f26E6F4ReTizMpLw</MagazineKey>
-                <Expended>0</Expended>
+                <Expended>3</Expended>
               </MagStateData>
             </Missiles>
             <CellAccum>0</CellAccum>
@@ -1459,7 +1459,7 @@
             <Missiles>
               <MagStateData>
                 <MagazineKey>y1y33bb31E-ua9RV0CGafw</MagazineKey>
-                <Expended>0</Expended>
+                <Expended>10</Expended>
               </MagStateData>
               <MagStateData>
                 <MagazineKey>U__yY1f26E6F4ReTizMpLw</MagazineKey>
