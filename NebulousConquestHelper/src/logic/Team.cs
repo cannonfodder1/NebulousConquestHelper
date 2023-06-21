@@ -7,8 +7,7 @@ namespace NebulousConquestHelper
 	[Serializable]
 	public class Team
 	{
-        // TODO reverse to 25 per freighter with 100 freighters
-        private const float ITEMS_PER_FREIGHTER = 100;
+        private const float ITEMS_PER_FREIGHTER = 25;
 
 		public string ShortName;
 		public string LongName;

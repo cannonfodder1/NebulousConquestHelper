@@ -5,12 +5,12 @@
     <Team>
       <ShortName>Alliance</ShortName>
       <LongName>Shelter Alliance</LongName>
-      <Freighters>25</Freighters>
+      <Freighters>100</Freighters>
     </Team>
     <Team>
       <ShortName>Federation</ShortName>
       <LongName>Graznovian Federation</LongName>
-      <Freighters>25</Freighters>
+      <Freighters>100</Freighters>
     </Team>
   </Teams>
   <System>

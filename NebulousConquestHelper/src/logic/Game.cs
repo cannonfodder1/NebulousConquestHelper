@@ -11,9 +11,10 @@ namespace NebulousConquestHelper
 	public class Game : Backed<Game>
 	{
 		public const double AU_PER_DAY = 0.2;
-		public const double AU_PER_DAY_THRU_BELT = 0.1;
-		public const double THRU_BELT_FUEL_MULT = AU_PER_DAY_THRU_BELT / AU_PER_DAY;
+		public const double AU_PER_DAY_THRU_BELT = 0.2;
+		public const double THRU_BELT_FUEL_MULT = 1.5;
 		public const double AEROBRAKE_FUEL_MULT = 0.5;
+		// TODO rework to be in line with ruleset
 		private const int WP_PLANET_TAKEN = 6;
 		private const int WP_STATION_TAKEN = 3;
 		private const int WP_PER_SHIP = 1;
@@ -321,7 +322,7 @@ namespace NebulousConquestHelper
 							if (belt.TraversingAsteroidBelt(depart, arrive, DaysPassed))
 							{
 								speed = AU_PER_DAY_THRU_BELT;
-								fuel = (int)(fuel * (AU_PER_DAY_THRU_BELT / AU_PER_DAY));
+								fuel = (int)(fuel * THRU_BELT_FUEL_MULT);
 								break;
 							}
 						}

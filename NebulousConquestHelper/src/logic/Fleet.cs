@@ -10,7 +10,7 @@ namespace NebulousConquestHelper
 	[Serializable]
 	public class Fleet : Backed<SerializedConquestFleet>
 	{
-		private const int FUEL_BURNED_PER_MASS = 4;
+		private const int FUEL_BURNED_PER_MASS = 1;
 		private const int MAXIMUM_BURNS_OF_FUEL = 3;
 
 		public enum FleetOrderType
