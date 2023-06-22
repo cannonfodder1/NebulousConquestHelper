@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ModInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ModName>Generate Registry</ModName>
+  <ModDescription></ModDescription>
+  <ModVer>1.0</ModVer>
+  <Assemblies>
+    <string>Mono.Cecil.dll</string>
+    <string>MonoMod.Utils.dll</string>
+    <string>MonoMod.RuntimeDetour.dll</string>
+    <string>0Harmony.dll</string>
+    <string>GenerateRegistry.dll</string>
+  </Assemblies>
+  <PreviewImage>C:\Program Files (x86)\Steam\steamapps\common\Nebulous\Mods\GenerateRegistry\preview.png</PreviewImage>
+  <GameVer>0.3.1</GameVer>
+</ModInfo>

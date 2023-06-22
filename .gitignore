@@ -2,6 +2,8 @@
 /NebulousConquestHelper/obj/
 /SaveFleetState/bin/
 /SaveFleetState/obj/
+/GenerateRegistry/bin/
+/GenerateRegistry/obj/
 /NebulousConquestHelper/src/data/config.json
 /obj/
 /bin/
