@@ -2,7 +2,7 @@
 <ModInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ModName>Save Fleet State</ModName>
   <ModDescription>Dumps information about all fleets on your team to your Saves folder when a battle ends.</ModDescription>
-  <ModVer>1.1</ModVer>
+  <ModVer>1.2</ModVer>
   <Assemblies>
     <string>Mono.Cecil.dll</string>
     <string>MonoMod.Utils.dll</string>
@@ -11,5 +11,5 @@
     <string>SaveFleetState.dll</string>
   </Assemblies>
   <PreviewImage>C:\Program Files (x86)\Steam\steamapps\common\Nebulous\Mods\SaveFleetState\preview.png</PreviewImage>
-  <GameVer>0.2.2</GameVer>
+  <GameVer>0.3.1</GameVer>
 </ModInfo>

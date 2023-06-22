@@ -1,5 +1,5 @@
 ESSENTIAL GOALS
-- fix save fleet state once and for all, and make the transfer of ready files easier
+- fix save fleet state once and for all
 - implement different kinds of mapmodes for the map printer (fleets present, fuel present, resource satisfaction, etc)
 - autogenerate 'info packages' for each team at the conclusion of each turn (fleets, resources, war progress, etc)
 - print out what info teams should know when a battle starts, taking into account intel and counter-intel

@@ -28,10 +28,11 @@ namespace SaveFleetState
 
         public static bool SaveFleetToFile(SerializedFleet fleet, string folder, bool clean)
         {
-            string subfolder = clean ? "Ready" : "Raw";
             SerializedFleet output = clean ? PrepareSerializedFleet(fleet) : fleet;
-            FilePath filePath = new FilePath(fleet.Name + ".fleet", "Saves/States/" + folder + "/" + subfolder);
-            Debug.Log("SAVEFLEETSTATE :: Saving fleet state to file: " + filePath.ToString());
+            FilePath filePath = new FilePath(fleet.Name + ".fleet", folder);
+
+            Debug.Log("SAVEFLEETSTATE :: Saving fleet state to filepath: " + filePath.ToString());
+
             try
             {
                 filePath.CreateDirectoryIfNeeded();
@@ -46,8 +47,10 @@ namespace SaveFleetState
             {
                 Debug.LogError("SAVEFLEETSTATE :: Failed to save fleet state to file");
                 Debug.LogError(e);
+
                 return false;
             }
+
             return true;
         }
 
@@ -104,20 +107,20 @@ namespace SaveFleetState
                 if (player.IsOnLocalPlayerTeam)
                 {
                     SkirmishPlayer skirmishPlayer = (SkirmishPlayer)player;
-                    //string mapName = __instance.LoadedMap.DisplayName;
 
                     SaveFleetState.SaveFleetToFile(
                         skirmishPlayer.PlayerFleet.GetSerializable(true),
-                        timestamp.ToString("yyyy-dd-M---HH-mm-ss"),
-                        false
-                        );
-                    Debug.Log("SAVEFLEETSTATE :: Done saving RAW variant of fleet " + skirmishPlayer.PlayerFleet.GetSerializable(true).Name);
-                    SaveFleetState.SaveFleetToFile(
-                        skirmishPlayer.PlayerFleet.GetSerializable(true),
-                        timestamp.ToString("yyyy-dd-M---HH-mm-ss"),
+                        "Saves/Fleets/FleetStates",
                         true
                         );
-                    Debug.Log("SAVEFLEETSTATE :: Done saving READY variant of fleet " + skirmishPlayer.PlayerFleet.GetSerializable(true).Name);
+                    Debug.Log("SAVEFLEETSTATE :: Done saving rolling state of fleet " + skirmishPlayer.PlayerFleet.GetSerializable(true).Name);
+                    
+                    SaveFleetState.SaveFleetToFile(
+                        skirmishPlayer.PlayerFleet.GetSerializable(true),
+                        "Saves/BackupStates/" + timestamp.ToString("yyyy-dd-M---HH-mm-ss"),
+                        false
+                        );
+                    Debug.Log("SAVEFLEETSTATE :: Done saving backup state of fleet " + skirmishPlayer.PlayerFleet.GetSerializable(true).Name);
                 }
             }
 
