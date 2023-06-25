@@ -89,22 +89,9 @@ namespace NebulousConquestHelper
 						if (!canEscape)
 						{
 							Console.WriteLine(ship.Name + " has no operational drive modules and cannot escape");
-							ship.SavedState.Eliminated = EliminationReason.Destroyed;
-							ship.SavedState.LaunchedLifeboats = true;
+							removeShips.Add(ship);
 						}
 					}
-				}
-
-				if (ship.SavedState.Eliminated == EliminationReason.Withdrew)
-				{
-					ship.SavedState.Eliminated = EliminationReason.NotEliminated;
-					ship.SavedState.Vaporized = false;
-					ship.SavedState.LaunchedLifeboats = false;
-				}
-
-				if (ship.SavedState.Eliminated != EliminationReason.NotEliminated)
-				{
-					removeShips.Add(ship);
 				}
 			}
 

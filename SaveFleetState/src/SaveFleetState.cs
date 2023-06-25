@@ -1,5 +1,5 @@
 ﻿using Game;
-using Game.Orders.Tasks;
+using Game.Units;
 using HarmonyLib;
 using Modding;
 using Ships;
@@ -7,6 +7,7 @@ using Ships.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Xml.Serialization;
 using UnityEngine;
 using Utility;
@@ -15,6 +16,8 @@ namespace SaveFleetState
 {
     public class SaveFleetState : IModEntryPoint
     {
+        public static bool saveInProgress = false;
+
         public void PostLoad()
         {
             Harmony harmony = new Harmony("nebulous.save-fleet-state");
@@ -26,9 +29,9 @@ namespace SaveFleetState
 
         }
 
-        public static bool SaveFleetToFile(SerializedFleet fleet, string folder, bool clean)
+        public static bool SaveFleetToFile(SerializedFleet fleet, string folder)
         {
-            SerializedFleet output = clean ? PrepareSerializedFleet(fleet) : fleet;
+            SerializedFleet output = PrepareSerializedFleet(fleet);
             FilePath filePath = new FilePath(fleet.Name + ".fleet", folder);
 
             Debug.Log("SAVEFLEETSTATE :: Saving fleet state to filepath: " + filePath.ToString());
@@ -54,24 +57,12 @@ namespace SaveFleetState
             return true;
         }
 
-        // Thanks to Abrams on the discord for this function
         public static SerializedFleet PrepareSerializedFleet(SerializedFleet fleet)
         {
             List<SerializedShip> deadShips = new List<SerializedShip>();
 
             foreach (SerializedShip ship in fleet.Ships)
             {
-                // we need to keep ship.SavedState.Position, otherwise the Testing Range bugs out, and it doesn't matter on other maps
-                ship.SavedState.AngularVel = Vector3.zero;
-                ship.SavedState.LinearVel = Vector3.zero;
-                ship.SavedState.Throttle = MovementSpeed.Full;
-                ship.SavedState.NavOrder = null;
-                ship.SavedState.WeaponsControl = WeaponsControlStatus.Free;
-                ship.SavedState.Rotation = Quaternion.identity;
-                ship.SavedState.Orders = null;
-                ship.SavedState.MoveStyle = MovementStyle.Direct;
-                ship.SavedState.DCState = null;
-
                 if (ship.SavedState.Eliminated == EliminationReason.Withdrew)
                 {
                     ship.SavedState.Eliminated = EliminationReason.NotEliminated;
@@ -92,50 +83,128 @@ namespace SaveFleetState
 
             return fleet;
         }
+
+        public static object GetPrivateValue(object instance, string fieldName, bool baseClass = false)
+        {
+            Type type = instance.GetType();
+            if (baseClass) type = type.BaseType;
+
+            FieldInfo field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+            return field.GetValue(instance);
+        }
+
+        public static object GetPrivateProperty(object instance, string fieldName, bool baseClass = false)
+        {
+            Type type = instance.GetType();
+            if (baseClass) type = type.BaseType;
+
+            PropertyInfo property = type.GetProperty(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+            return property.GetValue(instance);
+        }
+
+        public static SerializedShipState GetShipLimitedState(ShipController instance)
+        {
+            ShipStatusSummary shipStatus = (ShipStatusSummary)GetPrivateValue(instance, "_shipStatus");
+            bool launchedLifeboats = (bool)GetPrivateValue(instance, "_launchedLifeboats");
+
+            SerializedShipState serializedShipState = new SerializedShipState();
+            
+            serializedShipState.Position = instance.transform.position;
+            serializedShipState.Eliminated = shipStatus.Eliminated;
+            serializedShipState.Vaporized = instance.IsEliminated && !instance.gameObject.activeSelf;
+            serializedShipState.LaunchedLifeboats = launchedLifeboats;
+            serializedShipState.Damage = instance.Ship.GetSerializableDamageState();
+            serializedShipState.BulkComponents = instance.GetComponent<SaveFileObject>().SaveComponentStates();
+            
+            return serializedShipState;
+        }
     }
     
-    [HarmonyPatch(typeof(SkirmishGameManager), "CoroutineCountdownToEnd")]
-    class Patch_SkirmishGameManager_CoroutineCountdownToEnd
+    [HarmonyPatch(typeof(SkirmishGameManager), "TransitionFinished")]
+    class Patch_SkirmishGameManager_TransitionFinished
     {
         static bool Prefix(ref SkirmishGameManager __instance)
         {
             Debug.Log("SAVEFLEETSTATE :: Match over, saving fleet states");
             DateTime timestamp = SystemClock.now;
 
+            if (__instance == null)
+            {
+                Debug.Log("SAVEFLEETSTATE :: GameManager is null, aborting");
+                return true;
+            }
+
+            SaveFleetState.saveInProgress = true;
+
             foreach (IPlayer player in __instance.Players)
             {
-                if (player.IsOnLocalPlayerTeam)
+                if (player == null)
+                {
+                    Debug.Log("SAVEFLEETSTATE :: Player is null, skipping");
+                    continue;
+                }
+
+                if (player.IsSpectator)
+                {
+                    continue;
+                }
+
+                if (player.IsOnLocalPlayerTeam || __instance.LocalPlayer.IsSpectator)
                 {
                     SkirmishPlayer skirmishPlayer = (SkirmishPlayer)player;
 
+                    if (skirmishPlayer == null)
+                    {
+                        Debug.Log("SAVEFLEETSTATE :: SkirmishPlayer is null, skipping");
+                        continue;
+                    }
+
+                    if (skirmishPlayer.PlayerFleet == null)
+                    {
+                        Debug.Log("SAVEFLEETSTATE :: PlayerFleet is null, skipping");
+                        continue;
+                    }
+                    
+                    if (skirmishPlayer.PlayerFleet.GetSerializable(true) == null)
+                    {
+                        Debug.Log("SAVEFLEETSTATE :: GetSerializable is null, skipping");
+                        continue;
+                    }
+
                     SaveFleetState.SaveFleetToFile(
                         skirmishPlayer.PlayerFleet.GetSerializable(true),
-                        "Saves/Fleets/FleetStates",
-                        true
+                        "Saves/Fleets/_SavedStates"
                         );
                     Debug.Log("SAVEFLEETSTATE :: Done saving rolling state of fleet " + skirmishPlayer.PlayerFleet.GetSerializable(true).Name);
                     
+                    if (timestamp == null)
+                    {
+                        Debug.Log("SAVEFLEETSTATE :: Timestamp is null, skipping");
+                        continue;
+                    }
+
                     SaveFleetState.SaveFleetToFile(
                         skirmishPlayer.PlayerFleet.GetSerializable(true),
-                        "Saves/BackupStates/" + timestamp.ToString("yyyy-dd-M---HH-mm-ss"),
-                        false
+                        "Saves/_BackupSavedStates/" + timestamp.ToString("yyyy-dd-M---HH-mm-ss")
                         );
                     Debug.Log("SAVEFLEETSTATE :: Done saving backup state of fleet " + skirmishPlayer.PlayerFleet.GetSerializable(true).Name);
                 }
             }
 
+            SaveFleetState.saveInProgress = false;
+
             return true;
         }
     }
 
-    [HarmonyPatch(typeof(OrderTask), "SaveOrderInternal")]
-    class Patch_OrderTask_SaveOrderInternal
+    [HarmonyPatch(typeof(ShipController), "GetSavedState")]
+    class Patch_ShipController_GetSavedState
     {
-        static bool Prefix(ref OrderTask __instance, ref OrderTask.SavedOrderTask saved)
+        static bool Prefix(ref ShipController __instance, ref SerializedShipState __result)
         {
-            if (saved == null)
+            if (SaveFleetState.saveInProgress)
             {
-                Debug.Log("SAVEFLEETSTATE :: Order of type " + __instance.GetType().Name + " is null and will not be saved");
+                __result = SaveFleetState.GetShipLimitedState(__instance);
                 return false;
             }
             else
