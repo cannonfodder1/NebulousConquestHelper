@@ -8,6 +8,7 @@ namespace NebulousConquestHelper
 	[Serializable]
 	public class Component
 	{
+		public string Key;
 		public string Name;
 		public float MaxHP;
 		public float MinHP;

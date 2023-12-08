@@ -29,7 +29,8 @@ namespace GenerateRegistry
                 FieldInfo field1 = typeof(HullPart).GetField("_maxHealth", BindingFlags.NonPublic | BindingFlags.Instance);
                 FieldInfo field2 = typeof(HullPart).GetField("_functioningThreshold", BindingFlags.NonPublic | BindingFlags.Instance);
 
-                info.Name = comp.SaveKey;
+                info.Key = comp.SaveKey;
+                info.Name = comp.ComponentName;
                 info.MaxHP = (float)field1.GetValue(comp);
                 info.MinHP = (float)field2.GetValue(comp);
 
@@ -74,7 +75,8 @@ namespace GenerateRegistry
             {
                 Munition info = new Munition();
 
-                info.Name = ammo.SaveKey;
+                info.Key = ammo.SaveKey;
+                info.Name = ammo.MunitionName;
                 info.PointCost = ammo.PointCost;
                 info.PointDivision = ammo.PointDivision;
 

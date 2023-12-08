@@ -7,6 +7,7 @@ namespace NebulousConquestHelper
 	[Serializable]
 	public class Munition
 	{
+		public string Key;
 		public string Name;
 		public int PointCost;
 		public int PointDivision;
